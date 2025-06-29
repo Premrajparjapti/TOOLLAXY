@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online word counter tool with SEO analysis. Count words, characters, and get content optimization insights for better search rankings.">
+  <meta name="keywords" content="word counter, character counter, SEO tool, content analysis, text analyzer, writing tool">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="Word Counter with SEO Analysis | Toollaxy">
+  <meta property="og:description" content="Count words and characters with advanced SEO analysis to optimize your content for better search engine rankings.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/word-counter">
+  <meta property="og:image" content="https://toollaxy.com/images/word-counter-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/word-counter">
+  <title>Word Counter with SEO Analysis | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .counter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .form-group .helper-text {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    
+    .text-input {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      min-height: 200px;
+      resize: vertical;
+      transition: var(--transition);
+    }
+    
+    .text-input:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    .results-container {
+      margin-top: 30px;
+    }
+    
+    .basic-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .stat-box {
+      background-color: #f1f5f9;
+      padding: 15px;
+      border-radius: var(--rounded);
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    .seo-analysis {
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      padding: 20px;
+      margin-top: 30px;
+    }
+    
+    .seo-analysis h3 {
+      margin-bottom: 15px;
+      color: var(--text-dark);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .seo-analysis h3 i {
+      color: var(--primary-blue);
+    }
+    
+    .analysis-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: var(--rounded);
+    }
+    
+    .analysis-item i {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    
+    .optimal {
+      background-color: rgba(16, 185, 129, 0.1);
+    }
+    
+    .optimal i {
+      color: var(--success);
+    }
+    
+    .warning {
+      background-color: rgba(245, 158, 11, 0.1);
+    }
+    
+    .warning i {
+      color: var(--warning);
+    }
+    
+    .error {
+      background-color: rgba(239, 68, 68, 0.1);
+    }
+    
+    .error i {
+      color: var(--error);
+    }
+    
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: var(--rounded);
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+    }
+    
+    .copy-btn:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .copy-btn i {
+      font-size: 16px;
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .basic-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Word Counter</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-font"></i> Word Counter with SEO Analysis</h1>
+      <p class="tool-description">
+        Count words, characters, and analyze your content for optimal SEO performance. 
+        Get insights on content length, keyword density, and readability to improve your search rankings.
+      </p>
+      
+      <div class="counter-form">
+        <div class="form-group">
+          <label for="textInput">Enter Your Text</label>
+          <textarea id="textInput" class="text-input" placeholder="Type or paste your content here..."></textarea>
+          <p class="helper-text">For best results, paste complete articles or paragraphs (minimum 100 words)</p>
+        </div>
+        
+        <div class="results-container">
+          <div class="basic-stats">
+            <div class="stat-box">
+              <div class="stat-value" id="wordCount">0</div>
+              <div class="stat-label">Words</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="charCount">0</div>
+              <div class="stat-label">Characters</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="charNoSpaces">0</div>
+              <div class="stat-label">Characters (no spaces)</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="paragraphCount">0</div>
+              <div class="stat-label">Paragraphs</div>
+            </div>
+          </div>
+          
+          <div class="seo-analysis">
+            <h3><i class="fas fa-search"></i> SEO Content Analysis</h3>
+            
+            <div class="analysis-item" id="contentLengthAnalysis">
+              <i class="fas fa-question-circle"></i>
+              <div>
+                <strong>Content Length:</strong> 
+                <span id="contentLengthText">Analyzing content length...</span>
+              </div>
+            </div>
+            
+            <div class="analysis-item" id="paragraphLengthAnalysis">
+              <i class="fas fa-question-circle"></i>
+              <div>
+                <strong>Paragraph Length:</strong> 
+                <span id="paragraphLengthText">Analyzing paragraph structure...</span>
+              </div>
+            </div>
+            
+            <div class="analysis-item" id="keywordDensityAnalysis">
+              <i class="fas fa-question-circle"></i>
+              <div>
+                <strong>Keyword Density:</strong> 
+                <span id="keywordDensityText">Enter text to analyze keyword density</span>
+              </div>
+            </div>
+            
+            <div class="analysis-item" id="readabilityAnalysis">
+              <i class="fas fa-question-circle"></i>
+              <div>
+                <strong>Readability:</strong> 
+                <span id="readabilityText">Analyzing readability...</span>
+              </div>
+            </div>
+          </div>
+          
+          <button class="copy-btn" id="copyTextBtn">
+            <i class="far fa-copy"></i>
+            <span>Copy Text</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // DOM elements
+    const textInput = document.getElementById('textInput');
+    const wordCount = document.getElementById('wordCount');
+    const charCount = document.getElementById('charCount');
+    const charNoSpaces = document.getElementById('charNoSpaces');
+    const paragraphCount = document.getElementById('paragraphCount');
+    const contentLengthAnalysis = document.getElementById('contentLengthAnalysis');
+    const contentLengthText = document.getElementById('contentLengthText');
+    const paragraphLengthAnalysis = document.getElementById('paragraphLengthAnalysis');
+    const paragraphLengthText = document.getElementById('paragraphLengthText');
+    const keywordDensityAnalysis = document.getElementById('keywordDensityAnalysis');
+    const keywordDensityText = document.getElementById('keywordDensityText');
+    const readabilityAnalysis = document.getElementById('readabilityAnalysis');
+    const readabilityText = document.getElementById('readabilityText');
+    const copyTextBtn = document.getElementById('copyTextBtn');
+    
+    // Event listeners
+    textInput.addEventListener('input', updateCounts);
+    copyTextBtn.addEventListener('click', copyTextToClipboard);
+    
+    // Update counts and analysis
+    function updateCounts() {
+      const text = textInput.value.trim();
+      
+      // Basic counts
+      const words = text.length > 0 ? text.split(/\s+/).length : 0;
+      const chars = text.length;
+      const charsNoSpaces = text.replace(/\s/g, '').length;
+      const paragraphs = text.length > 0 ? text.split(/\n+/).filter(p => p.trim().length > 0).length : 0;
+      
+      wordCount.textContent = words;
+      charCount.textContent = chars;
+      charNoSpaces.textContent = charsNoSpaces;
+      paragraphCount.textContent = paragraphs;
+      
+      // SEO Analysis
+      analyzeContentLength(words);
+      analyzeParagraphs(text, paragraphs);
+      analyzeKeywordDensity(text);
+      analyzeReadability(text);
+    }
+    
+    // Analyze content length for SEO
+    function analyzeContentLength(wordCount) {
+      let analysis = '';
+      let className = '';
+      let icon = '';
+      
+      if (wordCount === 0) {
+        analysis = 'Enter text to analyze content length';
+        className = '';
+        icon = 'fa-question-circle';
+      } else if (wordCount < 300) {
+        analysis = 'Too short (under 300 words) - Consider expanding for better SEO';
+        className = 'error';
+        icon = 'fa-exclamation-circle';
+      } else if (wordCount < 600) {
+        analysis = 'Average length (300-600 words) - Good for some content types';
+        className = 'warning';
+        icon = 'fa-info-circle';
+      } else if (wordCount < 1200) {
+        analysis = 'Good length (600-1200 words) - Ideal for most blog posts';
+        className = 'optimal';
+        icon = 'fa-check-circle';
+      } else if (wordCount < 2000) {
+        analysis = 'Comprehensive (1200-2000 words) - Great for in-depth content';
+        className = 'optimal';
+        icon = 'fa-check-circle';
+      } else {
+        analysis = 'Very long (2000+ words) - Excellent for pillar content';
+        className = 'optimal';
+        icon = 'fa-check-circle';
+      }
+      
+      contentLengthText.textContent = analysis;
+      contentLengthAnalysis.className = `analysis-item ${className}`;
+      contentLengthAnalysis.querySelector('i').className = `fas ${icon}`;
+    }
+    
+    // Analyze paragraph structure
+    function analyzeParagraphs(text, paragraphCount) {
+      if (text.length === 0) {
+        paragraphLengthText.textContent = 'Enter text to analyze paragraphs';
+        paragraphLengthAnalysis.className = 'analysis-item';
+        paragraphLengthAnalysis.querySelector('i').className = 'fas fa-question-circle';
+        return;
+      }
+      
+      const paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0);
+      const avgWordsPerPara = paragraphs.reduce((sum, para) => {
+        return sum + para.split(/\s+/).length;
+      }, 0) / paragraphCount;
+      
+      let analysis = '';
+      let className = '';
+      let icon = '';
+      
+      if (avgWordsPerPara < 40) {
+        analysis = `Short paragraphs (avg ${Math.round(avgWordsPerPara)} words) - Good for readability`;
+        className = 'optimal';
+        icon = 'fa-check-circle';
+      } else if (avgWordsPerPara < 80) {
+        analysis = `Moderate paragraphs (avg ${Math.round(avgWordsPerPara)} words) - Balanced`;
+        className = 'optimal';
+        icon = 'fa-check-circle';
+      } else {
+        analysis = `Long paragraphs (avg ${Math.round(avgWordsPerPara)} words) - Consider breaking up`;
+        className = 'warning';
+        icon = 'fa-exclamation-circle';
+      }
+      
+      paragraphLengthText.textContent = analysis;
+      paragraphLengthAnalysis.className = `analysis-item ${className}`;
+      paragraphLengthAnalysis.querySelector('i').className = `fas ${icon}`;
+    }
+    
+    // Analyze keyword density (basic implementation)
+    function analyzeKeywordDensity(text) {
+      if (text.length === 0) {
+        keywordDensityText.textContent = 'Enter text to analyze keyword density';
+        keywordDensityAnalysis.className = 'analysis-item';
+        keywordDensityAnalysis.querySelector('i').className = 'fas fa-question-circle';
+        return;
+      }
+      
+      // This is a simplified keyword density analysis
+      // A more advanced version would identify and analyze multiple keywords
+      const words = text.toLowerCase().split(/\s+/);
+      const wordFrequency = {};
+      
+      // Count word frequencies
+      words.forEach(word => {
+        // Remove punctuation from word
+        word = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
+        if (word.length > 3) { // Ignore very short words
+          wordFrequency[word] = (wordFrequency[word] || 0) + 1;
+        }
+      });
+      
+      // Sort by frequency
+      const sortedWords = Object.keys(wordFrequency).sort((a, b) => wordFrequency[b] - wordFrequency[a]);
+      
+      // Get top 5 words
+      const topWords = sortedWords.slice(0, 5).map(word => {
+        const count = wordFrequency[word];
+        const density = (count / words.length * 100).toFixed(2);
+        return `${word} (${density}%)`;
+      });
+      
+      keywordDensityText.textContent = `Top words: ${topWords.join(', ')}`;
+      keywordDensityAnalysis.className = 'analysis-item optimal';
+      keywordDensityAnalysis.querySelector('i').className = 'fas fa-info-circle';
+    }
+    
+    // Analyze readability (simplified)
+    function analyzeReadability(text) {
+      if (text.length === 0) {
+        readabilityText.textContent = 'Enter text to analyze readability';
+        readabilityAnalysis.className = 'analysis-item';
+        readabilityAnalysis.querySelector('i').className = 'fas fa-question-circle';
+        return;
+      }
+      
+      // Very basic readability analysis
+      const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+      const words = text.split(/\s+/).filter(w => w.length > 0);
+      const avgWordsPerSentence = words.length / sentences.length;
+      
+      let analysis = '';
+      let className = '';
+      let icon = '';
+      
+      if (avgWordsPerSentence < 15) {
+        analysis = 'Easy to read (short sentences) - Good for most audiences';
+        className = 'optimal';
+        icon = 'fa-check-circle';
+      } else if (avgWordsPerSentence < 25) {
+        analysis = 'Moderately easy to read - Suitable for general audience';
+        className = 'optimal';
+        icon = 'fa-check-circle';
+      } else {
+        analysis = 'Difficult to read (long sentences) - Consider simplifying';
+        className = 'warning';
+        icon = 'fa-exclamation-circle';
+      }
+      
+      readabilityText.textContent = analysis;
+      readabilityAnalysis.className = `analysis-item ${className}`;
+      readabilityAnalysis.querySelector('i').className = `fas ${icon}`;
+    }
+    
+    // Copy text to clipboard
+    function copyTextToClipboard() {
+      const text = textInput.value;
+      if (!text) {
+        alert('No text to copy!');
+        return;
+      }
+      
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = copyTextBtn.innerHTML;
+        copyTextBtn.innerHTML = '<i class="fas fa-check"></i> <span>Copied!</span>';
+        setTimeout(() => {
+          copyTextBtn.innerHTML = originalText;
+        }, 2000);
+      });
+    }
+    
+    // Initialize with empty analysis
+    updateCounts();
+  </script>
+</body>
+</html>

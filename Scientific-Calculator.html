@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online scientific calculator with advanced functions including trigonometry, logarithms, exponents, and more.">
+  <meta name="keywords" content="scientific calculator, online calculator, math calculator, trigonometry calculator, logarithm calculator">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="Scientific Calculator - Advanced Online Math Tool | Toollaxy">
+  <meta property="og:description" content="Free online scientific calculator with advanced functions including trigonometry, logarithms, exponents, and more.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/scientific-calculator">
+  <meta property="og:image" content="https://toollaxy.com/images/scientific-calculator-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/scientific-calculator">
+  <title>Scientific Calculator - Advanced Online Math Tool | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+      --success-green: #10b981;
+      --error-red: #dc2626;
+      --warning-orange: #f59e0b;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+      max-width: 400px;
+      width: 100%;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+      justify-content: center;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+      text-align: center;
+    }
+    
+    #display {
+      width: 100%;
+      height: 70px;
+      font-size: 1.8rem;
+      text-align: right;
+      border-radius: var(--rounded);
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #e2e8f0;
+      background-color: #f8fafc;
+      color: var(--text-dark);
+      font-family: 'Courier New', monospace;
+    }
+    
+    .buttons-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+    
+    .button {
+      height: 60px;
+      font-size: 1.2rem;
+      border-radius: var(--rounded);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .button:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+    
+    .button:active {
+      transform: translateY(0);
+    }
+    
+    .button.number {
+      background-color: var(--white);
+      color: var(--text-dark);
+      border: 1px solid #e2e8f0;
+    }
+    
+    .button.number:hover {
+      background-color: #f1f5f9;
+    }
+    
+    .button.operator {
+      background-color: var(--light-blue);
+      color: var(--dark-blue);
+    }
+    
+    .button.operator:hover {
+      background-color: var(--primary-blue);
+      color: var(--white);
+    }
+    
+    .button.function {
+      background-color: var(--primary-blue);
+      color: var(--white);
+    }
+    
+    .button.function:hover {
+      background-color: var(--dark-blue);
+    }
+    
+    .button.equals {
+      background-color: var(--success-green);
+      color: var(--white);
+    }
+    
+    .button.equals:hover {
+      background-color: #059669;
+    }
+    
+    .button.clear {
+      background-color: var(--error-red);
+      color: var(--white);
+    }
+    
+    .button.clear:hover {
+      background-color: #b91c1c;
+    }
+    
+    .button.span-2 {
+      grid-column: span 2;
+    }
+    
+    .button.span-3 {
+      grid-column: span 3;
+    }
+    
+    .history-container {
+      margin-top: 20px;
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      padding: 10px;
+      background-color: #f8fafc;
+    }
+    
+    .history-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text-dark);
+    }
+    
+    .history-item {
+      padding: 5px 0;
+      border-bottom: 1px solid #e2e8f0;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .history-item:last-child {
+      border-bottom: none;
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+      
+      #display {
+        height: 60px;
+        font-size: 1.5rem;
+      }
+      
+      .button {
+        height: 50px;
+        font-size: 1rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .buttons-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .button.span-2 {
+        grid-column: span 2;
+      }
+      
+      .button.span-3 {
+        grid-column: span 4;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Scientific Calculator</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-calculator"></i> Scientific Calculator</h1>
+      <p class="tool-description">
+        Perform advanced mathematical calculations with trigonometric, logarithmic, 
+        and exponential functions.
+      </p>
+      
+      <input type="text" id="display" disabled />
+      
+      <div class="buttons-grid">
+        <!-- First row -->
+        <button class="button function" onclick="appendToDisplay('sin(')">sin</button>
+        <button class="button function" onclick="appendToDisplay('cos(')">cos</button>
+        <button class="button function" onclick="appendToDisplay('tan(')">tan</button>
+        <button class="button clear" onclick="clearDisplay()">C</button>
+        <button class="button clear" onclick="backspace()">⌫</button>
+        
+        <!-- Second row -->
+        <button class="button function" onclick="appendToDisplay('sqrt(')">√</button>
+        <button class="button function" onclick="appendToDisplay('pow(')">x²</button>
+        <button class="button function" onclick="appendToDisplay('log(')">log</button>
+        <button class="button function" onclick="appendToDisplay('exp(')">exp</button>
+        <button class="button operator" onclick="appendToDisplay('/')">/</button>
+        
+        <!-- Third row -->
+        <button class="button number" onclick="appendToDisplay('7')">7</button>
+        <button class="button number" onclick="appendToDisplay('8')">8</button>
+        <button class="button number" onclick="appendToDisplay('9')">9</button>
+        <button class="button operator" onclick="appendToDisplay('*')">×</button>
+        <button class="button operator" onclick="appendToDisplay('%')">%</button>
+        
+        <!-- Fourth row -->
+        <button class="button number" onclick="appendToDisplay('4')">4</button>
+        <button class="button number" onclick="appendToDisplay('5')">5</button>
+        <button class="button number" onclick="appendToDisplay('6')">6</button>
+        <button class="button operator" onclick="appendToDisplay('-')">-</button>
+        <button class="button function" onclick="appendToDisplay('Math.PI')">π</button>
+        
+        <!-- Fifth row -->
+        <button class="button number" onclick="appendToDisplay('1')">1</button>
+        <button class="button number" onclick="appendToDisplay('2')">2</button>
+        <button class="button number" onclick="appendToDisplay('3')">3</button>
+        <button class="button operator" onclick="appendToDisplay('+')">+</button>
+        <button class="button function" onclick="appendToDisplay('(')">(</button>
+        
+        <!-- Sixth row -->
+        <button class="button number" onclick="appendToDisplay('0')">0</button>
+        <button class="button number" onclick="appendToDisplay('.')">.</button>
+        <button class="button function" onclick="appendToDisplay(')')">)</button>
+        <button class="button equals span-2" onclick="calculate()">=</button>
+      </div>
+      
+      <div class="history-container">
+        <div class="history-title">Calculation History</div>
+        <div id="history"></div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    const display = document.getElementById('display');
+    const historyElement = document.getElementById('history');
+    let calculationHistory = [];
+    
+    // Append values to the display
+    function appendToDisplay(value) {
+      display.value += value;
+    }
+    
+    // Clear the display
+    function clearDisplay() {
+      display.value = '';
+    }
+    
+    // Backspace function
+    function backspace() {
+      display.value = display.value.slice(0, -1);
+    }
+    
+    // Evaluate the expression and show the result
+    function calculate() {
+      try {
+        let expression = display.value;
+        
+        // Replace functions for eval() interpretation
+        expression = expression.replace(/sqrt/g, 'Math.sqrt');
+        expression = expression.replace(/pow/g, 'Math.pow');
+        expression = expression.replace(/log/g, 'Math.log10');
+        expression = expression.replace(/exp/g, 'Math.exp');
+        expression = expression.replace(/sin/g, 'Math.sin');
+        expression = expression.replace(/cos/g, 'Math.cos');
+        expression = expression.replace(/tan/g, 'Math.tan');
+        
+        // Calculate the result
+        const result = eval(expression);
+        display.value = result;
+        
+        // Add to history
+        addToHistory(display.value, expression, result);
+      } catch (e) {
+        display.value = 'Error';
+      }
+    }
+    
+    // Add calculation to history
+    function addToHistory(originalInput, expression, result) {
+      const historyItem = {
+        input: originalInput,
+        expression: expression,
+        result: result,
+        timestamp: new Date()
+      };
+      
+      calculationHistory.unshift(historyItem);
+      updateHistoryDisplay();
+      
+      // Keep only last 10 items
+      if (calculationHistory.length > 10) {
+        calculationHistory.pop();
+      }
+    }
+    
+    // Update history display
+    function updateHistoryDisplay() {
+      historyElement.innerHTML = '';
+      
+      calculationHistory.forEach(item => {
+        const historyItem = document.createElement('div');
+        historyItem.className = 'history-item';
+        historyItem.innerHTML = `
+          <div>${item.input} = ${item.result}</div>
+          <small>${item.timestamp.toLocaleTimeString()}</small>
+        `;
+        historyItem.addEventListener('click', () => {
+          display.value = item.input;
+        });
+        historyElement.appendChild(historyItem);
+      });
+    }
+    
+    // Keyboard support
+    document.addEventListener('keydown', function(event) {
+      const key = event.key;
+      
+      // Allow numbers, operators, and decimal point
+      if (/[0-9+\-*/.%]/.test(key)) {
+        appendToDisplay(key);
+      }
+      // Allow parentheses
+      else if (key === '(' || key === ')') {
+        appendToDisplay(key);
+      }
+      // Handle Enter key
+      else if (key === 'Enter') {
+        calculate();
+      }
+      // Handle Backspace key
+      else if (key === 'Backspace') {
+        backspace();
+      }
+      // Handle Escape key
+      else if (key === 'Escape') {
+        clearDisplay();
+      }
+    });
+  </script>
+</body>
+</html>

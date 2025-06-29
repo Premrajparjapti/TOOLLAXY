@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online UUID Generator. Create version 1 and version 4 UUIDs instantly. Copy or download multiple UUIDs for your projects.">
+  <meta name="keywords" content="UUID generator, GUID generator, create UUID, random UUID, unique identifier, online UUID tool">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="UUID Generator - Create Version 1 & 4 UUIDs | Toollaxy">
+  <meta property="og:description" content="Free online tool to generate version 1 and version 4 UUIDs instantly. Copy or download multiple UUIDs for your projects.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/uuid-generator">
+  <meta property="og:image" content="https://toollaxy.com/images/uuid-generator-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/uuid-generator">
+  <title>UUID Generator - Create Version 1 & 4 UUIDs | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .uuid-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .form-group .helper-text {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    
+    .uuid-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    
+    @media (min-width: 768px) {
+      .uuid-options {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .option-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    select {
+      padding: 12px 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      background-color: var(--white);
+      transition: var(--transition);
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    button {
+      padding: 14px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button:disabled {
+      background-color: var(--text-light);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    
+    button i {
+      font-size: 18px;
+    }
+    
+    .uuid-preview-container {
+      margin-top: 30px;
+    }
+    
+    .uuid-box {
+      word-break: break-all;
+      background-color: #f8fafc;
+      padding: 20px;
+      border-radius: var(--rounded);
+      border: 1px solid #e2e8f0;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1rem;
+      line-height: 1.6;
+      position: relative;
+    }
+    
+    .uuid-box.empty {
+      color: var(--text-light);
+      text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .uuid-box.empty i {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #e2e8f0;
+    }
+    
+    .uuid-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: var(--rounded);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    
+    .action-btn:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .action-btn.copy {
+      background-color: #28a745;
+    }
+    
+    .action-btn.copy:hover {
+      background-color: #1e7e34;
+    }
+    
+    .action-btn.download {
+      background-color: #9333ea;
+    }
+    
+    .action-btn.download:hover {
+      background-color: #7e22ce;
+    }
+    
+    .action-btn.clear {
+      background-color: #dc2626;
+    }
+    
+    .action-btn.clear:hover {
+      background-color: #b91c1c;
+    }
+    
+    .error-message {
+      color: #dc2626;
+      background-color: #fee2e2;
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .success-message {
+      color: #16a34a;
+      background-color: #dcfce7;
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    /* Loading spinner */
+    .spinner {
+      display: none;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* UUID type selector */
+    .uuid-type-selector {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+    
+    .uuid-type-btn {
+      padding: 10px 15px;
+      background-color: #e2e8f0;
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    
+    .uuid-type-btn.active {
+      background-color: var(--primary-blue);
+      color: white;
+    }
+    
+    /* Batch generation */
+    .batch-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 15px;
+    }
+    
+    .batch-controls input {
+      width: 80px;
+      padding: 10px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+      
+      .uuid-actions {
+        flex-direction: column;
+      }
+      
+      .action-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>UUID Generator</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-fingerprint"></i> UUID Generator</h1>
+      <p class="tool-description">
+        Generate version 1 (time-based) and version 4 (random) UUIDs (Universally Unique Identifiers) instantly. 
+        Copy single UUIDs to clipboard or download multiple UUIDs as a text file for your projects.
+      </p>
+      
+      <div class="uuid-type-selector">
+        <button class="uuid-type-btn active" data-type="v4">Version 4 (Random)</button>
+        <button class="uuid-type-btn" data-type="v1">Version 1 (Time-based)</button>
+      </div>
+      
+      <div class="uuid-form">
+        <div class="uuid-options">
+          <div class="option-group">
+            <label for="uuidCount">Number of UUIDs</label>
+            <select id="uuidCount">
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+          
+          <div class="option-group">
+            <label for="uuidFormat">Format</label>
+            <select id="uuidFormat">
+              <option value="standard" selected>Standard (8-4-4-4-12)</option>
+              <option value="no-hyphens">No hyphens</option>
+              <option value="uppercase">Uppercase</option>
+              <option value="braces">With braces</option>
+              <option value="urn">URN format</option>
+            </select>
+          </div>
+        </div>
+        
+        <button id="generateBtn">
+          <span>Generate UUIDs</span>
+          <i class="fas fa-sync-alt"></i>
+        </button>
+        
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+      </div>
+      
+      <div class="uuid-preview-container">
+        <div class="uuid-box" id="uuidOutput">
+          <div class="empty">
+            <i class="fas fa-fingerprint"></i>
+            <p>Your UUIDs will appear here</p>
+          </div>
+        </div>
+        
+        <div class="uuid-actions">
+          <button class="action-btn copy" id="copyBtn" disabled>
+            <i class="fas fa-copy"></i>
+            Copy to Clipboard
+          </button>
+          <button class="action-btn download" id="downloadBtn" disabled>
+            <i class="fas fa-download"></i>
+            Download as TXT
+          </button>
+          <button class="action-btn clear" id="clearBtn" disabled>
+            <i class="fas fa-trash-alt"></i>
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // DOM elements
+    const uuidTypeBtns = document.querySelectorAll('.uuid-type-btn');
+    const generateBtn = document.getElementById('generateBtn');
+    const uuidOutput = document.getElementById('uuidOutput');
+    const copyBtn = document.getElementById('copyBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+    
+    // Variables
+    let currentType = 'v4';
+    let generatedUUIDs = [];
+    
+    // Event listeners
+    uuidTypeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        uuidTypeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentType = btn.dataset.type;
+      });
+    });
+    
+    generateBtn.addEventListener('click', generateUUIDs);
+    copyBtn.addEventListener('click', copyUUIDs);
+    downloadBtn.addEventListener('click', downloadUUIDs);
+    clearBtn.addEventListener('click', clearUUIDs);
+    
+    // Generate UUIDs
+    function generateUUIDs() {
+      const count = parseInt(document.getElementById('uuidCount').value);
+      const format = document.getElementById('uuidFormat').value;
+      
+      // Show loading state
+      generateBtn.innerHTML = `
+        <span>Generating...</span>
+        <div class="spinner" style="display: inline-block;"></div>
+      `;
+      generateBtn.disabled = true;
+      
+      // Clear previous messages
+      errorMessage.style.display = 'none';
+      successMessage.style.display = 'none';
+      
+      // Generate UUIDs after a small delay to allow UI to update
+      setTimeout(() => {
+        try {
+          generatedUUIDs = [];
+          
+          for (let i = 0; i < count; i++) {
+            let uuid;
+            
+            if (currentType === 'v1') {
+              // Version 1 UUID (time-based)
+              uuid = generateTimeBasedUUID();
+            } else {
+              // Version 4 UUID (random) - default
+              uuid = generateRandomUUID();
+            }
+            
+            // Apply formatting
+            uuid = formatUUID(uuid, format);
+            generatedUUIDs.push(uuid);
+          }
+          
+          // Display UUIDs
+          displayUUIDs(generatedUUIDs);
+          
+          // Enable action buttons
+          copyBtn.disabled = false;
+          downloadBtn.disabled = false;
+          clearBtn.disabled = false;
+          
+          // Show success message
+          showSuccess(`${count} UUID${count > 1 ? 's' : ''} generated successfully!`);
+          
+        } catch (error) {
+          showError('Error generating UUIDs. Please try again.');
+        } finally {
+          // Reset generate button
+          generateBtn.innerHTML = `
+            <span>Generate UUIDs</span>
+            <i class="fas fa-sync-alt"></i>
+          `;
+          generateBtn.disabled = false;
+        }
+      }, 100);
+    }
+    
+    // Generate version 4 (random) UUID
+    function generateRandomUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+    
+    // Generate version 1 (time-based) UUID
+    function generateTimeBasedUUID() {
+      let d = new Date().getTime();
+      if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
+        d += performance.now(); // use high-precision timer if available
+      }
+      return 'xxxxxxxx-xxxx-1xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+    
+    // Format UUID based on selected format
+    function formatUUID(uuid, format) {
+      switch(format) {
+        case 'no-hyphens':
+          return uuid.replace(/-/g, '');
+        case 'uppercase':
+          return uuid.toUpperCase();
+        case 'braces':
+          return `{${uuid}}`;
+        case 'urn':
+          return `urn:uuid:${uuid}`;
+        default: // standard
+          return uuid;
+      }
+    }
+    
+    // Display UUIDs in the output box
+    function displayUUIDs(uuids) {
+      if (uuids.length === 0) {
+        uuidOutput.innerHTML = `
+          <div class="empty">
+            <i class="fas fa-fingerprint"></i>
+            <p>Your UUIDs will appear here</p>
+          </div>
+        `;
+        return;
+      }
+      
+      let html = '';
+      uuids.forEach(uuid => {
+        html += `<div class="uuid-item">${uuid}</div>`;
+      });
+      
+      uuidOutput.innerHTML = html;
+    }
+    
+    // Copy UUIDs to clipboard
+    function copyUUIDs() {
+      if (generatedUUIDs.length === 0) return;
+      
+      const textToCopy = generatedUUIDs.join('\n');
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        showSuccess(`${generatedUUIDs.length} UUID${generatedUUIDs.length > 1 ? 's' : ''} copied to clipboard!`);
+      }).catch(err => {
+        showError('Failed to copy UUIDs. Please try again.');
+        console.error('Failed to copy: ', err);
+      });
+    }
+    
+    // Download UUIDs as text file
+    function downloadUUIDs() {
+      if (generatedUUIDs.length === 0) return;
+      
+      const textToDownload = generatedUUIDs.join('\n');
+      const blob = new Blob([textToDownload], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `uuids-${currentType}-${generatedUUIDs.length}.txt`;
+      link.click();
+      
+      // Clean up
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 100);
+    }
+    
+    // Clear generated UUIDs
+    function clearUUIDs() {
+      generatedUUIDs = [];
+      displayUUIDs([]);
+      copyBtn.disabled = true;
+      downloadBtn.disabled = true;
+      clearBtn.disabled = true;
+      successMessage.style.display = 'none';
+    }
+    
+    // Show error message
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+    }
+    
+    // Show success message
+    function showSuccess(message) {
+      successMessage.textContent = message;
+      successMessage.style.display = 'block';
+      
+      // Hide after 3 seconds
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

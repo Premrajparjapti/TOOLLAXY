@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online text encryption tool. Secure your messages with Caesar, Atbash, and Vigenère ciphers. Protect sensitive information easily.">
+  <meta name="keywords" content="text encryption, text decryption, cipher tool, online security, Caesar cipher, Atbash cipher, Vigenère cipher">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="Text Encryptor Tool - Secure Your Messages | Toollaxy">
+  <meta property="og:description" content="Free online tool to encrypt and decrypt text using multiple cipher methods including Caesar, Atbash, and Vigenère.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/text-encryptor">
+  <meta property="og:image" content="https://toollaxy.com/images/text-encryptor-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/text-encryptor">
+  <title>Text Encryptor Tool - Secure Your Messages | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .encryptor-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .form-group .helper-text {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    
+    textarea {
+      padding: 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      min-height: 200px;
+      resize: vertical;
+      transition: var(--transition);
+    }
+    
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    select {
+      padding: 12px 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+    }
+    
+    .options-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin: 15px 0;
+    }
+    
+    @media (min-width: 768px) {
+      .options-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .option-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    button {
+      padding: 12px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button.secondary {
+      background-color: var(--white);
+      color: var(--primary-blue);
+      border: 1px solid var(--primary-blue);
+    }
+    
+    button.secondary:hover {
+      background-color: rgba(37, 99, 235, 0.1);
+    }
+    
+    button.danger {
+      background-color: #dc2626;
+    }
+    
+    button.danger:hover {
+      background-color: #b91c1c;
+    }
+    
+    button i {
+      font-size: 16px;
+    }
+    
+    .result-container {
+      margin-top: 30px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      padding: 20px;
+    }
+    
+    .result-container h3 {
+      margin-bottom: 15px;
+      color: var(--text-dark);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .result-container h3 i {
+      color: var(--primary-blue);
+    }
+    
+    #outputText {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    
+    .result-info {
+      margin-top: 20px;
+      padding: 12px 15px;
+      background-color: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: var(--rounded);
+      color: #166534;
+      display: none;
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Text Encryptor</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-lock"></i> Text Encryptor</h1>
+      <p class="tool-description">
+        Secure your messages with multiple encryption methods including Caesar, Atbash, 
+        and Vigenère ciphers. This tool helps you protect sensitive information with 
+        simple yet effective cryptographic techniques.
+      </p>
+      
+      <div class="encryptor-form">
+        <div class="form-group">
+          <label for="inputText">Your Text</label>
+          <textarea id="inputText" placeholder="Enter text to encrypt or decrypt..."></textarea>
+        </div>
+        
+        <div class="options-container">
+          <div class="option-group">
+            <label for="cipherMethod">Cipher Method</label>
+            <select id="cipherMethod">
+              <option value="caesar">Caesar Cipher</option>
+              <option value="atbash">Atbash Cipher</option>
+              <option value="vigenere">Vigenère Cipher</option>
+            </select>
+          </div>
+          
+          <div class="option-group" id="shiftGroup">
+            <label for="shift">Shift Value (Caesar)</label>
+            <input type="number" id="shift" value="3" min="1" max="25">
+          </div>
+          
+          <div class="option-group" id="keyGroup" style="display: none;">
+            <label for="key">Key (Vigenère)</label>
+            <input type="text" id="key" placeholder="Enter encryption key">
+            <div class="helper-text">Letters only (A-Z, a-z)</div>
+          </div>
+        </div>
+        
+        <div class="action-buttons">
+          <button onclick="processText('encrypt')">
+            <i class="fas fa-lock"></i> Encrypt
+          </button>
+          <button onclick="processText('decrypt')">
+            <i class="fas fa-lock-open"></i> Decrypt
+          </button>
+          <button class="secondary" onclick="copyToClipboard()">
+            <i class="fas fa-copy"></i> Copy Result
+          </button>
+          <button class="secondary" onclick="clearText()">
+            <i class="fas fa-trash-alt"></i> Clear
+          </button>
+        </div>
+        
+        <div class="result-container">
+          <h3><i class="fas fa-arrow-right"></i> Result</h3>
+          <div id="outputText"></div>
+        </div>
+        
+        <div class="result-info" id="resultInfo"></div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // DOM elements
+    const inputText = document.getElementById('inputText');
+    const outputText = document.getElementById('outputText');
+    const cipherMethod = document.getElementById('cipherMethod');
+    const shiftGroup = document.getElementById('shiftGroup');
+    const keyGroup = document.getElementById('keyGroup');
+    const resultInfo = document.getElementById('resultInfo');
+    
+    // Initialize with example text
+    window.addEventListener('DOMContentLoaded', () => {
+      inputText.value = "This is a secret message";
+      updateCipherOptions();
+    });
+    
+    // Update cipher options when method changes
+    cipherMethod.addEventListener('change', updateCipherOptions);
+    
+    function updateCipherOptions() {
+      const method = cipherMethod.value;
+      
+      if (method === 'caesar') {
+        shiftGroup.style.display = 'flex';
+        keyGroup.style.display = 'none';
+      } else if (method === 'vigenere') {
+        shiftGroup.style.display = 'none';
+        keyGroup.style.display = 'flex';
+      } else {
+        shiftGroup.style.display = 'none';
+        keyGroup.style.display = 'none';
+      }
+    }
+    
+    // Process text (encrypt/decrypt)
+    function processText(action) {
+      const text = inputText.value.trim();
+      const method = cipherMethod.value;
+      
+      if (!text) {
+        showResult(`Please enter text to ${action}`, false);
+        return;
+      }
+      
+      let result;
+      let processName;
+      
+      try {
+        switch(method) {
+          case 'caesar':
+            const shift = parseInt(document.getElementById('shift').value);
+            if (isNaN(shift) || shift < 1 || shift > 25) {
+              showResult('Shift value must be between 1 and 25', false);
+              return;
+            }
+            result = action === 'encrypt' 
+              ? caesarCipher(text, shift) 
+              : caesarCipher(text, -shift);
+            processName = `Caesar Cipher (shift ${shift})`;
+            break;
+            
+          case 'atbash':
+            result = atbashCipher(text);
+            processName = 'Atbash Cipher';
+            break;
+            
+          case 'vigenere':
+            const key = document.getElementById('key').value.trim();
+            if (!key) {
+              showResult('Please enter a Vigenère key', false);
+              return;
+            }
+            result = action === 'encrypt' 
+              ? vigenereCipher(text, key) 
+              : vigenereDecipher(text, key);
+            processName = `Vigenère Cipher (key "${key}")`;
+            break;
+        }
+        
+        outputText.textContent = result;
+        showResult(`Text ${action}ed using ${processName} successfully!`);
+        
+      } catch (error) {
+        showResult(`Error during ${action}ion: ${error.message}`, false);
+        console.error(error);
+      }
+    }
+    
+    // Caesar Cipher
+    function caesarCipher(str, shift) {
+      return str.split('')
+        .map(char => {
+          const charCode = char.charCodeAt(0);
+          if (char >= 'a' && char <= 'z') {
+            return String.fromCharCode(mod(charCode - 97 + shift, 26) + 97);
+          } else if (char >= 'A' && char <= 'Z') {
+            return String.fromCharCode(mod(charCode - 65 + shift, 26) + 65);
+          }
+          return char;
+        })
+        .join('');
+    }
+    
+    // Atbash Cipher
+    function atbashCipher(str) {
+      return str.split('')
+        .map(char => {
+          const charCode = char.charCodeAt(0);
+          if (char >= 'a' && char <= 'z') {
+            return String.fromCharCode(219 - charCode);
+          } else if (char >= 'A' && char <= 'Z') {
+            return String.fromCharCode(155 - charCode);
+          }
+          return char;
+        })
+        .join('');
+    }
+    
+    // Vigenère Cipher
+    function vigenereCipher(str, key) {
+      key = key.toLowerCase().replace(/[^a-z]/g, '');
+      if (!key) throw new Error('Invalid key - must contain letters');
+      
+      let keyIndex = 0;
+      return str.split('')
+        .map(char => {
+          const charCode = char.charCodeAt(0);
+          if (char >= 'a' && char <= 'z') {
+            const shift = key.charCodeAt(keyIndex % key.length) - 97;
+            keyIndex++;
+            return String.fromCharCode(mod(charCode - 97 + shift, 26) + 97);
+          } else if (char >= 'A' && char <= 'Z') {
+            const shift = key.charCodeAt(keyIndex % key.length) - 97;
+            keyIndex++;
+            return String.fromCharCode(mod(charCode - 65 + shift, 26) + 65);
+          }
+          return char;
+        })
+        .join('');
+    }
+    
+    // Vigenère Decipher
+    function vigenereDecipher(str, key) {
+      key = key.toLowerCase().replace(/[^a-z]/g, '');
+      if (!key) throw new Error('Invalid key - must contain letters');
+      
+      let keyIndex = 0;
+      return str.split('')
+        .map(char => {
+          const charCode = char.charCodeAt(0);
+          if (char >= 'a' && char <= 'z') {
+            const shift = key.charCodeAt(keyIndex % key.length) - 97;
+            keyIndex++;
+            return String.fromCharCode(mod(charCode - 97 - shift, 26) + 97);
+          } else if (char >= 'A' && char <= 'Z') {
+            const shift = key.charCodeAt(keyIndex % key.length) - 97;
+            keyIndex++;
+            return String.fromCharCode(mod(charCode - 65 - shift, 26) + 65);
+          }
+          return char;
+        })
+        .join('');
+    }
+    
+    // Modulo function that handles negative numbers
+    function mod(n, m) {
+      return ((n % m) + m) % m;
+    }
+    
+    // Copy text to clipboard
+    function copyToClipboard() {
+      if (!outputText.textContent.trim()) {
+        showResult('No result to copy!', false);
+        return;
+      }
+      
+      const range = document.createRange();
+      range.selectNode(outputText);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+      
+      showResult('Result copied to clipboard!');
+    }
+    
+    // Clear text
+    function clearText() {
+      if (confirm('Are you sure you want to clear all text?')) {
+        inputText.value = '';
+        outputText.textContent = '';
+        showResult('Text cleared.', true);
+      }
+    }
+    
+    // Show result message
+    function showResult(message, isSuccess = true) {
+      resultInfo.textContent = message;
+      
+      if (isSuccess) {
+        resultInfo.style.backgroundColor = '#f0fdf4';
+        resultInfo.style.borderColor = '#bbf7d0';
+        resultInfo.style.color = '#166534';
+      } else {
+        resultInfo.style.backgroundColor = '#fee2e2';
+        resultInfo.style.borderColor = '#fecaca';
+        resultInfo.style.color = '#b91c1c';
+      }
+      
+      resultInfo.style.display = 'block';
+      
+      // Hide after 3 seconds
+      setTimeout(() => {
+        resultInfo.style.display = 'none';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

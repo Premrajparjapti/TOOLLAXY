@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online Password Generator. Create strong, secure random passwords with customizable length and character sets. Perfect for account security.">
+  <meta name="keywords" content="password generator, random password, secure password, password creator, online security tool">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="Password Generator - Create Secure Random Passwords | Toollaxy">
+  <meta property="og:description" content="Free online tool to generate strong, secure random passwords with customizable length and character sets. Perfect for account security.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/password-generator">
+  <meta property="og:image" content="https://toollaxy.com/images/password-generator-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/password-generator">
+  <title>Password Generator - Create Secure Random Passwords | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .generator-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .form-group .helper-text {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    
+    input[type="number"] {
+      padding: 12px 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    input[type="number"]:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    @media (min-width: 576px) {
+      .options-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .option-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary-blue);
+    }
+    
+    .result-container {
+      margin-top: 30px;
+    }
+    
+    .result-box {
+      word-break: break-all;
+      background-color: #f8fafc;
+      padding: 20px;
+      border-radius: var(--rounded);
+      border: 1px solid #e2e8f0;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .result-box.empty {
+      color: var(--text-light);
+      text-align: center;
+    }
+    
+    .result-box.empty i {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #e2e8f0;
+    }
+    
+    .password-strength {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .strength-meter {
+      height: 8px;
+      border-radius: 4px;
+      background-color: #e2e8f0;
+      flex-grow: 1;
+      overflow: hidden;
+    }
+    
+    .strength-bar {
+      height: 100%;
+      width: 0%;
+      transition: var(--transition);
+    }
+    
+    .strength-weak {
+      background-color: #dc2626;
+      width: 25%;
+    }
+    
+    .strength-medium {
+      background-color: #f59e0b;
+      width: 50%;
+    }
+    
+    .strength-strong {
+      background-color: #10b981;
+      width: 75%;
+    }
+    
+    .strength-very-strong {
+      background-color: #2563eb;
+      width: 100%;
+    }
+    
+    .action-btns {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    
+    button {
+      padding: 14px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-grow: 1;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button:disabled {
+      background-color: var(--text-light);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    
+    button i {
+      font-size: 18px;
+    }
+    
+    .copy-btn {
+      background-color: #28a745;
+    }
+    
+    .copy-btn:hover {
+      background-color: #1e7e34;
+    }
+    
+    .generate-btn {
+      background-color: var(--primary-blue);
+    }
+    
+    .generate-btn:hover {
+      background-color: var(--dark-blue);
+    }
+    
+    .error-message {
+      color: #dc2626;
+      background-color: #fee2e2;
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .success-message {
+      color: #16a34a;
+      background-color: #dcfce7;
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .action-btns {
+        flex-direction: column;
+      }
+      
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Password Generator</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-key"></i> Password Generator</h1>
+      <p class="tool-description">
+        Create strong, secure random passwords with customizable length and character sets. 
+        Perfect for enhancing your online account security. Generate passwords that are hard to guess but easy to remember.
+      </p>
+      
+      <div class="generator-form">
+        <div class="form-group">
+          <label for="length">Password Length</label>
+          <input type="number" id="length" min="4" max="50" value="12">
+          <p class="helper-text">Recommended: 12-16 characters for strong security</p>
+        </div>
+        
+        <div class="form-group">
+          <label>Character Options</label>
+          <div class="options-grid">
+            <div class="option-item">
+              <input type="checkbox" id="includeUpper" checked>
+              <label for="includeUpper">Uppercase Letters (A-Z)</label>
+            </div>
+            <div class="option-item">
+              <input type="checkbox" id="includeLower" checked>
+              <label for="includeLower">Lowercase Letters (a-z)</label>
+            </div>
+            <div class="option-item">
+              <input type="checkbox" id="includeNumbers" checked>
+              <label for="includeNumbers">Numbers (0-9)</label>
+            </div>
+            <div class="option-item">
+              <input type="checkbox" id="includeSymbols" checked>
+              <label for="includeSymbols">Symbols (!@#$%^&*)</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="action-btns">
+          <button class="generate-btn" id="generateBtn">
+            <i class="fas fa-sync-alt"></i>
+            Generate Password
+          </button>
+          <button class="copy-btn" id="copyBtn" disabled>
+            <i class="fas fa-copy"></i>
+            Copy Password
+          </button>
+        </div>
+        
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+      </div>
+      
+      <div class="result-container">
+        <div class="result-box empty" id="resultBox">
+          <i class="fas fa-key"></i>
+          <p>Your generated password will appear here</p>
+        </div>
+        <div class="password-strength" id="strengthIndicator" style="display: none;">
+          <span>Password Strength:</span>
+          <span id="strengthText">Weak</span>
+          <div class="strength-meter">
+            <div class="strength-bar" id="strengthBar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // DOM elements
+    const lengthInput = document.getElementById('length');
+    const includeUpper = document.getElementById('includeUpper');
+    const includeLower = document.getElementById('includeLower');
+    const includeNumbers = document.getElementById('includeNumbers');
+    const includeSymbols = document.getElementById('includeSymbols');
+    const generateBtn = document.getElementById('generateBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const resultBox = document.getElementById('resultBox');
+    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+    const strengthIndicator = document.getElementById('strengthIndicator');
+    const strengthText = document.getElementById('strengthText');
+    const strengthBar = document.getElementById('strengthBar');
+    
+    // Character sets
+    const charSets = {
+      upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      lower: 'abcdefghijklmnopqrstuvwxyz',
+      numbers: '0123456789',
+      symbols: '!@#$%^&*()_+-=[]{}|;:,.<>?'
+    };
+    
+    // Generate password
+    function generatePassword() {
+      const length = parseInt(lengthInput.value);
+      const useUpper = includeUpper.checked;
+      const useLower = includeLower.checked;
+      const useNumbers = includeNumbers.checked;
+      const useSymbols = includeSymbols.checked;
+      
+      // Validate input
+      if (isNaN(length) || length < 4 || length > 50) {
+        showError('Please enter a valid length between 4 and 50');
+        return;
+      }
+      
+      if (!useUpper && !useLower && !useNumbers && !useSymbols) {
+        showError('Please select at least one character type');
+        return;
+      }
+      
+      // Build character pool
+      let charPool = '';
+      if (useUpper) charPool += charSets.upper;
+      if (useLower) charPool += charSets.lower;
+      if (useNumbers) charPool += charSets.numbers;
+      if (useSymbols) charPool += charSets.symbols;
+      
+      // Generate password
+      let password = '';
+      const poolLength = charPool.length;
+      const crypto = window.crypto || window.msCrypto;
+      
+      if (crypto && crypto.getRandomValues) {
+        // Use cryptographically secure random numbers if available
+        const values = new Uint32Array(length);
+        crypto.getRandomValues(values);
+        
+        for (let i = 0; i < length; i++) {
+          password += charPool[values[i] % poolLength];
+        }
+      } else {
+        // Fallback to Math.random if crypto API not available
+        for (let i = 0; i < length; i++) {
+          password += charPool[Math.floor(Math.random() * poolLength)];
+        }
+      }
+      
+      // Ensure at least one character from each selected set is included
+      if (useUpper && !password.match(/[A-Z]/)) {
+        password = replaceRandomChar(password, charSets.upper);
+      }
+      if (useLower && !password.match(/[a-z]/)) {
+        password = replaceRandomChar(password, charSets.lower);
+      }
+      if (useNumbers && !password.match(/[0-9]/)) {
+        password = replaceRandomChar(password, charSets.numbers);
+      }
+      if (useSymbols && !password.match(/[^A-Za-z0-9]/)) {
+        password = replaceRandomChar(password, charSets.symbols);
+      }
+      
+      // Display password
+      resultBox.textContent = password;
+      resultBox.classList.remove('empty');
+      
+      // Enable copy button
+      copyBtn.disabled = false;
+      
+      // Calculate and display password strength
+      updatePasswordStrength(password);
+      
+      // Clear messages
+      errorMessage.style.display = 'none';
+    }
+    
+    // Replace a random character in the password with one from the specified set
+    function replaceRandomChar(password, charSet) {
+      const index = Math.floor(Math.random() * password.length);
+      const newChar = charSet[Math.floor(Math.random() * charSet.length)];
+      return password.substring(0, index) + newChar + password.substring(index + 1);
+    }
+    
+    // Copy password to clipboard
+    function copyPassword() {
+      const password = resultBox.textContent;
+      
+      navigator.clipboard.writeText(password).then(() => {
+        showSuccess('Password copied to clipboard!');
+      }).catch(err => {
+        showError('Failed to copy password. Please try again.');
+        console.error('Failed to copy: ', err);
+      });
+    }
+    
+    // Calculate password strength
+    function updatePasswordStrength(password) {
+      let strength = 0;
+      
+      // Length contributes to strength
+      if (password.length >= 12) strength += 2;
+      else if (password.length >= 8) strength += 1;
+      
+      // Character variety contributes to strength
+      if (password.match(/[A-Z]/)) strength += 1;
+      if (password.match(/[a-z]/)) strength += 1;
+      if (password.match(/[0-9]/)) strength += 1;
+      if (password.match(/[^A-Za-z0-9]/)) strength += 2;
+      
+      // Update strength display
+      strengthIndicator.style.display = 'flex';
+      
+      if (strength <= 2) {
+        strengthText.textContent = 'Weak';
+        strengthBar.className = 'strength-bar strength-weak';
+      } else if (strength <= 4) {
+        strengthText.textContent = 'Medium';
+        strengthBar.className = 'strength-bar strength-medium';
+      } else if (strength <= 6) {
+        strengthText.textContent = 'Strong';
+        strengthBar.className = 'strength-bar strength-strong';
+      } else {
+        strengthText.textContent = 'Very Strong';
+        strengthBar.className = 'strength-bar strength-very-strong';
+      }
+    }
+    
+    // Show error message
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+      successMessage.style.display = 'none';
+    }
+    
+    // Show success message
+    function showSuccess(message) {
+      successMessage.textContent = message;
+      successMessage.style.display = 'block';
+      errorMessage.style.display = 'none';
+      
+      // Hide after 3 seconds
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 3000);
+    }
+    
+    // Event listeners
+    generateBtn.addEventListener('click', generatePassword);
+    copyBtn.addEventListener('click', copyPassword);
+    
+    // Generate password on page load
+    window.addEventListener('DOMContentLoaded', generatePassword);
+  </script>
+</body>
+</html>

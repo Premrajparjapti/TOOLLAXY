@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online image resizer tool. Resize images to exact dimensions while maintaining aspect ratio. Supports JPG, PNG, GIF, and WebP formats.">
+  <meta name="keywords" content="image resizer, resize image, change image size, image dimensions, online image tools">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="Image Resizer - Resize Images Online | Toollaxy">
+  <meta property="og:description" content="Free online tool to resize images to exact dimensions while maintaining aspect ratio.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/image-resizer">
+  <meta property="og:image" content="https://toollaxy.com/images/image-resizer-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/image-resizer">
+  <title>Image Resizer - Resize Images Online | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .resizer-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .form-group .helper-text {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    
+    .file-input-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+      width: 100%;
+    }
+    
+    .file-input-button {
+      border: 2px dashed var(--primary-blue);
+      border-radius: var(--rounded);
+      padding: 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      background-color: rgba(147, 197, 253, 0.1);
+    }
+    
+    .file-input-button:hover {
+      background-color: rgba(147, 197, 253, 0.2);
+    }
+    
+    .file-input-button i {
+      font-size: 48px;
+      color: var(--primary-blue);
+      margin-bottom: 15px;
+    }
+    
+    .file-input-button p {
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+    
+    .file-input-button small {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    
+    .file-input {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    
+    .dimension-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .dimension-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .dimension-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    input[type="number"] {
+      padding: 12px 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    input[type="number"]:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    .aspect-ratio-toggle {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .aspect-ratio-toggle label {
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+    
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #e2e8f0;
+      transition: var(--transition);
+      border-radius: 34px;
+    }
+    
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: var(--transition);
+      border-radius: 50%;
+    }
+    
+    input:checked + .toggle-slider {
+      background-color: var(--primary-blue);
+    }
+    
+    input:checked + .toggle-slider:before {
+      transform: translateX(26px);
+    }
+    
+    button {
+      padding: 14px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button:disabled {
+      background-color: var(--text-light);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    
+    button i {
+      font-size: 18px;
+    }
+    
+    .preview-container {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    @media (min-width: 768px) {
+      .preview-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .preview-box {
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      padding: 20px;
+    }
+    
+    .preview-box h3 {
+      margin-bottom: 15px;
+      color: var(--text-dark);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .preview-box h3 i {
+      color: var(--primary-blue);
+    }
+    
+    .image-preview {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--rounded);
+      margin-top: 15px;
+      display: block;
+    }
+    
+    .file-info {
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    .file-info strong {
+      color: var(--text-dark);
+    }
+    
+    .resize-info {
+      background-color: rgba(147, 197, 253, 0.1);
+      border-radius: var(--rounded);
+      padding: 15px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    
+    .resize-info h4 {
+      color: var(--primary-blue);
+      margin-bottom: 10px;
+    }
+    
+    .resize-stats {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+    
+    .resize-stat {
+      text-align: center;
+    }
+    
+    .resize-stat span {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+    }
+    
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: var(--rounded);
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: var(--transition);
+    }
+    
+    .download-btn:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .download-btn i {
+      font-size: 16px;
+    }
+    
+    .error-message {
+      color: #dc2626;
+      background-color: #fee2e2;
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+    
+    /* Loading spinner */
+    .spinner {
+      display: none;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+      
+      .dimension-controls {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .file-input-button i {
+        font-size: 36px;
+      }
+      
+      .resize-stats {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Image Resizer</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-expand-alt"></i> Image Resizer</h1>
+      <p class="tool-description">
+        Resize your images to exact dimensions while optionally maintaining the original aspect ratio. 
+        Perfect for social media, websites, and email attachments. Supports JPG, PNG, GIF, and WebP formats.
+      </p>
+      
+      <div class="resizer-form">
+        <div class="form-group">
+          <label for="imageInput">Select Image</label>
+          <div class="file-input-wrapper">
+            <div class="file-input-button" id="fileInputButton">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <p>Click to upload image</p>
+              <small>Supports JPG, PNG, GIF, WebP (Max 10MB)</small>
+            </div>
+            <input type="file" id="imageInput" class="file-input" accept="image/*">
+          </div>
+        </div>
+        
+        <div class="dimension-controls">
+          <div class="dimension-group">
+            <label for="widthInput">Width (px)</label>
+            <input type="number" id="widthInput" placeholder="Enter width" min="1" max="10000">
+          </div>
+          <div class="dimension-group">
+            <label for="heightInput">Height (px)</label>
+            <input type="number" id="heightInput" placeholder="Enter height" min="1" max="10000">
+          </div>
+        </div>
+        
+        <div class="aspect-ratio-toggle">
+          <label for="maintainAspect">Maintain Aspect Ratio</label>
+          <div class="toggle-switch">
+            <input type="checkbox" id="maintainAspect" checked>
+            <span class="toggle-slider"></span>
+          </div>
+        </div>
+        
+        <button id="resizeBtn" disabled>
+          <span>Resize Image</span>
+          <i class="fas fa-expand-alt"></i>
+        </button>
+        
+        <div class="error-message" id="errorMessage"></div>
+      </div>
+      
+      <div class="preview-container" id="previewContainer">
+        <!-- Preview boxes will be added here -->
+      </div>
+      
+      <div class="resize-info" id="resizeInfo" style="display: none;">
+        <h4><i class="fas fa-ruler-combined"></i> Resize Results</h4>
+        <div class="resize-stats">
+          <div class="resize-stat">
+            <span id="originalDimensions">0 × 0px</span>
+            <div>Original</div>
+          </div>
+          <div class="resize-stat">
+            <i class="fas fa-arrow-right"></i>
+          </div>
+          <div class="resize-stat">
+            <span id="resizedDimensions">0 × 0px</span>
+            <div>Resized</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // DOM elements
+    const imageInput = document.getElementById('imageInput');
+    const fileInputButton = document.getElementById('fileInputButton');
+    const widthInput = document.getElementById('widthInput');
+    const heightInput = document.getElementById('heightInput');
+    const maintainAspect = document.getElementById('maintainAspect');
+    const resizeBtn = document.getElementById('resizeBtn');
+    const previewContainer = document.getElementById('previewContainer');
+    const errorMessage = document.getElementById('errorMessage');
+    const resizeInfo = document.getElementById('resizeInfo');
+    const originalDimensions = document.getElementById('originalDimensions');
+    const resizedDimensions = document.getElementById('resizedDimensions');
+    
+    // Variables
+    let originalFile = null;
+    let originalImageUrl = null;
+    let resizedImageUrl = null;
+    let originalWidth = 0;
+    let originalHeight = 0;
+    let aspectRatio = 1;
+    
+    // Event listeners
+    imageInput.addEventListener('change', handleFileSelect);
+    widthInput.addEventListener('input', handleDimensionChange);
+    heightInput.addEventListener('input', handleDimensionChange);
+    resizeBtn.addEventListener('click', resizeImage);
+    
+    // Handle file selection
+    function handleFileSelect(e) {
+      const file = e.target.files[0];
+      
+      // Reset previous state
+      resetResizer();
+      errorMessage.style.display = 'none';
+      
+      // Validate file
+      if (!file) return;
+      
+      if (!file.type.match('image.*')) {
+        showError('Please select a valid image file (JPG, PNG, GIF, WebP).');
+        return;
+      }
+      
+      if (file.size > 10 * 1024 * 1024) { // 10MB limit
+        showError('File size exceeds 10MB limit. Please choose a smaller image.');
+        return;
+      }
+      
+      // Update UI
+      originalFile = file;
+      resizeBtn.disabled = false;
+      fileInputButton.innerHTML = `
+        <i class="fas fa-check-circle" style="color: #10b981;"></i>
+        <p>${file.name}</p>
+        <small>${formatFileSize(file.size)}</small>
+      `;
+      
+      // Create preview and get dimensions
+      const img = new Image();
+      img.onload = function() {
+        originalWidth = this.width;
+        originalHeight = this.height;
+        aspectRatio = originalWidth / originalHeight;
+        
+        // Set default dimensions (50% of original)
+        widthInput.value = Math.round(originalWidth / 2);
+        heightInput.value = Math.round(originalHeight / 2);
+        
+        // Create preview
+        originalImageUrl = URL.createObjectURL(file);
+        createPreviewBox('Original Image', originalImageUrl, file);
+      };
+      img.src = URL.createObjectURL(file);
+    }
+    
+    // Handle dimension changes
+    function handleDimensionChange(e) {
+      if (!maintainAspect.checked || !originalWidth || !originalHeight) return;
+      
+      // Determine which input changed
+      const changedInput = e.target.id;
+      
+      if (changedInput === 'widthInput') {
+        // Calculate height based on aspect ratio
+        const newWidth = parseInt(widthInput.value) || 0;
+        heightInput.value = Math.round(newWidth / aspectRatio);
+      } else if (changedInput === 'heightInput') {
+        // Calculate width based on aspect ratio
+        const newHeight = parseInt(heightInput.value) || 0;
+        widthInput.value = Math.round(newHeight * aspectRatio);
+      }
+    }
+    
+    // Resize image
+    function resizeImage() {
+      if (!originalFile) {
+        showError('Please select an image first.');
+        return;
+      }
+      
+      const width = parseInt(widthInput.value);
+      const height = parseInt(heightInput.value);
+      
+      if (!width || !height || isNaN(width) || isNaN(height)) {
+        showError('Please enter valid width and height values.');
+        return;
+      }
+      
+      if (width > 10000 || height > 10000) {
+        showError('Maximum dimension size is 10,000px.');
+        return;
+      }
+      
+      // Show loading state
+      resizeBtn.innerHTML = `
+        <span>Resizing...</span>
+        <div class="spinner"></div>
+      `;
+      resizeBtn.disabled = true;
+      
+      const reader = new FileReader();
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      reader.onload = function(event) {
+        img.onload = function() {
+          canvas.width = width;
+          canvas.height = height;
+          
+          // Draw resized image
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          // Determine output format (use original format if possible)
+          let format = 'image/png';
+          if (originalFile.type === 'image/jpeg') format = 'image/jpeg';
+          if (originalFile.type === 'image/gif') format = 'image/gif';
+          if (originalFile.type === 'image/webp') format = 'image/webp';
+          
+          // Create resized image
+          canvas.toBlob(function(blob) {
+            // Create download URL
+            resizedImageUrl = URL.createObjectURL(blob);
+            
+            // Create download link
+            createPreviewBox('Resized Image', resizedImageUrl, blob, format.split('/')[1]);
+            
+            // Show resize info
+            showResizeInfo(originalWidth, originalHeight, width, height);
+            
+            // Reset button
+            resizeBtn.innerHTML = `
+              <span>Resize Image</span>
+              <i class="fas fa-expand-alt"></i>
+            `;
+            resizeBtn.disabled = false;
+            
+          }, format);
+        };
+        
+        img.onerror = function() {
+          showError('Error loading image. Please try another file.');
+          resetResizer();
+        };
+        
+        img.src = event.target.result;
+      };
+      
+      reader.readAsDataURL(originalFile);
+    }
+    
+    // Create preview box
+    function createPreviewBox(title, imageUrl, file, format = null) {
+      const previewBox = document.createElement('div');
+      previewBox.className = 'preview-box';
+      
+      const fileSize = format ? 
+        formatFileSize(file.size) : 
+        formatFileSize(file.size);
+      
+      const fileType = format ? 
+        format.toUpperCase() : 
+        originalFile.type.split('/')[1].toUpperCase();
+      
+      previewBox.innerHTML = `
+        <h3><i class="fas fa-image"></i> ${title}</h3>
+        <img src="${imageUrl}" alt="${title}" class="image-preview">
+        <div class="file-info">
+          <p><strong>Format:</strong> ${fileType}</p>
+          <p><strong>Size:</strong> ${fileSize}</p>
+          ${format ? `
+            <p><strong>Dimensions:</strong> ${file.width || 'N/A'} × ${file.height || 'N/A'}px</p>
+          ` : ''}
+        </div>
+        ${format ? `
+          <a href="${imageUrl}" download="resized-image.${format}" class="download-btn">
+            <i class="fas fa-download"></i>
+            Download ${fileType}
+          </a>
+        ` : ''}
+      `;
+      
+      previewContainer.appendChild(previewBox);
+    }
+    
+    // Show resize info
+    function showResizeInfo(origWidth, origHeight, newWidth, newHeight) {
+      originalDimensions.textContent = `${origWidth} × ${origHeight}px`;
+      resizedDimensions.textContent = `${newWidth} × ${newHeight}px`;
+      resizeInfo.style.display = 'block';
+    }
+    
+    // Format file size
+    function formatFileSize(bytes) {
+      if (bytes < 1024) return `${bytes} B`;
+      if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+      return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    }
+    
+    // Show error message
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+    }
+    
+    // Reset resizer
+    function resetResizer() {
+      originalFile = null;
+      originalWidth = 0;
+      originalHeight = 0;
+      aspectRatio = 1;
+      resizeBtn.disabled = true;
+      previewContainer.innerHTML = '';
+      resizeInfo.style.display = 'none';
+      
+      // Revoke object URLs to free memory
+      if (originalImageUrl) URL.revokeObjectURL(originalImageUrl);
+      if (resizedImageUrl) URL.revokeObjectURL(resizedImageUrl);
+      
+      originalImageUrl = null;
+      resizedImageUrl = null;
+      
+      // Reset file input button
+      fileInputButton.innerHTML = `
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>Click to upload image</p>
+        <small>Supports JPG, PNG, GIF, WebP (Max 10MB)</small>
+      `;
+      
+      // Reset dimension inputs
+      widthInput.value = '';
+      heightInput.value = '';
+    }
+    
+    // Clean up object URLs when page unloads
+    window.addEventListener('beforeunload', function() {
+      if (originalImageUrl) URL.revokeObjectURL(originalImageUrl);
+      if (resizedImageUrl) URL.revokeObjectURL(resizedImageUrl);
+    });
+  </script>
+</body>
+</html>

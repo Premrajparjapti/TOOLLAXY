@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online color picker and converter tool. Convert between HEX, RGB, HSL, and CMYK color formats with real-time preview.">
+  <meta name="keywords" content="color picker, color converter, HEX to RGB, RGB to HEX, HSL color, CMYK color, web design tools">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="Color Picker & Converter Tool | Toollaxy">
+  <meta property="og:description" content="Free online tool to pick colors and convert between HEX, RGB, HSL, and CMYK color formats with real-time preview.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/color-picker">
+  <meta property="og:image" content="https://toollaxy.com/images/color-picker-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/color-picker">
+  <title>Color Picker & Converter Tool | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .color-picker-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    @media (min-width: 768px) {
+      .color-picker-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .color-selector {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .color-preview {
+      width: 100%;
+      height: 120px;
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 15px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .color-preview::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 100%);
+      pointer-events: none;
+    }
+    
+    .color-preview-text {
+      color: white;
+      font-weight: 600;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+    
+    .color-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .color-input {
+      width: 80px;
+      height: 50px;
+      border: none;
+      cursor: pointer;
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+    }
+    
+    .color-input-label {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .color-formats {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .format-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .format-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+      font-size: 0.9rem;
+    }
+    
+    .format-inputs {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .format-inputs input {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    
+    .format-inputs input:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    .format-display {
+      padding: 12px;
+      background-color: #f8fafc;
+      border-radius: var(--rounded);
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 0.9rem;
+      word-break: break-all;
+    }
+    
+    button {
+      padding: 12px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button i {
+      font-size: 16px;
+    }
+    
+    .color-info {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f0f5ff;
+      border-radius: var(--rounded);
+    }
+    
+    .color-info h3 {
+      margin-bottom: 15px;
+      color: var(--primary-blue);
+    }
+    
+    .color-info ul {
+      padding-left: 20px;
+      color: var(--text-light);
+    }
+    
+    .color-info li {
+      margin-bottom: 8px;
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+      
+      .format-inputs {
+        flex-wrap: wrap;
+      }
+      
+      .format-inputs input {
+        min-width: 60px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Color Picker</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-eye-dropper"></i> Color Picker & Converter</h1>
+      <p class="tool-description">
+        Pick colors and convert between HEX, RGB, HSL, and CMYK color formats. 
+        This tool helps designers and developers work with colors for web design, 
+        graphic design, and digital projects.
+      </p>
+      
+      <div class="color-picker-container">
+        <div class="color-selector">
+          <div class="color-preview" id="colorPreview">
+            <div class="color-preview-text" id="colorPreviewText">#FFFFFF</div>
+          </div>
+          
+          <div class="color-input-wrapper">
+            <input type="color" id="colorInput" class="color-input" value="#2563eb">
+            <span class="color-input-label">Color Picker</span>
+          </div>
+          
+          <div class="color-formats">
+            <div class="format-group">
+              <label>HEX Color</label>
+              <div class="format-inputs">
+                <input type="text" id="hexInput" placeholder="#RRGGBB" maxlength="7">
+              </div>
+            </div>
+            
+            <div class="format-group">
+              <label>RGB Color</label>
+              <div class="format-inputs">
+                <input type="number" id="rInput" placeholder="R" min="0" max="255">
+                <input type="number" id="gInput" placeholder="G" min="0" max="255">
+                <input type="number" id="bInput" placeholder="B" min="0" max="255">
+              </div>
+            </div>
+            
+            <div class="format-group">
+              <label>HSL Color</label>
+              <div class="format-inputs">
+                <input type="number" id="hInput" placeholder="H" min="0" max="360">
+                <input type="number" id="sInput" placeholder="S" min="0" max="100">
+                <input type="number" id="lInput" placeholder="L" min="0" max="100">
+              </div>
+            </div>
+            
+            <div class="format-group">
+              <label>CMYK Color</label>
+              <div class="format-inputs">
+                <input type="number" id="cInput" placeholder="C" min="0" max="100">
+                <input type="number" id="mInput" placeholder="M" min="0" max="100">
+                <input type="number" id="yInput" placeholder="Y" min="0" max="100">
+                <input type="number" id="kInput" placeholder="K" min="0" max="100">
+              </div>
+            </div>
+          </div>
+          
+          <button id="randomBtn">
+            <i class="fas fa-random"></i>
+            Random Color
+          </button>
+        </div>
+        
+        <div class="color-converter">
+          <div class="format-group">
+            <label>HEX Code</label>
+            <div class="format-display" id="hexDisplay">#2563eb</div>
+          </div>
+          
+          <div class="format-group">
+            <label>RGB Code</label>
+            <div class="format-display" id="rgbDisplay">rgb(37, 99, 235)</div>
+          </div>
+          
+          <div class="format-group">
+            <label>HSL Code</label>
+            <div class="format-display" id="hslDisplay">hsl(223, 83%, 53%)</div>
+          </div>
+          
+          <div class="format-group">
+            <label>CMYK Code</label>
+            <div class="format-display" id="cmykDisplay">cmyk(84%, 58%, 0%, 8%)</div>
+          </div>
+          
+          <div class="results-actions" style="margin-top: 20px;">
+            <button class="copy-btn" id="copyHexBtn">
+              <i class="far fa-copy"></i>
+              Copy HEX
+            </button>
+            <button class="copy-btn" id="copyRgbBtn">
+              <i class="far fa-copy"></i>
+              Copy RGB
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="color-info">
+        <h3><i class="fas fa-info-circle"></i> About Color Formats</h3>
+        <ul>
+          <li><strong>HEX</strong> - Hexadecimal format used in web design (e.g. #RRGGBB)</li>
+          <li><strong>RGB</strong> - Red, Green, Blue values (0-255 each)</li>
+          <li><strong>HSL</strong> - Hue (0-360), Saturation (0-100%), Lightness (0-100%)</li>
+          <li><strong>CMYK</strong> - Cyan, Magenta, Yellow, Key/Black percentages for print</li>
+          <li>Changes in any format will automatically update all other formats</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // DOM elements
+    const colorInput = document.getElementById('colorInput');
+    const colorPreview = document.getElementById('colorPreview');
+    const colorPreviewText = document.getElementById('colorPreviewText');
+    const hexInput = document.getElementById('hexInput');
+    const rInput = document.getElementById('rInput');
+    const gInput = document.getElementById('gInput');
+    const bInput = document.getElementById('bInput');
+    const hInput = document.getElementById('hInput');
+    const sInput = document.getElementById('sInput');
+    const lInput = document.getElementById('lInput');
+    const cInput = document.getElementById('cInput');
+    const mInput = document.getElementById('mInput');
+    const yInput = document.getElementById('yInput');
+    const kInput = document.getElementById('kInput');
+    const hexDisplay = document.getElementById('hexDisplay');
+    const rgbDisplay = document.getElementById('rgbDisplay');
+    const hslDisplay = document.getElementById('hslDisplay');
+    const cmykDisplay = document.getElementById('cmykDisplay');
+    const randomBtn = document.getElementById('randomBtn');
+    const copyHexBtn = document.getElementById('copyHexBtn');
+    const copyRgbBtn = document.getElementById('copyRgbBtn');
+    
+    // Initial color (primary blue from your palette)
+    let currentColor = {
+      hex: '#2563eb',
+      rgb: { r: 37, g: 99, b: 235 },
+      hsl: { h: 223, s: 83, l: 53 },
+      cmyk: { c: 84, m: 58, y: 0, k: 8 }
+    };
+    
+    // Initialize
+    updateAllDisplays();
+    
+    // Event listeners
+    colorInput.addEventListener('input', handleColorPickerChange);
+    hexInput.addEventListener('input', handleHexInput);
+    rInput.addEventListener('input', handleRgbInput);
+    gInput.addEventListener('input', handleRgbInput);
+    bInput.addEventListener('input', handleRgbInput);
+    hInput.addEventListener('input', handleHslInput);
+    sInput.addEventListener('input', handleHslInput);
+    lInput.addEventListener('input', handleHslInput);
+    cInput.addEventListener('input', handleCmykInput);
+    mInput.addEventListener('input', handleCmykInput);
+    yInput.addEventListener('input', handleCmykInput);
+    kInput.addEventListener('input', handleCmykInput);
+    randomBtn.addEventListener('click', generateRandomColor);
+    copyHexBtn.addEventListener('click', () => copyToClipboard(currentColor.hex));
+    copyRgbBtn.addEventListener('click', () => copyToClipboard(`rgb(${currentColor.rgb.r}, ${currentColor.rgb.g}, ${currentColor.rgb.b})`));
+    
+    // Handle color picker change
+    function handleColorPickerChange() {
+      const hex = colorInput.value;
+      currentColor.hex = hex.toUpperCase();
+      currentColor.rgb = hexToRgb(hex);
+      currentColor.hsl = rgbToHsl(currentColor.rgb.r, currentColor.rgb.g, currentColor.rgb.b);
+      currentColor.cmyk = rgbToCmyk(currentColor.rgb.r, currentColor.rgb.g, currentColor.rgb.b);
+      updateAllDisplays();
+    }
+    
+    // Handle HEX input
+    function handleHexInput() {
+      let hex = hexInput.value.trim();
+      if (hex[0] !== '#') hex = '#' + hex;
+      if (!/^#[0-9A-Fa-f]{6}$/.test(hex)) return;
+      
+      currentColor.hex = hex.toUpperCase();
+      currentColor.rgb = hexToRgb(hex);
+      currentColor.hsl = rgbToHsl(currentColor.rgb.r, currentColor.rgb.g, currentColor.rgb.b);
+      currentColor.cmyk = rgbToCmyk(currentColor.rgb.r, currentColor.rgb.g, currentColor.rgb.b);
+      updateAllDisplays();
+      colorInput.value = hex;
+    }
+    
+    // Handle RGB input
+    function handleRgbInput() {
+      const r = parseInt(rInput.value) || 0;
+      const g = parseInt(gInput.value) || 0;
+      const b = parseInt(bInput.value) || 0;
+      
+      if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) return;
+      
+      currentColor.rgb = { r, g, b };
+      currentColor.hex = rgbToHex(r, g, b);
+      currentColor.hsl = rgbToHsl(r, g, b);
+      currentColor.cmyk = rgbToCmyk(r, g, b);
+      updateAllDisplays();
+      colorInput.value = currentColor.hex;
+    }
+    
+    // Handle HSL input
+    function handleHslInput() {
+      const h = parseInt(hInput.value) || 0;
+      const s = parseInt(sInput.value) || 0;
+      const l = parseInt(lInput.value) || 0;
+      
+      if (h < 0 || h > 360 || s < 0 || s > 100 || l < 0 || l > 100) return;
+      
+      currentColor.hsl = { h, s, l };
+      const rgb = hslToRgb(h, s, l);
+      currentColor.rgb = { r: rgb.r, g: rgb.g, b: rgb.b };
+      currentColor.hex = rgbToHex(rgb.r, rgb.g, rgb.b);
+      currentColor.cmyk = rgbToCmyk(rgb.r, rgb.g, rgb.b);
+      updateAllDisplays();
+      colorInput.value = currentColor.hex;
+    }
+    
+    // Handle CMYK input
+    function handleCmykInput() {
+      const c = parseInt(cInput.value) || 0;
+      const m = parseInt(mInput.value) || 0;
+      const y = parseInt(yInput.value) || 0;
+      const k = parseInt(kInput.value) || 0;
+      
+      if (c < 0 || c > 100 || m < 0 || m > 100 || y < 0 || y > 100 || k < 0 || k > 100) return;
+      
+      currentColor.cmyk = { c, m, y, k };
+      const rgb = cmykToRgb(c, m, y, k);
+      currentColor.rgb = { r: rgb.r, g: rgb.g, b: rgb.b };
+      currentColor.hex = rgbToHex(rgb.r, rgb.g, rgb.b);
+      currentColor.hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+      updateAllDisplays();
+      colorInput.value = currentColor.hex;
+    }
+    
+    // Update all displays
+    function updateAllDisplays() {
+      // Update preview
+      colorPreview.style.backgroundColor = currentColor.hex;
+      colorPreviewText.textContent = currentColor.hex;
+      
+      // Update input fields
+      hexInput.value = currentColor.hex;
+      rInput.value = currentColor.rgb.r;
+      gInput.value = currentColor.rgb.g;
+      bInput.value = currentColor.rgb.b;
+      hInput.value = currentColor.hsl.h;
+      sInput.value = currentColor.hsl.s;
+      lInput.value = currentColor.hsl.l;
+      cInput.value = currentColor.cmyk.c;
+      mInput.value = currentColor.cmyk.m;
+      yInput.value = currentColor.cmyk.y;
+      kInput.value = currentColor.cmyk.k;
+      
+      // Update display fields
+      hexDisplay.textContent = currentColor.hex;
+      rgbDisplay.textContent = `rgb(${currentColor.rgb.r}, ${currentColor.rgb.g}, ${currentColor.rgb.b})`;
+      hslDisplay.textContent = `hsl(${currentColor.hsl.h}, ${currentColor.hsl.s}%, ${currentColor.hsl.l}%)`;
+      cmykDisplay.textContent = `cmyk(${currentColor.cmyk.c}%, ${currentColor.cmyk.m}%, ${currentColor.cmyk.y}%, ${currentColor.cmyk.k}%)`;
+      
+      // Update text color for contrast
+      const brightness = (currentColor.rgb.r * 299 + currentColor.rgb.g * 587 + currentColor.rgb.b * 114) / 1000;
+      colorPreviewText.style.color = brightness > 128 ? 'black' : 'white';
+    }
+    
+    // Generate random color
+    function generateRandomColor() {
+      const hex = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+      colorInput.value = hex;
+      handleColorPickerChange();
+    }
+    
+    // Copy to clipboard
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Copied to clipboard: ' + text);
+      }).catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+    }
+    
+    // Color conversion functions
+    function hexToRgb(hex) {
+      hex = hex.replace('#', '');
+      const r = parseInt(hex.substring(0, 2), 16);
+      const g = parseInt(hex.substring(2, 4), 16);
+      const b = parseInt(hex.substring(4, 6), 16);
+      return { r, g, b };
+    }
+    
+    function rgbToHex(r, g, b) {
+      return '#' + [r, g, b].map(x => {
+        const hex = x.toString(16);
+        return hex.length === 1 ? '0' + hex : hex;
+      }).join('').toUpperCase();
+    }
+    
+    function rgbToHsl(r, g, b) {
+      r /= 255, g /= 255, b /= 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+      
+      if (max === min) {
+        h = s = 0; // achromatic
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h *= 60;
+      }
+      
+      return {
+        h: Math.round(h),
+        s: Math.round(s * 100),
+        l: Math.round(l * 100)
+      };
+    }
+    
+    function hslToRgb(h, s, l) {
+      h /= 360;
+      s /= 100;
+      l /= 100;
+      
+      let r, g, b;
+      
+      if (s === 0) {
+        r = g = b = l; // achromatic
+      } else {
+        const hue2rgb = (p, q, t) => {
+          if (t < 0) t += 1;
+          if (t > 1) t -= 1;
+          if (t < 1/6) return p + (q - p) * 6 * t;
+          if (t < 1/2) return q;
+          if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+          return p;
+        };
+        
+        const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+        const p = 2 * l - q;
+        
+        r = hue2rgb(p, q, h + 1/3);
+        g = hue2rgb(p, q, h);
+        b = hue2rgb(p, q, h - 1/3);
+      }
+      
+      return {
+        r: Math.round(r * 255),
+        g: Math.round(g * 255),
+        b: Math.round(b * 255)
+      };
+    }
+    
+    function rgbToCmyk(r, g, b) {
+      r /= 255;
+      g /= 255;
+      b /= 255;
+      
+      const k = 1 - Math.max(r, g, b);
+      const c = (1 - r - k) / (1 - k) || 0;
+      const m = (1 - g - k) / (1 - k) || 0;
+      const y = (1 - b - k) / (1 - k) || 0;
+      
+      return {
+        c: Math.round(c * 100),
+        m: Math.round(m * 100),
+        y: Math.round(y * 100),
+        k: Math.round(k * 100)
+      };
+    }
+    
+    function cmykToRgb(c, m, y, k) {
+      c /= 100;
+      m /= 100;
+      y /= 100;
+      k /= 100;
+      
+      const r = 255 * (1 - c) * (1 - k);
+      const g = 255 * (1 - m) * (1 - k);
+      const b = 255 * (1 - y) * (1 - k);
+      
+      return {
+        r: Math.round(r),
+        g: Math.round(g),
+        b: Math.round(b)
+      };
+    }
+  </script>
+</body>
+</html>

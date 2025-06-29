@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online URL encoder and decoder tool. Convert special characters in URLs to their encoded format and vice versa for proper web addressing.">
+  <meta name="keywords" content="URL encoder, URL decoder, percent encoding, URL encoding, URL decoding, web address encoding">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="URL Encoder/Decoder Tool | Toollaxy">
+  <meta property="og:description" content="Free online tool to encode and decode URLs. Convert special characters to percent-encoded format and decode back to original characters.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/url-encoder">
+  <meta property="og:image" content="https://toollaxy.com/images/url-encoder-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/url-encoder">
+  <title>URL Encoder/Decoder Tool | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+      --error-red: #dc2626;
+      --error-bg: #fee2e2;
+      --success-green: #10b981;
+      --success-bg: #d1fae5;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .converter-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .input-wrapper {
+      position: relative;
+    }
+    
+    .url-input {
+      width: 100%;
+      min-height: 150px;
+      padding: 15px;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      background-color: #f8fafc;
+      resize: vertical;
+      transition: var(--transition);
+    }
+    
+    .url-input:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    .url-input::placeholder {
+      color: var(--text-light);
+      opacity: 0.7;
+    }
+    
+    .converter-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    
+    button {
+      padding: 12px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button.secondary {
+      background-color: var(--white);
+      color: var(--primary-blue);
+      border: 1px solid var(--primary-blue);
+    }
+    
+    button.secondary:hover {
+      background-color: #f0f5ff;
+    }
+    
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    
+    button i {
+      font-size: 16px;
+    }
+    
+    .results-container {
+      margin-top: 30px;
+      display: none;
+    }
+    
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .results-stats {
+      display: flex;
+      gap: 20px;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+    
+    .results-stats span {
+      color: var(--text-dark);
+      font-weight: 600;
+    }
+    
+    .results-content {
+      width: 100%;
+      min-height: 150px;
+      padding: 15px;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      background-color: #f8fafc;
+      white-space: pre-wrap;
+      overflow-x: auto;
+      word-break: break-all;
+    }
+    
+    .results-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .copy-btn {
+      background-color: var(--white);
+      color: var(--primary-blue);
+      border: 1px solid var(--primary-blue);
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      border-radius: var(--rounded);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .copy-btn:hover {
+      background-color: #f0f5ff;
+    }
+    
+    .copy-btn i {
+      font-size: 14px;
+    }
+    
+    .error-message {
+      color: var(--error-red);
+      background-color: var(--error-bg);
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .encoding-info {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f0f5ff;
+      border-radius: var(--rounded);
+    }
+    
+    .encoding-info h3 {
+      margin-bottom: 10px;
+      color: var(--primary-blue);
+      font-size: 1.1rem;
+    }
+    
+    .encoding-info ul {
+      padding-left: 20px;
+      color: var(--text-light);
+    }
+    
+    .encoding-info li {
+      margin-bottom: 5px;
+    }
+    
+    /* Loading spinner */
+    .spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+      
+      .converter-actions {
+        flex-direction: column;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>URL Encoder/Decoder</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-link"></i> URL Encoder/Decoder</h1>
+      <p class="tool-description">
+        Encode special characters in URLs to their percent-encoded equivalents or decode 
+        percent-encoded URLs back to their original characters. This tool helps ensure 
+        proper URL formatting for web addresses, API requests, and data transmission.
+      </p>
+      
+      <div class="converter-container">
+        <div class="input-wrapper">
+          <textarea id="urlInput" class="url-input" placeholder="Enter URL or text to encode/decode..."></textarea>
+        </div>
+        
+        <div class="converter-actions">
+          <button id="encodeBtn">
+            <i class="fas fa-lock"></i>
+            Encode URL
+          </button>
+          <button id="decodeBtn">
+            <i class="fas fa-lock-open"></i>
+            Decode URL
+          </button>
+          <button class="secondary" id="clearBtn">
+            <i class="fas fa-trash-alt"></i>
+            Clear
+          </button>
+          <button class="secondary" id="sampleBtn">
+            <i class="fas fa-lightbulb"></i>
+            Load Sample
+          </button>
+        </div>
+        
+        <div class="error-message" id="errorMessage"></div>
+      </div>
+      
+      <div class="results-container" id="resultsContainer">
+        <div class="results-header">
+          <h3><i class="fas fa-file-code"></i> Conversion Results</h3>
+          <div class="results-stats">
+            <div>Input: <span id="inputSize">0</span> chars</div>
+            <div>Output: <span id="outputSize">0</span> chars</div>
+          </div>
+        </div>
+        
+        <div class="results-content" id="resultsContent"></div>
+        
+        <div class="results-actions">
+          <button class="copy-btn" id="copyBtn">
+            <i class="far fa-copy"></i>
+            Copy to Clipboard
+          </button>
+        </div>
+      </div>
+      
+      <div class="encoding-info">
+        <h3><i class="fas fa-info-circle"></i> About URL Encoding</h3>
+        <ul>
+          <li>URL encoding converts special characters to a % followed by two hexadecimal digits</li>
+          <li>Spaces become %20 or + in query strings</li>
+          <li>Reserved characters like :, /, ?, #, etc. have special meanings in URLs</li>
+          <li>Non-ASCII characters are encoded using UTF-8 before percent-encoding</li>
+          <li>Use encoding for query parameters and decoding to read encoded URLs</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // DOM elements
+    const urlInput = document.getElementById('urlInput');
+    const encodeBtn = document.getElementById('encodeBtn');
+    const decodeBtn = document.getElementById('decodeBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const sampleBtn = document.getElementById('sampleBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const resultsContent = document.getElementById('resultsContent');
+    const errorMessage = document.getElementById('errorMessage');
+    const inputSizeEl = document.getElementById('inputSize');
+    const outputSizeEl = document.getElementById('outputSize');
+    
+    // Sample data
+    const sampleText = "Hello World! This is a test URL with spaces & special characters: /path?query=value&name=John Doe";
+    const sampleEncoded = "Hello%20World%21%20This%20is%20a%20test%20URL%20with%20spaces%20%26%20special%20characters%3A%20%2Fpath%3Fquery%3Dvalue%26name%3DJohn%20Doe";
+    
+    // Event listeners
+    encodeBtn.addEventListener('click', encodeURL);
+    decodeBtn.addEventListener('click', decodeURL);
+    clearBtn.addEventListener('click', clearAll);
+    sampleBtn.addEventListener('click', loadSample);
+    copyBtn.addEventListener('click', copyToClipboard);
+    
+    // Encode URL
+    function encodeURL() {
+      const text = urlInput.value.trim();
+      
+      if (!text) {
+        showError('Please enter some text to encode.');
+        return;
+      }
+      
+      // Show loading state
+      encodeBtn.innerHTML = `
+        <div class="spinner" style="display: inline-block;"></div>
+        Encoding...
+      `;
+      encodeBtn.disabled = true;
+      
+      setTimeout(() => {
+        try {
+          const encoded = encodeURIComponent(text);
+          displayResults(encoded, text.length, encoded.length);
+        } catch (e) {
+          showError('Error encoding URL: ' + e.message);
+        } finally {
+          // Reset button
+          encodeBtn.innerHTML = `
+            <i class="fas fa-lock"></i>
+            Encode URL
+          `;
+          encodeBtn.disabled = false;
+        }
+      }, 300);
+    }
+    
+    // Decode URL
+    function decodeURL() {
+      const text = urlInput.value.trim();
+      
+      if (!text) {
+        showError('Please enter an encoded URL to decode.');
+        return;
+      }
+      
+      // Show loading state
+      decodeBtn.innerHTML = `
+        <div class="spinner" style="display: inline-block;"></div>
+        Decoding...
+      `;
+      decodeBtn.disabled = true;
+      
+      setTimeout(() => {
+        try {
+          const decoded = decodeURIComponent(text.replace(/\+/g, ' '));
+          displayResults(decoded, text.length, decoded.length);
+        } catch (e) {
+          showError('Invalid encoded URL: ' + e.message);
+        } finally {
+          // Reset button
+          decodeBtn.innerHTML = `
+            <i class="fas fa-lock-open"></i>
+            Decode URL
+          `;
+          decodeBtn.disabled = false;
+        }
+      }, 300);
+    }
+    
+    // Display results
+    function displayResults(content, inputLength, outputLength) {
+      inputSizeEl.textContent = inputLength;
+      outputSizeEl.textContent = outputLength;
+      resultsContent.textContent = content;
+      resultsContainer.style.display = 'block';
+      errorMessage.style.display = 'none';
+      
+      // Scroll to results
+      resultsContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Copy to clipboard
+    function copyToClipboard() {
+      const text = resultsContent.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => {
+          copyBtn.innerHTML = originalText;
+        }, 2000);
+      }).catch(err => {
+        showError('Failed to copy text: ' + err);
+      });
+    }
+    
+    // Clear all
+    function clearAll() {
+      urlInput.value = '';
+      clearResults();
+    }
+    
+    // Clear results
+    function clearResults() {
+      resultsContainer.style.display = 'none';
+      errorMessage.style.display = 'none';
+    }
+    
+    // Load sample
+    function loadSample() {
+      // Alternate between sample text and encoded sample
+      if (urlInput.value === sampleText || urlInput.value === '') {
+        urlInput.value = sampleEncoded;
+      } else {
+        urlInput.value = sampleText;
+      }
+      clearResults();
+    }
+    
+    // Show error message
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+      resultsContainer.style.display = 'none';
+    }
+    
+    // Initialize
+    clearAll();
+  </script>
+</body>
+</html>

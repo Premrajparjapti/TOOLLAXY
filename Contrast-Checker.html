@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online color contrast checker tool. Test WCAG compliance for text readability and accessibility standards.">
+  <meta name="keywords" content="contrast checker, WCAG compliance, accessibility tool, color contrast, web design tools, ADA compliance">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="Color Contrast Checker - WCAG Compliance Tool | Toollaxy">
+  <meta property="og:description" content="Check color contrast ratios for text readability and WCAG accessibility standards with our free online tool.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/contrast-checker">
+  <meta property="og:image" content="https://toollaxy.com/images/contrast-checker-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/contrast-checker">
+  <title>Color Contrast Checker - WCAG Compliance Tool | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .checker-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .form-group .helper-text {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    
+    .color-inputs {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .color-input {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .color-input label {
+      display: block;
+      margin-bottom: 8px;
+    }
+    
+    .color-picker-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .color-preview {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--rounded);
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+    }
+    
+    input[type="color"] {
+      opacity: 0;
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+    }
+    
+    .color-hex-input {
+      flex: 1;
+      padding: 10px 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .color-hex-input:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    button {
+      padding: 14px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button i {
+      font-size: 18px;
+    }
+    
+    .preview-container {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    @media (min-width: 768px) {
+      .preview-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .preview-box {
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      padding: 30px;
+      text-align: center;
+    }
+    
+    .preview-box h3 {
+      margin-bottom: 15px;
+      color: var(--text-dark);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .preview-box h3 i {
+      color: var(--primary-blue);
+    }
+    
+    .text-preview {
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 20px;
+      border-radius: var(--rounded);
+      margin: 15px 0;
+    }
+    
+    .result-box {
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      padding: 20px;
+      margin-top: 20px;
+    }
+    
+    .result-box h3 {
+      margin-bottom: 15px;
+      color: var(--text-dark);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .result-box h3 i {
+      color: var(--primary-blue);
+    }
+    
+    .contrast-ratio {
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-align: center;
+      margin: 15px 0;
+    }
+    
+    .wcag-results {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    @media (min-width: 768px) {
+      .wcag-results {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .wcag-level {
+      padding: 15px;
+      border-radius: var(--rounded);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .wcag-level i {
+      font-size: 1.5rem;
+    }
+    
+    .wcag-level-text {
+      flex: 1;
+    }
+    
+    .wcag-level-title {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    
+    .wcag-level-desc {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    .pass {
+      background-color: rgba(16, 185, 129, 0.1);
+      border-left: 4px solid var(--success);
+    }
+    
+    .pass i {
+      color: var(--success);
+    }
+    
+    .fail {
+      background-color: rgba(239, 68, 68, 0.1);
+      border-left: 4px solid var(--error);
+    }
+    
+    .fail i {
+      color: var(--error);
+    }
+    
+    .warning {
+      background-color: rgba(245, 158, 11, 0.1);
+      border-left: 4px solid var(--warning);
+    }
+    
+    .warning i {
+      color: var(--warning);
+    }
+    
+    .text-sizes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .text-size {
+      padding: 15px;
+      border-radius: var(--rounded);
+      background-color: #f1f5f9;
+      text-align: center;
+    }
+    
+    .text-size-label {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .text-size-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+      
+      .color-inputs {
+        flex-direction: column;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .preview-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .wcag-results {
+        grid-template-columns: 1fr;
+      }
+      
+      .text-sizes {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Contrast Checker</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-eye"></i> Color Contrast Checker</h1>
+      <p class="tool-description">
+        Test color contrast ratios for WCAG accessibility compliance. Ensure your text is readable 
+        for all users, including those with visual impairments. Check against AA and AAA standards 
+        for normal and large text.
+      </p>
+      
+      <div class="checker-form">
+        <div class="form-group">
+          <label>Color Selection</label>
+          <div class="color-inputs">
+            <div class="color-input">
+              <label for="textColor">Text Color</label>
+              <div class="color-picker-wrapper">
+                <div class="color-preview" id="textColorPreview" style="background-color: #000000;"></div>
+                <input type="color" id="textColor" value="#000000">
+                <input type="text" class="color-hex-input" id="textColorHex" value="#000000" placeholder="HEX color">
+              </div>
+            </div>
+            
+            <div class="color-input">
+              <label for="bgColor">Background Color</label>
+              <div class="color-picker-wrapper">
+                <div class="color-preview" id="bgColorPreview" style="background-color: #ffffff;"></div>
+                <input type="color" id="bgColor" value="#ffffff">
+                <input type="text" class="color-hex-input" id="bgColorHex" value="#ffffff" placeholder="HEX color">
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <button id="checkBtn">
+          <span>Check Contrast</span>
+          <i class="fas fa-check"></i>
+        </button>
+        
+        <div class="preview-container">
+          <div class="preview-box">
+            <h3><i class="fas fa-text-height"></i> Text Preview</h3>
+            <div class="text-preview" id="textPreview">
+              The quick brown fox jumps over the lazy dog.
+            </div>
+            <div class="text-sizes">
+              <div class="text-size">
+                <div class="text-size-label">Normal Text</div>
+                <div class="text-size-value" id="normalTextSize">16px</div>
+              </div>
+              <div class="text-size">
+                <div class="text-size-label">Large Text</div>
+                <div class="text-size-value" id="largeTextSize">24px</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="preview-box">
+            <h3><i class="fas fa-palette"></i> Color Swatches</h3>
+            <div class="color-preview" id="textColorSwatch" style="width: 100%; height: 80px; margin-bottom: 15px;"></div>
+            <div class="color-preview" id="bgColorSwatch" style="width: 100%; height: 80px;"></div>
+          </div>
+        </div>
+        
+        <div class="result-box">
+          <h3><i class="fas fa-chart-bar"></i> Contrast Results</h3>
+          <div class="contrast-ratio" id="contrastRatio">4.5:1</div>
+          
+          <div class="wcag-results">
+            <div class="wcag-level" id="wcagAANormal">
+              <i class="fas fa-question-circle"></i>
+              <div class="wcag-level-text">
+                <div class="wcag-level-title">WCAG AA (Normal Text)</div>
+                <div class="wcag-level-desc">Minimum contrast for body text (4.5:1)</div>
+              </div>
+            </div>
+            
+            <div class="wcag-level" id="wcagAALarge">
+              <i class="fas fa-question-circle"></i>
+              <div class="wcag-level-text">
+                <div class="wcag-level-title">WCAG AA (Large Text)</div>
+                <div class="wcag-level-desc">Minimum contrast for text 18pt+ (3:1)</div>
+              </div>
+            </div>
+            
+            <div class="wcag-level" id="wcagAAANormal">
+              <i class="fas fa-question-circle"></i>
+              <div class="wcag-level-text">
+                <div class="wcag-level-title">WCAG AAA (Normal Text)</div>
+                <div class="wcag-level-desc">Enhanced contrast for body text (7:1)</div>
+              </div>
+            </div>
+            
+            <div class="wcag-level" id="wcagAAALarge">
+              <i class="fas fa-question-circle"></i>
+              <div class="wcag-level-text">
+                <div class="wcag-level-title">WCAG AAA (Large Text)</div>
+                <div class="wcag-level-desc">Enhanced contrast for text 18pt+ (4.5:1)</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // DOM elements
+    const textColor = document.getElementById('textColor');
+    const bgColor = document.getElementById('bgColor');
+    const textColorHex = document.getElementById('textColorHex');
+    const bgColorHex = document.getElementById('bgColorHex');
+    const textColorPreview = document.getElementById('textColorPreview');
+    const bgColorPreview = document.getElementById('bgColorPreview');
+    const textPreview = document.getElementById('textPreview');
+    const textColorSwatch = document.getElementById('textColorSwatch');
+    const bgColorSwatch = document.getElementById('bgColorSwatch');
+    const checkBtn = document.getElementById('checkBtn');
+    const contrastRatio = document.getElementById('contrastRatio');
+    const wcagAANormal = document.getElementById('wcagAANormal');
+    const wcagAALarge = document.getElementById('wcagAALarge');
+    const wcagAAANormal = document.getElementById('wcagAAANormal');
+    const wcagAAALarge = document.getElementById('wcagAAALarge');
+    const normalTextSize = document.getElementById('normalTextSize');
+    const largeTextSize = document.getElementById('largeTextSize');
+    
+    // Initialize with default colors
+    checkContrast();
+    
+    // Event listeners
+    checkBtn.addEventListener('click', checkContrast);
+    textColor.addEventListener('input', updateColorFromPicker);
+    bgColor.addEventListener('input', updateColorFromPicker);
+    textColorHex.addEventListener('input', updateColorFromText);
+    bgColorHex.addEventListener('input', updateColorFromText);
+    textColorHex.addEventListener('keyup', function(e) {
+      if (e.key === 'Enter') checkContrast();
+    });
+    bgColorHex.addEventListener('keyup', function(e) {
+      if (e.key === 'Enter') checkContrast();
+    });
+    
+    // Calculate luminance
+    function luminance(r, g, b) {
+      const a = [r, g, b].map(v => {
+        v /= 255;
+        return v <= 0.03928
+          ? v / 12.92
+          : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+    }
+    
+    // Get RGB values from HEX
+    function getRGB(hex) {
+      hex = hex.replace('#', '');
+      if (hex.length === 3) {
+        hex = hex.split('').map(c => c + c).join('');
+      }
+      const bigint = parseInt(hex, 16);
+      const r = (bigint >> 16) & 255;
+      const g = (bigint >> 8) & 255;
+      const b = bigint & 255;
+      return [r, g, b];
+    }
+    
+    // Calculate contrast ratio
+    function calculateContrastRatio(hex1, hex2) {
+      const [r1, g1, b1] = getRGB(hex1);
+      const [r2, g2, b2] = getRGB(hex2);
+      const lum1 = luminance(r1, g1, b1);
+      const lum2 = luminance(r2, g2, b2);
+      const brightest = Math.max(lum1, lum2);
+      const darkest = Math.min(lum1, lum2);
+      return (brightest + 0.05) / (darkest + 0.05);
+    }
+    
+    // Check contrast
+    function checkContrast() {
+      const textColorValue = textColor.value;
+      const bgColorValue = bgColor.value;
+      
+      const ratio = calculateContrastRatio(textColorValue, bgColorValue);
+      const ratioFormatted = ratio.toFixed(2);
+      
+      // Update previews
+      textPreview.style.color = textColorValue;
+      textPreview.style.backgroundColor = bgColorValue;
+      textColorSwatch.style.backgroundColor = textColorValue;
+      bgColorSwatch.style.backgroundColor = bgColorValue;
+      
+      // Update contrast ratio display
+      contrastRatio.textContent = `${ratioFormatted}:1`;
+      
+      // Update WCAG compliance indicators
+      updateWcagCompliance(ratio);
+    }
+    
+    // Update WCAG compliance indicators
+    function updateWcagCompliance(ratio) {
+      // WCAG AA Normal Text (4.5:1)
+      if (ratio >= 4.5) {
+        wcagAANormal.className = 'wcag-level pass';
+        wcagAANormal.innerHTML = `
+          <i class="fas fa-check-circle"></i>
+          <div class="wcag-level-text">
+            <div class="wcag-level-title">WCAG AA (Normal Text)</div>
+            <div class="wcag-level-desc">Passes minimum contrast (4.5:1 required)</div>
+          </div>
+        `;
+      } else {
+        wcagAANormal.className = 'wcag-level fail';
+        wcagAANormal.innerHTML = `
+          <i class="fas fa-times-circle"></i>
+          <div class="wcag-level-text">
+            <div class="wcag-level-title">WCAG AA (Normal Text)</div>
+            <div class="wcag-level-desc">Fails minimum contrast (4.5:1 required)</div>
+          </div>
+        `;
+      }
+      
+      // WCAG AA Large Text (3:1)
+      if (ratio >= 3) {
+        wcagAALarge.className = 'wcag-level pass';
+        wcagAALarge.innerHTML = `
+          <i class="fas fa-check-circle"></i>
+          <div class="wcag-level-text">
+            <div class="wcag-level-title">WCAG AA (Large Text)</div>
+            <div class="wcag-level-desc">Passes minimum contrast (3:1 required)</div>
+          </div>
+        `;
+      } else {
+        wcagAALarge.className = 'wcag-level fail';
+        wcagAALarge.innerHTML = `
+          <i class="fas fa-times-circle"></i>
+          <div class="wcag-level-text">
+            <div class="wcag-level-title">WCAG AA (Large Text)</div>
+            <div class="wcag-level-desc">Fails minimum contrast (3:1 required)</div>
+          </div>
+        `;
+      }
+      
+      // WCAG AAA Normal Text (7:1)
+      if (ratio >= 7) {
+        wcagAAANormal.className = 'wcag-level pass';
+        wcagAAANormal.innerHTML = `
+          <i class="fas fa-check-circle"></i>
+          <div class="wcag-level-text">
+            <div class="wcag-level-title">WCAG AAA (Normal Text)</div>
+            <div class="wcag-level-desc">Passes enhanced contrast (7:1 required)</div>
+          </div>
+        `;
+      } else if (ratio >= 4.5) {
+        wcagAAANormal.className = 'wcag-level warning';
+        wcagAAANormal.innerHTML = `
+          <i class="fas fa-exclamation-circle"></i>
+          <div class="wcag-level-text">
+            <div class="wcag-level-title">WCAG AAA (Normal Text)</div>
+            <div class="wcag-level-desc">Meets AA but not AAA (7:1 required)</div>
+          </div>
+        `;
+      } else {
+        wcagAAANormal.className = 'wcag-level fail';
+        wcagAAANormal.innerHTML = `
+          <i class="fas fa-times-circle"></i>
+          <div class="wcag-level-text">
+            <div class="wcag-level-title">WCAG AAA (Normal Text)</div>
+            <div class="wcag-level-desc">Fails enhanced contrast (7:1 required)</div>
+          </div>
+        `;
+      }
+      
+      // WCAG AAA Large Text (4.5:1)
+      if (ratio >= 4.5) {
+        wcagAAALarge.className = 'wcag-level pass';
+        wcagAAALarge.innerHTML = `
+          <i class="fas fa-check-circle"></i>
+          <div class="wcag-level-text">
+            <div class="wcag-level-title">WCAG AAA (Large Text)</div>
+            <div class="wcag-level-desc">Passes enhanced contrast (4.5:1 required)</div>
+          </div>
+        `;
+      } else if (ratio >= 3) {
+        wcagAAALarge.className = 'wcag-level warning';
+        wcagAAALarge.innerHTML = `
+          <i class="fas fa-exclamation-circle"></i>
+          <div class="wcag-level-text">
+            <div class="wcag-level-title">WCAG AAA (Large Text)</div>
+            <div class="wcag-level-desc">Meets AA but not AAA (4.5:1 required)</div>
+          </div>
+        `;
+      } else {
+        wcagAAALarge.className = 'wcag-level fail';
+        wcagAAALarge.innerHTML = `
+          <i class="fas fa-times-circle"></i>
+          <div class="wcag-level-text">
+            <div class="wcag-level-title">WCAG AAA (Large Text)</div>
+            <div class="wcag-level-desc">Fails enhanced contrast (4.5:1 required)</div>
+          </div>
+        `;
+      }
+    }
+    
+    // Update color from color picker
+    function updateColorFromPicker(e) {
+      const target = e.target;
+      const color = target.value;
+      
+      if (target.id === 'textColor') {
+        textColorHex.value = color;
+        textColorPreview.style.backgroundColor = color;
+      } else {
+        bgColorHex.value = color;
+        bgColorPreview.style.backgroundColor = color;
+      }
+      
+      checkContrast();
+    }
+    
+    // Update color from text input
+    function updateColorFromText(e) {
+      const target = e.target;
+      let color = target.value;
+      
+      // Add # if missing
+      if (color && !color.startsWith('#')) {
+        color = '#' + color;
+        target.value = color;
+      }
+      
+      // Validate HEX color
+      if (/^#[0-9A-Fa-f]{6}$/i.test(color) || /^#[0-9A-Fa-f]{3}$/i.test(color)) {
+        if (target.id === 'textColorHex') {
+          textColor.value = color;
+          textColorPreview.style.backgroundColor = color;
+        } else {
+          bgColor.value = color;
+          bgColorPreview.style.backgroundColor = color;
+        }
+        checkContrast();
+      }
+    }
+  </script>
+</body>
+</html>

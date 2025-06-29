@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online Unit Converter. Convert between length, weight, temperature, area, volume, and more. Quick and accurate conversions for all your needs.">
+  <meta name="keywords" content="unit converter, measurement converter, length converter, weight converter, temperature converter, online conversion tool">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="Unit Converter - Convert Measurements Online | Toollaxy">
+  <meta property="og:description" content="Free online tool to convert between length, weight, temperature, area, volume, and more measurement units. Quick and accurate conversions.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/unit-converter">
+  <meta property="og:image" content="https://toollaxy.com/images/unit-converter-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/unit-converter">
+  <title>Unit Converter - Convert Measurements Online | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .converter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .form-group .helper-text {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    
+    input[type="number"] {
+      padding: 12px 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    input[type="number"]:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    .converter-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    
+    @media (min-width: 768px) {
+      .converter-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+    
+    .unit-selectors {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    
+    @media (min-width: 576px) {
+      .unit-selectors {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    select {
+      padding: 12px 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      background-color: var(--white);
+      transition: var(--transition);
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    button {
+      padding: 14px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button:disabled {
+      background-color: var(--text-light);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    
+    button i {
+      font-size: 18px;
+    }
+    
+    .result-container {
+      margin-top: 30px;
+    }
+    
+    .result-box {
+      word-break: break-all;
+      background-color: #f8fafc;
+      padding: 20px;
+      border-radius: var(--rounded);
+      border: 1px solid #e2e8f0;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1rem;
+      line-height: 1.6;
+      min-height: 100px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .result-box.empty {
+      color: var(--text-light);
+      text-align: center;
+    }
+    
+    .result-box.empty i {
+      font-size: 48px;
+      margin-bottom: 15px;
+      color: #e2e8f0;
+    }
+    
+    .conversion-type-selector {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+    
+    .conversion-type-btn {
+      padding: 10px 15px;
+      background-color: #e2e8f0;
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    
+    .conversion-type-btn.active {
+      background-color: var(--primary-blue);
+      color: white;
+    }
+    
+    .error-message {
+      color: #dc2626;
+      background-color: #fee2e2;
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    /* Loading spinner */
+    .spinner {
+      display: none;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .conversion-type-selector {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Unit Converter</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-exchange-alt"></i> Unit Converter</h1>
+      <p class="tool-description">
+        Convert between different measurement units including length, weight, temperature, area, volume, and more. 
+        This free online tool provides quick and accurate conversions for all your needs.
+      </p>
+      
+      <div class="conversion-type-selector">
+        <button class="conversion-type-btn active" data-type="length">Length</button>
+        <button class="conversion-type-btn" data-type="weight">Weight</button>
+        <button class="conversion-type-btn" data-type="temperature">Temperature</button>
+        <button class="conversion-type-btn" data-type="area">Area</button>
+        <button class="conversion-type-btn" data-type="volume">Volume</button>
+        <button class="conversion-type-btn" data-type="speed">Speed</button>
+      </div>
+      
+      <div class="converter-form">
+        <div class="form-group">
+          <label for="inputValue">Enter Value</label>
+          <input type="number" id="inputValue" placeholder="Enter value to convert" step="any">
+        </div>
+        
+        <div class="converter-grid">
+          <div class="unit-selectors">
+            <div class="form-group">
+              <label for="fromUnit">From Unit</label>
+              <select id="fromUnit"></select>
+            </div>
+            
+            <div class="form-group">
+              <label for="toUnit">To Unit</label>
+              <select id="toUnit"></select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <button id="convertBtn">
+              <span>Convert</span>
+              <i class="fas fa-exchange-alt"></i>
+            </button>
+            
+            <button id="swapBtn">
+              <span>Swap Units</span>
+              <i class="fas fa-random"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="error-message" id="errorMessage"></div>
+      </div>
+      
+      <div class="result-container">
+        <div class="result-box empty" id="resultBox">
+          <i class="fas fa-calculator"></i>
+          <p>Your conversion result will appear here</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // DOM elements
+    const conversionTypeBtns = document.querySelectorAll('.conversion-type-btn');
+    const inputValue = document.getElementById('inputValue');
+    const fromUnit = document.getElementById('fromUnit');
+    const toUnit = document.getElementById('toUnit');
+    const convertBtn = document.getElementById('convertBtn');
+    const swapBtn = document.getElementById('swapBtn');
+    const resultBox = document.getElementById('resultBox');
+    const errorMessage = document.getElementById('errorMessage');
+    
+    // Conversion types and their units
+    const conversionTypes = {
+      length: {
+        name: 'Length',
+        units: {
+          meters: { name: 'Meters', factor: 1 },
+          kilometers: { name: 'Kilometers', factor: 1000 },
+          centimeters: { name: 'Centimeters', factor: 0.01 },
+          millimeters: { name: 'Millimeters', factor: 0.001 },
+          micrometers: { name: 'Micrometers', factor: 0.000001 },
+          nanometers: { name: 'Nanometers', factor: 0.000000001 },
+          miles: { name: 'Miles', factor: 1609.344 },
+          yards: { name: 'Yards', factor: 0.9144 },
+          feet: { name: 'Feet', factor: 0.3048 },
+          inches: { name: 'Inches', factor: 0.0254 },
+          nauticalMiles: { name: 'Nautical Miles', factor: 1852 }
+        }
+      },
+      weight: {
+        name: 'Weight',
+        units: {
+          grams: { name: 'Grams', factor: 1 },
+          kilograms: { name: 'Kilograms', factor: 1000 },
+          milligrams: { name: 'Milligrams', factor: 0.001 },
+          metricTons: { name: 'Metric Tons', factor: 1000000 },
+          pounds: { name: 'Pounds', factor: 453.592 },
+          ounces: { name: 'Ounces', factor: 28.3495 },
+          stones: { name: 'Stones', factor: 6350.29 },
+          shortTons: { name: 'Short Tons (US)', factor: 907185 },
+          longTons: { name: 'Long Tons (UK)', factor: 1016047 }
+        }
+      },
+      temperature: {
+        name: 'Temperature',
+        units: {
+          celsius: { name: 'Celsius', factor: 1, offset: 0 },
+          fahrenheit: { name: 'Fahrenheit', factor: 5/9, offset: -32 },
+          kelvin: { name: 'Kelvin', factor: 1, offset: -273.15 }
+        },
+        isTemperature: true
+      },
+      area: {
+        name: 'Area',
+        units: {
+          squareMeters: { name: 'Square Meters', factor: 1 },
+          squareKilometers: { name: 'Square Kilometers', factor: 1000000 },
+          squareCentimeters: { name: 'Square Centimeters', factor: 0.0001 },
+          squareMillimeters: { name: 'Square Millimeters', factor: 0.000001 },
+          squareMiles: { name: 'Square Miles', factor: 2589988.11 },
+          squareYards: { name: 'Square Yards', factor: 0.836127 },
+          squareFeet: { name: 'Square Feet', factor: 0.092903 },
+          squareInches: { name: 'Square Inches', factor: 0.00064516 },
+          hectares: { name: 'Hectares', factor: 10000 },
+          acres: { name: 'Acres', factor: 4046.86 }
+        }
+      },
+      volume: {
+        name: 'Volume',
+        units: {
+          liters: { name: 'Liters', factor: 1 },
+          milliliters: { name: 'Milliliters', factor: 0.001 },
+          cubicMeters: { name: 'Cubic Meters', factor: 1000 },
+          cubicCentimeters: { name: 'Cubic Centimeters', factor: 0.001 },
+          cubicMillimeters: { name: 'Cubic Millimeters', factor: 0.000001 },
+          cubicFeet: { name: 'Cubic Feet', factor: 28.3168 },
+          cubicInches: { name: 'Cubic Inches', factor: 0.0163871 },
+          gallons: { name: 'Gallons (US)', factor: 3.78541 },
+          quarts: { name: 'Quarts (US)', factor: 0.946353 },
+          pints: { name: 'Pints (US)', factor: 0.473176 },
+          cups: { name: 'Cups (US)', factor: 0.236588 },
+          fluidOunces: { name: 'Fluid Ounces (US)', factor: 0.0295735 },
+          tablespoons: { name: 'Tablespoons (US)', factor: 0.0147868 },
+          teaspoons: { name: 'Teaspoons (US)', factor: 0.00492892 }
+        }
+      },
+      speed: {
+        name: 'Speed',
+        units: {
+          metersPerSecond: { name: 'Meters per Second', factor: 1 },
+          kilometersPerHour: { name: 'Kilometers per Hour', factor: 0.277778 },
+          milesPerHour: { name: 'Miles per Hour', factor: 0.44704 },
+          feetPerSecond: { name: 'Feet per Second', factor: 0.3048 },
+          knots: { name: 'Knots', factor: 0.514444 }
+        }
+      }
+    };
+    
+    // Current conversion type
+    let currentType = 'length';
+    
+    // Event listeners
+    conversionTypeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        conversionTypeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentType = btn.dataset.type;
+        updateUnitSelectors();
+      });
+    });
+    
+    convertBtn.addEventListener('click', convertUnits);
+    swapBtn.addEventListener('click', swapUnits);
+    inputValue.addEventListener('keyup', (e) => {
+      if (e.key === 'Enter') {
+        convertUnits();
+      }
+    });
+    
+    // Initialize
+    updateUnitSelectors();
+    
+    // Update unit selectors based on current type
+    function updateUnitSelectors() {
+      const units = conversionTypes[currentType].units;
+      const isTemperature = conversionTypes[currentType].isTemperature || false;
+      
+      // Clear existing options
+      fromUnit.innerHTML = '';
+      toUnit.innerHTML = '';
+      
+      // Add new options
+      for (const [key, unit] of Object.entries(units)) {
+        const option1 = document.createElement('option');
+        option1.value = key;
+        option1.textContent = unit.name;
+        fromUnit.appendChild(option1);
+        
+        const option2 = document.createElement('option');
+        option2.value = key;
+        option2.textContent = unit.name;
+        toUnit.appendChild(option2);
+      }
+      
+      // Set default "to" unit to something different than "from"
+      if (fromUnit.options.length > 1) {
+        toUnit.selectedIndex = 1;
+      }
+      
+      // Special case for temperature
+      if (isTemperature) {
+        fromUnit.value = 'celsius';
+        toUnit.value = 'fahrenheit';
+      }
+    }
+    
+    // Convert units
+    function convertUnits() {
+      const value = parseFloat(inputValue.value);
+      const from = fromUnit.value;
+      const to = toUnit.value;
+      
+      if (isNaN(value)) {
+        showError('Please enter a valid number');
+        return;
+      }
+      
+      const units = conversionTypes[currentType].units;
+      const isTemperature = conversionTypes[currentType].isTemperature || false;
+      
+      let result;
+      
+      if (isTemperature) {
+        // Handle temperature conversions (they have offsets)
+        result = convertTemperature(value, from, to);
+      } else {
+        // Handle regular unit conversions
+        const fromFactor = units[from].factor;
+        const toFactor = units[to].factor;
+        result = (value * fromFactor) / toFactor;
+      }
+      
+      displayResult(value, from, result, to);
+    }
+    
+    // Special temperature conversion
+    function convertTemperature(value, from, to) {
+      // Convert to Celsius first
+      let celsius;
+      switch(from) {
+        case 'celsius':
+          celsius = value;
+          break;
+        case 'fahrenheit':
+          celsius = (value - 32) * 5/9;
+          break;
+        case 'kelvin':
+          celsius = value - 273.15;
+          break;
+      }
+      
+      // Convert from Celsius to target unit
+      switch(to) {
+        case 'celsius':
+          return celsius;
+        case 'fahrenheit':
+          return (celsius * 9/5) + 32;
+        case 'kelvin':
+          return celsius + 273.15;
+      }
+    }
+    
+    // Display conversion result
+    function displayResult(value, fromUnit, result, toUnit) {
+      const fromName = conversionTypes[currentType].units[fromUnit].name;
+      const toName = conversionTypes[currentType].units[toUnit].name;
+      
+      // Format numbers nicely
+      const formattedValue = Number(value) === value && value % 1 !== 0 ? 
+        value.toFixed(6).replace(/\.?0+$/, '') : value;
+      
+      const formattedResult = Number(result) === result && result % 1 !== 0 ? 
+        result.toFixed(6).replace(/\.?0+$/, '') : result;
+      
+      resultBox.innerHTML = `
+        <div style="font-size: 1.2rem; margin-bottom: 10px; font-weight: bold;">
+          ${formattedValue} ${fromName} =
+        </div>
+        <div style="font-size: 1.5rem; color: var(--primary-blue); font-weight: bold;">
+          ${formattedResult} ${toName}
+        </div>
+      `;
+      
+      errorMessage.style.display = 'none';
+    }
+    
+    // Swap units
+    function swapUnits() {
+      const temp = fromUnit.value;
+      fromUnit.value = toUnit.value;
+      toUnit.value = temp;
+      
+      // Convert immediately if there's a value
+      if (inputValue.value && !isNaN(parseFloat(inputValue.value))) {
+        convertUnits();
+      }
+    }
+    
+    // Show error message
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+      
+      resultBox.innerHTML = `
+        <div class="empty">
+          <i class="fas fa-calculator"></i>
+          <p>Your conversion result will appear here</p>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

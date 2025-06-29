@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online word and character counter tool. Count words, characters, sentences, paragraphs and more in your text.">
+  <meta name="keywords" content="word counter, character counter, text analysis, word count, character count, online writing tools">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="Word Counter Tool - Count Words & Characters | Toollaxy">
+  <meta property="og:description" content="Free online tool to count words, characters, sentences and paragraphs in your text.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/word-counter">
+  <meta property="og:image" content="https://toollaxy.com/images/word-counter-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/word-counter">
+  <title>Word Counter Tool - Count Words & Characters | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .counter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    textarea {
+      padding: 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      min-height: 200px;
+      resize: vertical;
+      transition: var(--transition);
+    }
+    
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .stat-box {
+      background-color: var(--bg-gray);
+      border-radius: var(--rounded);
+      padding: 15px;
+      text-align: center;
+    }
+    
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    button {
+      padding: 12px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button.secondary {
+      background-color: var(--white);
+      color: var(--primary-blue);
+      border: 1px solid var(--primary-blue);
+    }
+    
+    button.secondary:hover {
+      background-color: rgba(37, 99, 235, 0.1);
+    }
+    
+    button i {
+      font-size: 16px;
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+      
+      .stats-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Word Counter</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-font"></i> Word Counter</h1>
+      <p class="tool-description">
+        Count words, characters, sentences, paragraphs and more in your text. This free online tool helps 
+        writers, students, and professionals analyze their text for various purposes.
+      </p>
+      
+      <div class="counter-form">
+        <div class="form-group">
+          <label for="inputText">Enter Your Text</label>
+          <textarea id="inputText" placeholder="Type or paste your text here..."></textarea>
+        </div>
+        
+        <div class="stats-container">
+          <div class="stat-box">
+            <div class="stat-value" id="wordCount">0</div>
+            <div class="stat-label">Words</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="charCount">0</div>
+            <div class="stat-label">Characters</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="charNoSpaces">0</div>
+            <div class="stat-label">Characters (no spaces)</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="sentenceCount">0</div>
+            <div class="stat-label">Sentences</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="paragraphCount">0</div>
+            <div class="stat-label">Paragraphs</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value" id="readingTime">0</div>
+            <div class="stat-label">Reading Time (minutes)</div>
+          </div>
+        </div>
+        
+        <div class="action-buttons">
+          <button onclick="copyToClipboard()">
+            <i class="fas fa-copy"></i> Copy Text
+          </button>
+          <button class="secondary" onclick="clearText()">
+            <i class="fas fa-trash-alt"></i> Clear
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // DOM elements
+    const inputText = document.getElementById('inputText');
+    const wordCountEl = document.getElementById('wordCount');
+    const charCountEl = document.getElementById('charCount');
+    const charNoSpacesEl = document.getElementById('charNoSpaces');
+    const sentenceCountEl = document.getElementById('sentenceCount');
+    const paragraphCountEl = document.getElementById('paragraphCount');
+    const readingTimeEl = document.getElementById('readingTime');
+    
+    // Count text in real-time
+    inputText.addEventListener('input', countText);
+    
+    // Initial count
+    countText();
+    
+    // Count text function
+    function countText() {
+      const text = inputText.value;
+      
+      // Word count (counts words separated by whitespace)
+      const words = text.trim() ? text.trim().split(/\s+/) : [];
+      const wordCount = words.length;
+      
+      // Character counts
+      const charCount = text.length;
+      const charNoSpaces = text.replace(/\s+/g, '').length;
+      
+      // Sentence count (naive approach)
+      const sentenceCount = text.trim() ? text.split(/[.!?]+/).filter(s => s.trim().length > 0).length : 0;
+      
+      // Paragraph count
+      const paragraphCount = text.trim() ? text.split(/\n+/).filter(p => p.trim().length > 0).length : 0;
+      
+      // Reading time (average 200 words per minute)
+      const readingTime = Math.ceil(wordCount / 200);
+      
+      // Update the UI
+      wordCountEl.textContent = wordCount;
+      charCountEl.textContent = charCount;
+      charNoSpacesEl.textContent = charNoSpaces;
+      sentenceCountEl.textContent = sentenceCount;
+      paragraphCountEl.textContent = paragraphCount;
+      readingTimeEl.textContent = readingTime;
+    }
+    
+    // Copy text to clipboard
+    function copyToClipboard() {
+      inputText.select();
+      document.execCommand('copy');
+      
+      // Show a temporary message (you could add a toast notification here)
+      alert('Text copied to clipboard!');
+      
+      // Deselect text
+      window.getSelection().removeAllRanges();
+    }
+    
+    // Clear text
+    function clearText() {
+      if (confirm('Are you sure you want to clear all text?')) {
+        inputText.value = '';
+        countText();
+      }
+    }
+    
+    // Initialize with example text
+    window.addEventListener('DOMContentLoaded', () => {
+      inputText.value = 'This is an example text to demonstrate the word counter tool.\n\nIt contains multiple sentences and paragraphs. You can replace this with your own text to analyze it.\n\nThe tool counts words, characters, sentences, paragraphs, and estimates reading time.';
+      countText();
+    });
+  </script>
+</body>
+</html>

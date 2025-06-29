@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online Code Minifier for HTML, CSS, and JavaScript. Reduce file size by removing whitespace, comments, and unnecessary characters without changing functionality.">
+  <meta name="keywords" content="code minifier, HTML minifier, CSS minifier, JavaScript minifier, code optimization, web performance">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="Code Minifier - Optimize HTML/CSS/JS | Toollaxy">
+  <meta property="og:description" content="Free online tool to minify HTML, CSS, and JavaScript code. Reduce file size by removing whitespace and comments without changing functionality.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/code-minifier">
+  <meta property="og:image" content="https://toollaxy.com/images/code-minifier-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/code-minifier">
+  <title>Code Minifier - Optimize HTML/CSS/JS | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .minifier-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .form-group .helper-text {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    
+    .code-type-selector {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+    
+    .code-type-btn {
+      padding: 10px 15px;
+      background-color: #e2e8f0;
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    
+    .code-type-btn.active {
+      background-color: var(--primary-blue);
+      color: white;
+    }
+    
+    textarea {
+      padding: 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      font-size: 0.95rem;
+      font-family: 'Courier New', Courier, monospace;
+      min-height: 200px;
+      width: 100%;
+      resize: vertical;
+      transition: var(--transition);
+    }
+    
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    .code-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    
+    @media (min-width: 992px) {
+      .code-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .code-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .code-box-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .code-box-title {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .code-stats {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    
+    button {
+      padding: 14px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button:disabled {
+      background-color: var(--text-light);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    
+    button i {
+      font-size: 18px;
+    }
+    
+    .action-btns {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .minify-btn {
+      background-color: var(--primary-blue);
+    }
+    
+    .copy-btn {
+      background-color: #28a745;
+    }
+    
+    .copy-btn:hover {
+      background-color: #1e7e34;
+    }
+    
+    .clear-btn {
+      background-color: #dc2626;
+    }
+    
+    .clear-btn:hover {
+      background-color: #b91c1c;
+    }
+    
+    .error-message {
+      color: #dc2626;
+      background-color: #fee2e2;
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .success-message {
+      color: #16a34a;
+      background-color: #dcfce7;
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+    
+    /* Loading spinner */
+    .spinner {
+      display: none;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+      
+      .action-btns {
+        flex-direction: column;
+      }
+      
+      button {
+        width: 100%;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Code Minifier</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-file-code"></i> Code Minifier</h1>
+      <p class="tool-description">
+        Minify your HTML, CSS, and JavaScript code to reduce file size and improve website performance. 
+        This tool removes unnecessary whitespace, comments, and formatting without changing functionality.
+      </p>
+      
+      <div class="code-type-selector">
+        <button class="code-type-btn active" data-type="auto">Auto Detect</button>
+        <button class="code-type-btn" data-type="html">HTML</button>
+        <button class="code-type-btn" data-type="css">CSS</button>
+        <button class="code-type-btn" data-type="js">JavaScript</button>
+      </div>
+      
+      <div class="minifier-form">
+        <div class="code-container">
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-title">Original Code</span>
+              <span class="code-stats" id="originalStats">0 characters</span>
+            </div>
+            <textarea id="inputCode" placeholder="Paste your HTML, CSS, or JavaScript code here..."></textarea>
+          </div>
+          
+          <div class="code-box">
+            <div class="code-box-header">
+              <span class="code-box-title">Minified Code</span>
+              <span class="code-stats" id="minifiedStats">0 characters</span>
+            </div>
+            <textarea id="outputCode" placeholder="Minified code will appear here..." readonly></textarea>
+          </div>
+        </div>
+        
+        <div class="action-btns">
+          <button class="minify-btn" id="minifyBtn">
+            <i class="fas fa-compress-alt"></i>
+            Minify Code
+          </button>
+          <button class="copy-btn" id="copyBtn" disabled>
+            <i class="fas fa-copy"></i>
+            Copy Minified
+          </button>
+          <button class="clear-btn" id="clearBtn">
+            <i class="fas fa-trash-alt"></i>
+            Clear All
+          </button>
+        </div>
+        
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // DOM elements
+    const codeTypeBtns = document.querySelectorAll('.code-type-btn');
+    const inputCode = document.getElementById('inputCode');
+    const outputCode = document.getElementById('outputCode');
+    const minifyBtn = document.getElementById('minifyBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const originalStats = document.getElementById('originalStats');
+    const minifiedStats = document.getElementById('minifiedStats');
+    const errorMessage = document.getElementById('errorMessage');
+    const successMessage = document.getElementById('successMessage');
+    
+    // Variables
+    let currentType = 'auto';
+    
+    // Event listeners
+    codeTypeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        codeTypeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentType = btn.dataset.type;
+      });
+    });
+    
+    inputCode.addEventListener('input', updateStats);
+    minifyBtn.addEventListener('click', minifyCode);
+    copyBtn.addEventListener('click', copyMinified);
+    clearBtn.addEventListener('click', clearAll);
+    
+    // Update character count
+    function updateStats() {
+      const length = inputCode.value.length;
+      originalStats.textContent = `${length} character${length !== 1 ? 's' : ''}`;
+    }
+    
+    // Minify code based on selected type
+    function minifyCode() {
+      const code = inputCode.value.trim();
+      
+      if (!code) {
+        showError('Please enter some code to minify');
+        return;
+      }
+      
+      // Show loading state
+      minifyBtn.innerHTML = `
+        <span>Minifying...</span>
+        <div class="spinner" style="display: inline-block;"></div>
+      `;
+      minifyBtn.disabled = true;
+      
+      // Process after a small delay to allow UI to update
+      setTimeout(() => {
+        try {
+          let minified = '';
+          let detectedType = currentType;
+          
+          // Auto-detect code type if needed
+          if (currentType === 'auto') {
+            if (code.startsWith('<!DOCTYPE') || code.includes('<html') || code.includes('<body') || code.includes('<head')) {
+              detectedType = 'html';
+            } else if (code.includes('{') && code.includes('}') && (code.includes(':') || code.includes('@'))) {
+              detectedType = 'css';
+            } else if (code.includes('function') || code.includes('var') || code.includes('const') || code.includes('let')) {
+              detectedType = 'js';
+            }
+          }
+          
+          // Minify based on type
+          switch(detectedType) {
+            case 'html':
+              minified = minifyHTML(code);
+              break;
+            case 'css':
+              minified = minifyCSS(code);
+              break;
+            case 'js':
+              minified = minifyJS(code);
+              break;
+            default:
+              showError('Could not determine code type. Please select manually.');
+              minifyBtn.innerHTML = `
+                <i class="fas fa-compress-alt"></i>
+                <span>Minify Code</span>
+              `;
+              minifyBtn.disabled = false;
+              return;
+          }
+          
+          // Display results
+          outputCode.value = minified;
+          const originalLength = code.length;
+          const minifiedLength = minified.length;
+          const reduction = Math.round((1 - minifiedLength / originalLength) * 100);
+          
+          minifiedStats.textContent = `${minifiedLength} character${minifiedLength !== 1 ? 's' : ''} (${reduction}% reduction)`;
+          copyBtn.disabled = false;
+          
+          showSuccess(`Code minified successfully! Size reduced by ${reduction}%`);
+          
+        } catch (error) {
+          showError('Error minifying code. Please check your input and try again.');
+          console.error(error);
+        } finally {
+          // Reset button
+          minifyBtn.innerHTML = `
+            <i class="fas fa-compress-alt"></i>
+            <span>Minify Code</span>
+          `;
+          minifyBtn.disabled = false;
+        }
+      }, 100);
+    }
+    
+    // Minify HTML
+    function minifyHTML(html) {
+      return html
+        .replace(/<!--[\s\S]*?-->/g, '') // Remove comments
+        .replace(/\s+/g, ' ') // Collapse whitespace
+        .replace(/>\s+</g, '><') // Remove spaces between tags
+        .trim();
+    }
+    
+    // Minify CSS
+    function minifyCSS(css) {
+      return css
+        .replace(/\/\*[\s\S]*?\*\//g, '') // Remove comments
+        .replace(/\s+/g, ' ') // Collapse whitespace
+        .replace(/\s*([{};:,])\s*/g, '$1') // Remove spaces around special chars
+        .replace(/;}/g, '}') // Remove last semicolon in rules
+        .trim();
+    }
+    
+    // Minify JavaScript
+    function minifyJS(js) {
+      // Basic minification (for more advanced, consider using a library like Terser)
+      return js
+        .replace(/\/\/.*$/gm, '') // Remove single-line comments
+        .replace(/\/\*[\s\S]*?\*\//g, '') // Remove multi-line comments
+        .replace(/\s+/g, ' ') // Collapse whitespace
+        .replace(/\s*([=+\-*\/%&|\^<>!?:;,{}()[\]])\s*/g, '$1') // Remove spaces around operators
+        .replace(/;}/g, '}') // Remove last semicolon in blocks
+        .trim();
+    }
+    
+    // Copy minified code to clipboard
+    function copyMinified() {
+      const code = outputCode.value;
+      
+      if (!code) {
+        showError('No minified code to copy');
+        return;
+      }
+      
+      navigator.clipboard.writeText(code).then(() => {
+        showSuccess('Minified code copied to clipboard!');
+      }).catch(err => {
+        showError('Failed to copy code. Please try again.');
+        console.error('Failed to copy: ', err);
+      });
+    }
+    
+    // Clear all inputs
+    function clearAll() {
+      inputCode.value = '';
+      outputCode.value = '';
+      originalStats.textContent = '0 characters';
+      minifiedStats.textContent = '0 characters';
+      copyBtn.disabled = true;
+      errorMessage.style.display = 'none';
+      successMessage.style.display = 'none';
+    }
+    
+    // Show error message
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+      successMessage.style.display = 'none';
+    }
+    
+    // Show success message
+    function showSuccess(message) {
+      successMessage.textContent = message;
+      successMessage.style.display = 'block';
+      errorMessage.style.display = 'none';
+      
+      // Hide after 3 seconds
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

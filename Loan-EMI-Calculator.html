@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online loan EMI calculator tool. Calculate your monthly EMI, total interest, and total payment for any loan.">
+  <meta name="keywords" content="EMI calculator, loan calculator, mortgage calculator, personal loan calculator, home loan calculator">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="Loan EMI Calculator - Calculate Monthly Payments | Toollaxy">
+  <meta property="og:description" content="Free online tool to calculate your loan EMI, total interest, and total payment amount.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/loan-emi-calculator">
+  <meta property="og:image" content="https://toollaxy.com/images/loan-emi-calculator-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/loan-emi-calculator">
+  <title>Loan EMI Calculator - Calculate Monthly Payments | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+      --success-green: #10b981;
+      --warning-orange: #f59e0b;
+      --danger-red: #dc2626;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+      max-width: 500px;
+      width: 100%;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+      text-align: center;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-align: left;
+    }
+    
+    .input-unit {
+      position: relative;
+    }
+    
+    .input-unit input {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      background-color: var(--white);
+      transition: var(--transition);
+    }
+    
+    .input-unit input:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    .unit {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+    }
+    
+    .range-slider {
+      margin-top: 10px;
+    }
+    
+    .range-slider input[type="range"] {
+      width: 100%;
+      height: 8px;
+      -webkit-appearance: none;
+      background: #e2e8f0;
+      border-radius: 4px;
+      outline: none;
+    }
+    
+    .range-slider input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      background: var(--primary-blue);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .range-slider input[type="range"]::-webkit-slider-thumb:hover {
+      background: var(--dark-blue);
+    }
+    
+    button {
+      padding: 14px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button i {
+      font-size: 18px;
+    }
+    
+    .result-container {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: var(--rounded);
+      background-color: #f1f5f9;
+      text-align: center;
+      display: none;
+    }
+    
+    .result-title {
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--text-dark);
+    }
+    
+    .result-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .result-item:last-child {
+      border-bottom: none;
+    }
+    
+    .result-label {
+      color: var(--text-light);
+    }
+    
+    .result-value {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .error-message {
+      color: var(--danger-red);
+      background-color: #fee2e2;
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .amortization-btn {
+      margin-top: 15px;
+      background-color: var(--white);
+      color: var(--primary-blue);
+      border: 1px solid var(--primary-blue);
+    }
+    
+    .amortization-btn:hover {
+      background-color: var(--primary-blue);
+      color: var(--white);
+    }
+    
+    .amortization-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .amortization-table th {
+      background-color: var(--primary-blue);
+      color: var(--white);
+      padding: 10px;
+      text-align: left;
+    }
+    
+    .amortization-table td {
+      padding: 10px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .amortization-table tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+      
+      .amortization-table {
+        font-size: 0.9rem;
+      }
+      
+      .amortization-table th, 
+      .amortization-table td {
+        padding: 8px 5px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .amortization-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Loan EMI Calculator</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-calculator"></i> Loan EMI Calculator</h1>
+      <p class="tool-description">
+        Calculate your monthly EMI, total interest, and total payment for any loan.
+      </p>
+      
+      <div class="form-group">
+        <label for="loanAmount">Loan Amount</label>
+        <div class="input-unit">
+          <input type="number" id="loanAmount" placeholder="Enter loan amount" min="0" step="1000">
+          <span class="unit">₹</span>
+        </div>
+        <div class="range-slider">
+          <input type="range" id="loanAmountRange" min="0" max="10000000" step="1000" value="1000000">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="interestRate">Interest Rate</label>
+        <div class="input-unit">
+          <input type="number" id="interestRate" placeholder="Enter interest rate" min="0" max="30" step="0.01">
+          <span class="unit">%</span>
+        </div>
+        <div class="range-slider">
+          <input type="range" id="interestRateRange" min="0" max="30" step="0.1" value="8.5">
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="loanTenure">Loan Tenure</label>
+        <div class="input-unit">
+          <input type="number" id="loanTenure" placeholder="Enter loan tenure" min="1" max="30" step="1">
+          <span class="unit">years</span>
+        </div>
+        <div class="range-slider">
+          <input type="range" id="loanTenureRange" min="1" max="30" step="1" value="5">
+        </div>
+      </div>
+      
+      <button onclick="calculateEMI()">
+        <i class="fas fa-calculator"></i>
+        Calculate EMI
+      </button>
+      
+      <div id="errorMessage" class="error-message"></div>
+      
+      <div id="resultContainer" class="result-container">
+        <div class="result-title">Loan Summary</div>
+        
+        <div class="result-item">
+          <span class="result-label">Monthly EMI</span>
+          <span id="emiValue" class="result-value">₹0</span>
+        </div>
+        
+        <div class="result-item">
+          <span class="result-label">Total Interest</span>
+          <span id="totalInterest" class="result-value">₹0</span>
+        </div>
+        
+        <div class="result-item">
+          <span class="result-label">Total Payment</span>
+          <span id="totalPayment" class="result-value">₹0</span>
+        </div>
+        
+        <button id="showAmortization" class="amortization-btn" onclick="showAmortization()">
+          <i class="fas fa-table"></i>
+          Show Amortization Schedule
+        </button>
+        
+        <table class="amortization-table" id="amortizationTable">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Payment</th>
+              <th>Principal</th>
+              <th>Interest</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody id="amortizationBody">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Link range sliders with input fields
+    document.getElementById('loanAmountRange').addEventListener('input', function() {
+      document.getElementById('loanAmount').value = this.value;
+    });
+    
+    document.getElementById('loanAmount').addEventListener('input', function() {
+      document.getElementById('loanAmountRange').value = this.value;
+    });
+    
+    document.getElementById('interestRateRange').addEventListener('input', function() {
+      document.getElementById('interestRate').value = this.value;
+    });
+    
+    document.getElementById('interestRate').addEventListener('input', function() {
+      document.getElementById('interestRateRange').value = this.value;
+    });
+    
+    document.getElementById('loanTenureRange').addEventListener('input', function() {
+      document.getElementById('loanTenure').value = this.value;
+    });
+    
+    document.getElementById('loanTenure').addEventListener('input', function() {
+      document.getElementById('loanTenureRange').value = this.value;
+    });
+    
+    // Set initial values
+    document.getElementById('loanAmount').value = 1000000;
+    document.getElementById('interestRate').value = 8.5;
+    document.getElementById('loanTenure').value = 5;
+    
+    function calculateEMI() {
+      const loanAmountInput = document.getElementById('loanAmount');
+      const interestRateInput = document.getElementById('interestRate');
+      const loanTenureInput = document.getElementById('loanTenure');
+      const errorMessage = document.getElementById('errorMessage');
+      const resultContainer = document.getElementById('resultContainer');
+      const emiValue = document.getElementById('emiValue');
+      const totalInterest = document.getElementById('totalInterest');
+      const totalPayment = document.getElementById('totalPayment');
+      const amortizationTable = document.getElementById('amortizationTable');
+      
+      // Reset previous results and errors
+      errorMessage.style.display = 'none';
+      resultContainer.style.display = 'none';
+      amortizationTable.style.display = 'none';
+      
+      // Get input values
+      const loanAmount = parseFloat(loanAmountInput.value);
+      const annualInterestRate = parseFloat(interestRateInput.value);
+      const tenureYears = parseInt(loanTenureInput.value);
+      
+      // Validate inputs
+      if (!loanAmount || !annualInterestRate || !tenureYears || 
+          loanAmount <= 0 || annualInterestRate <= 0 || tenureYears <= 0) {
+        errorMessage.textContent = 'Please enter valid loan details.';
+        errorMessage.style.display = 'block';
+        return;
+      }
+      
+      // Calculate EMI
+      const tenureMonths = tenureYears * 12;
+      const monthlyInterestRate = annualInterestRate / 12 / 100;
+      const emi = (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, tenureMonths)) /
+                  (Math.pow(1 + monthlyInterestRate, tenureMonths) - 1);
+      
+      const totalPaymentAmount = emi * tenureMonths;
+      const totalInterestAmount = totalPaymentAmount - loanAmount;
+      
+      // Update results
+      emiValue.textContent = '₹' + emi.toFixed(2);
+      totalInterest.textContent = '₹' + totalInterestAmount.toFixed(2);
+      totalPayment.textContent = '₹' + totalPaymentAmount.toFixed(2);
+      
+      // Show results
+      resultContainer.style.display = 'block';
+      
+      // Scroll to results
+      resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    
+    function showAmortization() {
+      const loanAmountInput = document.getElementById('loanAmount');
+      const interestRateInput = document.getElementById('interestRate');
+      const loanTenureInput = document.getElementById('loanTenure');
+      const amortizationTable = document.getElementById('amortizationTable');
+      const amortizationBody = document.getElementById('amortizationBody');
+      
+      // Get input values
+      const loanAmount = parseFloat(loanAmountInput.value);
+      const annualInterestRate = parseFloat(interestRateInput.value);
+      const tenureYears = parseInt(loanTenureInput.value);
+      
+      // Calculate EMI if not already calculated
+      if (document.getElementById('resultContainer').style.display === 'none') {
+        calculateEMI();
+        return;
+      }
+      
+      // Calculate amortization schedule
+      const tenureMonths = tenureYears * 12;
+      const monthlyInterestRate = annualInterestRate / 12 / 100;
+      const emi = (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, tenureMonths)) /
+                  (Math.pow(1 + monthlyInterestRate, tenureMonths) - 1);
+      
+      let balance = loanAmount;
+      amortizationBody.innerHTML = '';
+      
+      for (let month = 1; month <= tenureMonths; month++) {
+        const interest = balance * monthlyInterestRate;
+        const principal = emi - interest;
+        balance -= principal;
+        
+        // Create table row
+        const row = document.createElement('tr');
+        
+        // Add cells
+        const monthCell = document.createElement('td');
+        monthCell.textContent = month;
+        row.appendChild(monthCell);
+        
+        const paymentCell = document.createElement('td');
+        paymentCell.textContent = '₹' + emi.toFixed(2);
+        row.appendChild(paymentCell);
+        
+        const principalCell = document.createElement('td');
+        principalCell.textContent = '₹' + principal.toFixed(2);
+        row.appendChild(principalCell);
+        
+        const interestCell = document.createElement('td');
+        interestCell.textContent = '₹' + interest.toFixed(2);
+        row.appendChild(interestCell);
+        
+        const balanceCell = document.createElement('td');
+        balanceCell.textContent = '₹' + Math.max(balance, 0).toFixed(2);
+        row.appendChild(balanceCell);
+        
+        amortizationBody.appendChild(row);
+      }
+      
+      // Toggle table visibility
+      if (amortizationTable.style.display === 'none') {
+        amortizationTable.style.display = 'table';
+        document.getElementById('showAmortization').innerHTML = `
+          <i class="fas fa-table"></i>
+          Hide Amortization Schedule
+        `;
+      } else {
+        amortizationTable.style.display = 'none';
+        document.getElementById('showAmortization').innerHTML = `
+          <i class="fas fa-table"></i>
+          Show Amortization Schedule
+        `;
+      }
+      
+      // Scroll to table
+      amortizationTable.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    
+    // Calculate EMI when Enter key is pressed
+    document.getElementById('loanAmount').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        calculateEMI();
+      }
+    });
+    
+    document.getElementById('interestRate').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        calculateEMI();
+      }
+    });
+    
+    document.getElementById('loanTenure').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        calculateEMI();
+      }
+    });
+  </script>
+</body>
+</html>

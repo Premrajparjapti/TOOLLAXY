@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online HEX to RGB color converter tool. Convert HEX color codes to RGB values instantly for web design and development.">
+  <meta name="keywords" content="HEX to RGB, color converter, color code converter, web design tools, color picker, HEX converter, RGB values">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="HEX to RGB Converter - Free Online Color Code Tool | Toollaxy">
+  <meta property="og:description" content="Convert HEX color codes to RGB values instantly with our free online tool. Perfect for web designers and developers.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/hex-to-rgb">
+  <meta property="og:image" content="https://toollaxy.com/images/color-converter-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/hex-to-rgb">
+  <title>HEX to RGB Converter - Free Online Color Code Tool | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .converter-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .form-group .helper-text {
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+    
+    input[type="text"] {
+      padding: 12px 15px;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      background-color: var(--white);
+      transition: var(--transition);
+      width: 100%;
+    }
+    
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    button {
+      padding: 14px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button:disabled {
+      background-color: var(--text-light);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    
+    button i {
+      font-size: 18px;
+    }
+    
+    .result-container {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    @media (min-width: 768px) {
+      .result-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .result-box {
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      padding: 20px;
+      position: relative;
+    }
+    
+    .result-box h3 {
+      margin-bottom: 15px;
+      color: var(--text-dark);
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .result-box h3 i {
+      color: var(--primary-blue);
+    }
+    
+    .color-preview {
+      width: 100%;
+      height: 100px;
+      border-radius: var(--rounded);
+      margin-top: 15px;
+      display: block;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .result-value {
+      margin-top: 15px;
+      font-size: 1rem;
+      color: var(--text-dark);
+      padding: 10px;
+      background-color: #f1f5f9;
+      border-radius: var(--rounded);
+      word-break: break-all;
+    }
+    
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      padding: 12px 20px;
+      border-radius: var(--rounded);
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: var(--transition);
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+    }
+    
+    .copy-btn:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .copy-btn i {
+      font-size: 16px;
+    }
+    
+    .error-message {
+      color: #dc2626;
+      background-color: #fee2e2;
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+    
+    /* Color input styles */
+    .color-input-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .color-preview-input {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--rounded);
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    
+    /* Animation for copy button */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .copy-confirmation {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #10b981;
+      color: white;
+      padding: 5px 10px;
+      border-radius: var(--rounded);
+      font-size: 0.8rem;
+      animation: fadeIn 0.3s ease;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>HEX to RGB Converter</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-palette"></i> HEX to RGB Converter</h1>
+      <p class="tool-description">
+        Convert HEX color codes to RGB values instantly with our free online tool. 
+        Perfect for web designers, developers, and digital artists. Simply enter 
+        your HEX code (with or without #) and get the corresponding RGB values.
+      </p>
+      
+      <div class="converter-form">
+        <div class="form-group">
+          <label for="hexInput">HEX Color Code</label>
+          <div class="color-input-container">
+            <div class="color-preview-input" id="colorPreview" title="Click to pick color"></div>
+            <input type="text" id="hexInput" placeholder="Enter HEX code (e.g. ff5733 or #ff5733)" value="">
+          </div>
+          <p class="helper-text">3-digit or 6-digit HEX code, with or without #</p>
+        </div>
+        
+        <button id="convertBtn">
+          <span>Convert</span>
+          <i class="fas fa-exchange-alt"></i>
+        </button>
+        
+        <div class="error-message" id="errorMessage"></div>
+      </div>
+      
+      <div class="result-container" id="resultContainer">
+        <div class="result-box">
+          <h3><i class="fas fa-tint"></i> Color Preview</h3>
+          <div class="color-preview" id="colorDisplay"></div>
+        </div>
+        
+        <div class="result-box">
+          <h3><i class="fas fa-code"></i> RGB Result</h3>
+          <div class="result-value" id="rgbResult">RGB: -</div>
+          <button class="copy-btn" id="copyRgbBtn">
+            <i class="far fa-copy"></i>
+            <span>Copy RGB</span>
+          </button>
+          <div class="copy-confirmation" id="rgbCopyConfirmation">Copied!</div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // DOM elements
+    const hexInput = document.getElementById('hexInput');
+    const convertBtn = document.getElementById('convertBtn');
+    const rgbResult = document.getElementById('rgbResult');
+    const colorDisplay = document.getElementById('colorDisplay');
+    const colorPreview = document.getElementById('colorPreview');
+    const errorMessage = document.getElementById('errorMessage');
+    const copyRgbBtn = document.getElementById('copyRgbBtn');
+    const rgbCopyConfirmation = document.getElementById('rgbCopyConfirmation');
+    const resultContainer = document.getElementById('resultContainer');
+    
+    // Event listeners
+    convertBtn.addEventListener('click', convertHexToRgb);
+    hexInput.addEventListener('keyup', function(e) {
+      if (e.key === 'Enter') {
+        convertHexToRgb();
+      }
+    });
+    copyRgbBtn.addEventListener('click', copyRgbToClipboard);
+    colorPreview.addEventListener('click', openColorPicker);
+    
+    // Initialize color picker input
+    const colorPicker = document.createElement('input');
+    colorPicker.type = 'color';
+    colorPicker.style.position = 'absolute';
+    colorPicker.style.opacity = '0';
+    colorPicker.style.pointerEvents = 'none';
+    document.body.appendChild(colorPicker);
+    
+    colorPicker.addEventListener('input', function() {
+      const color = colorPicker.value;
+      hexInput.value = color.substring(1); // Remove # from color
+      convertHexToRgb();
+    });
+    
+    function openColorPicker() {
+      colorPicker.click();
+    }
+    
+    // Convert HEX to RGB
+    function convertHexToRgb() {
+      const hex = hexInput.value.trim();
+      errorMessage.style.display = 'none';
+      
+      // Validate and normalize HEX
+      let validHex = hex.replace("#", "");
+      
+      // Check if empty
+      if (!validHex) {
+        showError('Please enter a HEX color code');
+        resetResult();
+        return;
+      }
+      
+      // Check for 3-digit HEX and expand it
+      if (validHex.length === 3) {
+        validHex = validHex.split('').map(c => c + c).join('');
+      }
+      
+      // Validate HEX format
+      if (/^[0-9A-Fa-f]{6}$/.test(validHex)) {
+        const r = parseInt(validHex.substring(0, 2), 16);
+        const g = parseInt(validHex.substring(2, 4), 16);
+        const b = parseInt(validHex.substring(4, 6), 16);
+        
+        // Update results
+        const rgbString = `RGB: (${r}, ${g}, ${b})`;
+        rgbResult.textContent = rgbString;
+        
+        // Update color display
+        const hexColor = `#${validHex}`;
+        colorDisplay.style.backgroundColor = hexColor;
+        colorPreview.style.backgroundColor = hexColor;
+        
+        // Show results
+        resultContainer.style.display = 'grid';
+      } else {
+        showError('Invalid HEX code! Please enter a valid 3-digit or 6-digit HEX color code.');
+        resetResult();
+      }
+    }
+    
+    // Copy RGB to clipboard
+    function copyRgbToClipboard() {
+      const rgbText = rgbResult.textContent.replace('RGB: ', '');
+      navigator.clipboard.writeText(rgbText).then(() => {
+        // Show confirmation
+        rgbCopyConfirmation.style.display = 'block';
+        setTimeout(() => {
+          rgbCopyConfirmation.style.display = 'none';
+        }, 2000);
+      });
+    }
+    
+    // Show error message
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+    }
+    
+    // Reset result display
+    function resetResult() {
+      rgbResult.textContent = 'RGB: -';
+      colorDisplay.style.backgroundColor = 'transparent';
+      resultContainer.style.display = 'none';
+    }
+    
+    // Initialize with a sample color
+    hexInput.value = 'ff5733';
+    convertHexToRgb();
+  </script>
+</body>
+</html>

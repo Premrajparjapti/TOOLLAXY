@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online age calculator tool. Calculate your exact age in years, months, and days from your birth date.">
+  <meta name="keywords" content="age calculator, birthday calculator, date calculator, how old am I, age in years months days">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="Age Calculator - Calculate Your Exact Age | Toollaxy">
+  <meta property="og:description" content="Free online tool to calculate your exact age in years, months, and days from your birth date.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/age-calculator">
+  <meta property="og:image" content="https://toollaxy.com/images/age-calculator-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/age-calculator">
+  <title>Age Calculator - Calculate Your Exact Age | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+      --success-green: #10b981;
+      --error-red: #dc2626;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+      max-width: 500px;
+      width: 100%;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+      text-align: center;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-align: left;
+    }
+    
+    input[type="date"] {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      background-color: var(--white);
+      transition: var(--transition);
+    }
+    
+    input[type="date"]:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    button {
+      padding: 14px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button i {
+      font-size: 18px;
+    }
+    
+    .result-container {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: var(--rounded);
+      background-color: #f1f5f9;
+      text-align: center;
+    }
+    
+    .result-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text-dark);
+    }
+    
+    .age-result {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      margin-bottom: 10px;
+    }
+    
+    .age-details {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+    
+    .age-box {
+      background-color: var(--white);
+      padding: 15px;
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      min-width: 100px;
+    }
+    
+    .age-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+    }
+    
+    .age-label {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+    
+    .error-message {
+      color: var(--error-red);
+      background-color: #fee2e2;
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+      
+      .age-details {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .age-box {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Age Calculator</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-birthday-cake"></i> Age Calculator</h1>
+      <p class="tool-description">
+        Calculate your exact age in years, months, and days from your birth date.
+      </p>
+      
+      <div class="form-group">
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" max="">
+      </div>
+      
+      <button onclick="calculateAge()">
+        <i class="fas fa-calculator"></i>
+        Calculate Age
+      </button>
+      
+      <div id="errorMessage" class="error-message"></div>
+      
+      <div id="resultContainer" class="result-container" style="display: none;">
+        <div class="result-title">Your Age Is</div>
+        <div id="ageResult" class="age-result"></div>
+        
+        <div class="age-details">
+          <div class="age-box">
+            <div id="ageYears" class="age-value">0</div>
+            <div class="age-label">Years</div>
+          </div>
+          <div class="age-box">
+            <div id="ageMonths" class="age-value">0</div>
+            <div class="age-label">Months</div>
+          </div>
+          <div class="age-box">
+            <div id="ageDays" class="age-value">0</div>
+            <div class="age-label">Days</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // Set max date to today
+    document.getElementById('dob').max = new Date().toISOString().split('T')[0];
+    
+    function calculateAge() {
+      const dobInput = document.getElementById('dob');
+      const errorMessage = document.getElementById('errorMessage');
+      const resultContainer = document.getElementById('resultContainer');
+      const ageResult = document.getElementById('ageResult');
+      const ageYears = document.getElementById('ageYears');
+      const ageMonths = document.getElementById('ageMonths');
+      const ageDays = document.getElementById('ageDays');
+      
+      // Reset previous results and errors
+      errorMessage.style.display = 'none';
+      resultContainer.style.display = 'none';
+      
+      // Validate input
+      if (!dobInput.value) {
+        errorMessage.textContent = 'Please select your date of birth.';
+        errorMessage.style.display = 'block';
+        return;
+      }
+      
+      const birthDate = new Date(dobInput.value);
+      const today = new Date();
+      
+      // Validate date is not in the future
+      if (birthDate > today) {
+        errorMessage.textContent = 'Birth date cannot be in the future.';
+        errorMessage.style.display = 'block';
+        return;
+      }
+      
+      let ageYearsVal = today.getFullYear() - birthDate.getFullYear();
+      let ageMonthsVal = today.getMonth() - birthDate.getMonth();
+      let ageDaysVal = today.getDate() - birthDate.getDate();
+      
+      // Adjust for negative days
+      if (ageDaysVal < 0) {
+        ageMonthsVal--;
+        const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        ageDaysVal += lastMonth.getDate();
+      }
+      
+      // Adjust for negative months
+      if (ageMonthsVal < 0) {
+        ageYearsVal--;
+        ageMonthsVal += 12;
+      }
+      
+      // Display results
+      ageYears.textContent = ageYearsVal;
+      ageMonths.textContent = ageMonthsVal;
+      ageDays.textContent = ageDaysVal;
+      
+      // Format the full age result
+      const yearText = ageYearsVal === 1 ? 'year' : 'years';
+      const monthText = ageMonthsVal === 1 ? 'month' : 'months';
+      const dayText = ageDaysVal === 1 ? 'day' : 'days';
+      
+      ageResult.textContent = `${ageYearsVal} ${yearText}, ${ageMonthsVal} ${monthText}, and ${ageDaysVal} ${dayText}`;
+      
+      // Show result container
+      resultContainer.style.display = 'block';
+      
+      // Scroll to results
+      resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    
+    // Calculate age when Enter key is pressed
+    document.getElementById('dob').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        calculateAge();
+      }
+    });
+  </script>
+</body>
+</html>

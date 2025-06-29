@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online JSON formatter and validator tool. Beautify and validate your JSON data with syntax highlighting and error detection.">
+  <meta name="keywords" content="JSON formatter, JSON validator, JSON beautifier, JSON prettifier, JSON parser, JSON tools, web development tools">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="JSON Formatter & Validator Tool | Toollaxy">
+  <meta property="og:description" content="Free online tool to format, validate, and beautify JSON data with syntax highlighting and detailed error reporting.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://toollaxy.com/json-formatter">
+  <meta property="og:image" content="https://toollaxy.com/images/json-formatter-og.jpg">
+  <link rel="canonical" href="https://toollaxy.com/json-formatter">
+  <title>JSON Formatter & Validator Tool | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+      --error-red: #dc2626;
+      --error-bg: #fee2e2;
+      --success-green: #10b981;
+      --success-bg: #d1fae5;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .json-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .json-input-wrapper {
+      position: relative;
+    }
+    
+    .json-input {
+      width: 100%;
+      min-height: 200px;
+      padding: 15px;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      background-color: #f8fafc;
+      resize: vertical;
+      transition: var(--transition);
+    }
+    
+    .json-input:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    .json-input::placeholder {
+      color: var(--text-light);
+      opacity: 0.7;
+    }
+    
+    .json-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    
+    button {
+      padding: 12px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    button.secondary {
+      background-color: var(--white);
+      color: var(--primary-blue);
+      border: 1px solid var(--primary-blue);
+    }
+    
+    button.secondary:hover {
+      background-color: #f0f5ff;
+    }
+    
+    button i {
+      font-size: 16px;
+    }
+    
+    .results-container {
+      margin-top: 30px;
+      display: none;
+    }
+    
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .validation-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    
+    .validation-status.valid {
+      background-color: var(--success-bg);
+      color: var(--success-green);
+    }
+    
+    .validation-status.invalid {
+      background-color: var(--error-bg);
+      color: var(--error-red);
+    }
+    
+    .validation-status i {
+      font-size: 14px;
+    }
+    
+    .json-output {
+      width: 100%;
+      min-height: 200px;
+      padding: 15px;
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      background-color: #f8fafc;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+    
+    .json-output .key {
+      color: #d6336c;
+    }
+    
+    .json-output .string {
+      color: #20c997;
+    }
+    
+    .json-output .number {
+      color: #fd7e14;
+    }
+    
+    .json-output .boolean {
+      color: #4dabf7;
+    }
+    
+    .json-output .null {
+      color: #9775fa;
+    }
+    
+    .copy-btn {
+      background-color: var(--white);
+      color: var(--primary-blue);
+      border: 1px solid var(--primary-blue);
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      border-radius: var(--rounded);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .copy-btn:hover {
+      background-color: #f0f5ff;
+    }
+    
+    .copy-btn i {
+      font-size: 14px;
+    }
+    
+    .error-message {
+      color: var(--error-red);
+      background-color: var(--error-bg);
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .error-details {
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+    
+    .error-position {
+      font-weight: 600;
+      margin-top: 5px;
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    /* Loading spinner */
+    .spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      
+      .tool-container {
+        padding: 20px;
+      }
+      
+      .json-actions {
+        flex-direction: column;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>JSON Formatter</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-code"></i> JSON Formatter & Validator</h1>
+      <p class="tool-description">
+        Beautify and validate your JSON data with this free online tool. Get syntax highlighting, 
+        detailed error reporting, and properly formatted JSON output. Perfect for developers 
+        working with APIs, configuration files, and data processing.
+      </p>
+      
+      <div class="json-container">
+        <div class="json-input-wrapper">
+          <textarea id="jsonInput" class="json-input" placeholder="Paste your JSON code here..."></textarea>
+        </div>
+        
+        <div class="json-actions">
+          <button id="formatBtn">
+            <i class="fas fa-magic"></i>
+            Format & Validate
+          </button>
+          <button class="secondary" id="clearBtn">
+            <i class="fas fa-trash-alt"></i>
+            Clear
+          </button>
+          <button class="secondary" id="minifyBtn">
+            <i class="fas fa-compress-alt"></i>
+            Minify
+          </button>
+          <button class="secondary" id="sampleBtn">
+            <i class="fas fa-lightbulb"></i>
+            Load Sample
+          </button>
+        </div>
+        
+        <div class="error-message" id="errorMessage"></div>
+      </div>
+      
+      <div class="results-container" id="resultsContainer">
+        <div class="results-header">
+          <h3><i class="fas fa-file-code"></i> Formatted JSON</h3>
+          <div class="validation-status" id="validationStatus">
+            <i class="fas fa-check-circle"></i>
+            <span>Valid JSON</span>
+          </div>
+        </div>
+        
+        <div class="json-output" id="jsonOutput"></div>
+        
+        <div style="margin-top: 15px; display: flex; justify-content: flex-end; gap: 10px;">
+          <button class="copy-btn" id="copyBtn">
+            <i class="far fa-copy"></i>
+            Copy to Clipboard
+          </button>
+          <button class="copy-btn secondary" id="downloadBtn">
+            <i class="fas fa-download"></i>
+            Download JSON
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+    // DOM elements
+    const jsonInput = document.getElementById('jsonInput');
+    const formatBtn = document.getElementById('formatBtn');
+    const minifyBtn = document.getElementById('minifyBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const sampleBtn = document.getElementById('sampleBtn');
+    const copyBtn = document.getElementById('copyBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const jsonOutput = document.getElementById('jsonOutput');
+    const errorMessage = document.getElementById('errorMessage');
+    const validationStatus = document.getElementById('validationStatus');
+    
+    // Sample JSON
+    const sampleJSON = `{
+  "name": "John Doe",
+  "age": 30,
+  "isActive": true,
+  "address": {
+    "street": "123 Main St",
+    "city": "New York",
+    "zip": "10001"
+  },
+  "hobbies": ["reading", "traveling", "photography"],
+  "contact": {
+    "email": "john@example.com",
+    "phone": "+1 (555) 123-4567"
+  },
+  "projects": [
+    {
+      "name": "Website Redesign",
+      "completed": true,
+      "budget": 5000
+    },
+    {
+      "name": "Mobile App",
+      "completed": false,
+      "budget": 15000
+    }
+  ]
+}`;
+
+    // Event listeners
+    formatBtn.addEventListener('click', () => processJSON('format'));
+    minifyBtn.addEventListener('click', () => processJSON('minify'));
+    clearBtn.addEventListener('click', clearJSON);
+    sampleBtn.addEventListener('click', loadSampleJSON);
+    copyBtn.addEventListener('click', copyToClipboard);
+    downloadBtn.addEventListener('click', downloadJSON);
+    
+    // Process JSON (format or minify)
+    function processJSON(action) {
+      const jsonString = jsonInput.value.trim();
+      
+      if (!jsonString) {
+        showError('Please enter some JSON data to process.');
+        return;
+      }
+      
+      // Show loading state
+      if (action === 'format') {
+        formatBtn.innerHTML = `
+          <div class="spinner" style="display: inline-block;"></div>
+          Processing...
+        `;
+        formatBtn.disabled = true;
+      } else {
+        minifyBtn.innerHTML = `
+          <div class="spinner" style="display: inline-block;"></div>
+          Processing...
+        `;
+        minifyBtn.disabled = true;
+      }
+      
+      // Simulate processing delay for better UX
+      setTimeout(() => {
+        try {
+          // Try to parse the JSON
+          const jsonObject = JSON.parse(jsonString);
+          
+          // Determine output based on action
+          let output;
+          if (action === 'format') {
+            output = JSON.stringify(jsonObject, null, 2);
+          } else {
+            output = JSON.stringify(jsonObject);
+          }
+          
+          // Display results
+          displayResults(output, true);
+          
+        } catch (error) {
+          // Handle JSON parsing errors
+          displayError(error);
+        } finally {
+          // Reset buttons
+          formatBtn.innerHTML = `
+            <i class="fas fa-magic"></i>
+            Format & Validate
+          `;
+          formatBtn.disabled = false;
+          
+          minifyBtn.innerHTML = `
+            <i class="fas fa-compress-alt"></i>
+            Minify
+          `;
+          minifyBtn.disabled = false;
+        }
+      }, 500);
+    }
+    
+    // Display formatted/minified results
+    function displayResults(jsonString, isValid) {
+      // Update validation status
+      if (isValid) {
+        validationStatus.className = 'validation-status valid';
+        validationStatus.innerHTML = `
+          <i class="fas fa-check-circle"></i>
+          <span>Valid JSON</span>
+        `;
+      } else {
+        validationStatus.className = 'validation-status invalid';
+        validationStatus.innerHTML = `
+          <i class="fas fa-times-circle"></i>
+          <span>Invalid JSON</span>
+        `;
+      }
+      
+      // Syntax highlighting
+      const highlighted = syntaxHighlight(jsonString);
+      jsonOutput.innerHTML = highlighted;
+      
+      // Show results container
+      resultsContainer.style.display = 'block';
+      errorMessage.style.display = 'none';
+      
+      // Scroll to results
+      resultsContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Display error message
+    function displayError(error) {
+      errorMessage.style.display = 'block';
+      resultsContainer.style.display = 'none';
+      
+      let errorMsg = `Invalid JSON: ${error.message}`;
+      let positionInfo = '';
+      
+      // Try to extract position information from error message
+      const positionMatch = error.message.match(/at position (\d+)/);
+      if (positionMatch) {
+        const position = parseInt(positionMatch[1]);
+        const lines = jsonInput.value.substr(0, position).split('\n');
+        const lineNumber = lines.length;
+        const columnNumber = lines[lines.length - 1].length + 1;
+        
+        positionInfo = `Error at line ${lineNumber}, column ${columnNumber}`;
+        
+        // Highlight error position in input
+        jsonInput.focus();
+        jsonInput.setSelectionRange(position, position + 1);
+      }
+      
+      errorMessage.innerHTML = `
+        <div><strong>${errorMsg}</strong></div>
+        ${positionInfo ? `<div class="error-position">${positionInfo}</div>` : ''}
+        <div class="error-details">Make sure your JSON:
+          <ul>
+            <li>Has proper quotes around property names and strings</li>
+            <li>Uses proper commas between items</li>
+            <li>Has matching braces and brackets</li>
+          </ul>
+        </div>
+      `;
+    }
+    
+    // Syntax highlighting for JSON
+    function syntaxHighlight(json) {
+      if (typeof json != 'string') {
+        json = JSON.stringify(json, null, 2);
+      }
+      
+      json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      
+      return json.replace(
+        /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+        function (match) {
+          let cls = 'number';
+          if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+              cls = 'key';
+            } else {
+              cls = 'string';
+            }
+          } else if (/true|false/.test(match)) {
+            cls = 'boolean';
+          } else if (/null/.test(match)) {
+            cls = 'null';
+          }
+          return '<span class="' + cls + '">' + match + '</span>';
+        }
+      );
+    }
+    
+    // Clear JSON input and results
+    function clearJSON() {
+      jsonInput.value = '';
+      resultsContainer.style.display = 'none';
+      errorMessage.style.display = 'none';
+    }
+    
+    // Load sample JSON
+    function loadSampleJSON() {
+      jsonInput.value = sampleJSON;
+      resultsContainer.style.display = 'none';
+      errorMessage.style.display = 'none';
+    }
+    
+    // Copy to clipboard
+    function copyToClipboard() {
+      const text = jsonOutput.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => {
+          copyBtn.innerHTML = originalText;
+        }, 2000);
+      }).catch(err => {
+        showError('Failed to copy text: ' + err);
+      });
+    }
+    
+    // Download JSON
+    function downloadJSON() {
+      const text = jsonOutput.textContent;
+      const blob = new Blob([text], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'formatted.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+    
+    // Initialize
+    clearJSON();
+  </script>
+</body>
+</html>
