@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Privacy Policy for Toollaxy - Learn how we protect your personal information and process data locally.">
+  <title>Privacy Policy | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+      width: 100%;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 20px 20px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Language Selector Bar */
+    .lang-selector-container {
+        background-color: var(--white);
+        padding: 20px;
+        border-radius: var(--rounded);
+        box-shadow: var(--shadow);
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    @media (min-width: 768px) {
+        .lang-selector-container {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    .lang-label {
+        font-weight: 600;
+        font-size: 1rem;
+        color: var(--text-dark);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .select-wrapper {
+        position: relative;
+        min-width: 240px;
+    }
+
+    .lang-select {
+        width: 100%;
+        padding: 12px 40px 12px 15px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        border: 2px solid var(--primary-blue);
+        border-radius: var(--rounded);
+        background-color: var(--white);
+        color: var(--text-dark);
+        cursor: pointer;
+        transition: var(--transition);
+        appearance: none;
+        -webkit-appearance: none;
+    }
+
+    .lang-select:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+
+    .select-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary-blue);
+        pointer-events: none;
+    }
+    
+    .legal-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .lang-content {
+      display: none;
+    }
+
+    .lang-content.active {
+      display: block;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: var(--primary-blue);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .effective-date {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      font-size: 0.9rem;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    h2 {
+      font-size: 1.4rem;
+      color: var(--dark-blue);
+      margin: 25px 0 15px;
+      padding-top: 15px;
+      border-top: 1px solid #e2e8f0;
+    }
+    
+    h3 {
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      margin: 20px 0 10px;
+    }
+    
+    p {
+      margin-bottom: 15px;
+      color: var(--text-dark);
+      text-align: justify;
+    }
+    
+    ul {
+      margin: 15px 0 25px 25px;
+    }
+    
+    li {
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+    
+    strong {
+      color: var(--dark-blue);
+    }
+    
+    a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    a:hover {
+      color: var(--dark-blue);
+      text-decoration: underline;
+    }
+    
+    .back-to-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary-blue);
+      text-decoration: none;
+      margin-top: 30px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    
+    .back-to-home:hover {
+      color: var(--dark-blue);
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      .legal-container {
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Privacy Policy</span>
+  </div>
+  
+  <main>
+    <!-- Language Selector Bar with Dropdown Menu -->
+    <div class="lang-selector-container">
+        <div class="lang-label">
+            <i class="fas fa-language"></i> Select Document Language / भाषा चुनें / భాషను ఎంచుకోండి
+        </div>
+        <div class="select-wrapper">
+            <select class="lang-select" id="langSelect">
+                <option value="en" selected>English</option>
+                <option value="hi">हिन्दी (Hindi)</option>
+                <option value="bho">भोजपुरी (Bhojpuri)</option>
+                <option value="mai">मैथिली (Maithili)</option>
+                <option value="te">తెలుగు (Telugu)</option>
+                <option value="ta">தமிழ் (Tamil)</option>
+                <option value="ml">മലയാളം (Malayalam)</option>
+                <option value="bn">বাংলা (Bengali)</option>
+            </select>
+            <i class="fas fa-chevron-down select-icon"></i>
+        </div>
+    </div>
+
+    <!-- Legal Container -->
+    <div class="legal-container">
+      
+      <!-- ENGLISH -->
+      <div class="lang-content active" id="content-en">
+        <h1><i class="fas fa-shield-alt"></i> Privacy Policy</h1>
+        <p class="effective-date"><strong>Last updated:</strong> May 03, 2025</p>
+
+        <p>This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights.</p>
+        <p>We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.</p>
+
+        <h2>1. Local Client-Side Processing</h2>
+        <p>At Toollaxy, most of our utilities (such as image compression, text converters, color picker, and PDF locking) run directly within your web browser using client-side JavaScript. This means your private files and texts are processed locally on your machine and are <strong>never uploaded to our servers</strong>. For tools that require server processing, files are temporarily used and immediately deleted after the task is completed.</p>
+
+        <h2>2. Information Collection and Use</h2>
+        <h3>Personal Data</h3>
+        <p>While using Our Service, We may ask You to provide Us with certain personally identifiable information, such as your email address, when contacting support.</p>
+        
+        <h3>Usage Data</h3>
+        <p>Usage Data is collected automatically when using the Service. This may include Your Device's Internet Protocol address (IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, and other diagnostic data.</p>
+
+        <h2>3. Use of Your Personal Data</h2>
+        <p>The Company may use Personal Data to provide and maintain our Service, to manage your requests, and to monitor the usage of our Service for diagnostic improvements.</p>
+
+        <h2>4. Retention and Security</h2>
+        <p>Since we do not store your uploaded documents, there is no risk of document leakage. Any personal data collected (like emails) is retained only as long as necessary. We use commercially acceptable means to protect your data, but no method of transmission over the Internet is 100% secure.</p>
+
+        <h2>5. Children's Privacy</h2>
+        <p>Our Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from anyone under 13.</p>
+
+        <h2>6. Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, You can contact us:</p>
+        <ul>
+          <li>By email: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- HINDI -->
+      <div class="lang-content" id="content-hi">
+        <h1><i class="fas fa-shield-alt"></i> गोपनीयता नीति (Privacy Policy)</h1>
+        <p class="effective-date"><strong>अंतिम अद्यतन:</strong> 3 मई, 2025</p>
+
+        <p>यह गोपनीयता नीति सेवा का उपयोग करते समय आपकी जानकारी के संग्रह, उपयोग और प्रकटीकरण पर हमारी नीतियों और प्रक्रियाओं का वर्णन करती है।</p>
+        <p>हम आपकी गोपनीयता का सम्मान करते हैं। इस सेवा का उपयोग करके, आप इस गोपनीयता नीति के अनुसार जानकारी के संग्रह और उपयोग के लिए सहमति देते हैं।</p>
+
+        <h2>1. स्थानीय क्लाइंट-साइड प्रोसेसिंग (Local Browser Processing)</h2>
+        <p>Toollaxy पर, हमारे अधिकांश उपकरण (जैसे इमेज कंप्रेसर, टेक्स्ट कनवर्टर, कलर पिकर और पीडीएफ लॉक) सीधे आपके वेब ब्राउज़र में जावास्क्रिप्ट का उपयोग करके चलते हैं। इसका अर्थ यह है कि आपकी फाइलें और दस्तावेज स्थानीय रूप से आपके कंप्यूटर या फोन पर प्रोसेस किए जाते हैं और <strong>हमारे सर्वर पर कभी अपलोड नहीं किए जाते हैं</strong>।</p>
+
+        <h2>2. डेटा का संग्रह और उपयोग</h2>
+        <h3>व्यक्तिगत डेटा</h3>
+        <p>हमारी सेवा का उपयोग करते समय, हम आपसे संपर्क करने के लिए आपका ईमेल पता जैसी बुनियादी जानकारी मांग सकते हैं, विशेष रूप से जब आप सहायता के लिए हमसे संपर्क करते हैं।</p>
+        
+        <h3>उपयोग डेटा (Usage Data)</h3>
+        <p>जब आप वेबसाइट पर आते हैं, तो कुछ जानकारी स्वचालित रूप से दर्ज हो जाती है, जैसे आईपी (IP) पता, ब्राउज़र का प्रकार, ब्राउज़र का संस्करण, विज़िट किए गए पृष्ठ और विज़िट का समय।</p>
+
+        <h2>3. आपके डेटा का उपयोग</h2>
+        <p>हम इस डेटा का उपयोग केवल अपनी सेवा को सुचारू रूप से चलाने, वेबसाइट के प्रदर्शन को बेहतर बनाने और आपके द्वारा किए गए अनुरोधों का उत्तर देने के लिए करते हैं।</p>
+
+        <h2>4. डेटा सुरक्षा</h2>
+        <p>चूंकि हम आपकी अपलोड की गई फाइलों को अपने पास संग्रहीत नहीं करते हैं, इसलिए डेटा लीक होने का कोई जोखिम नहीं है। हम आपकी बुनियादी जानकारी की सुरक्षा के लिए हर संभव प्रयास करते हैं, लेकिन इंटरनेट पर कोई भी प्रसारण प्रणाली 100% सुरक्षित नहीं होती है।</p>
+
+        <h2>5. बच्चों की गोपनीयता</h2>
+        <p>हमारी सेवा 13 वर्ष से कम उम्र के बच्चों के उपयोग के लिए लक्षित नहीं है। हम जानबूझकर बच्चों से कोई व्यक्तिगत जानकारी एकत्र नहीं करते हैं।</p>
+
+        <h2>6. हमसे संपर्क करें</h2>
+        <p>यदि इस नीति के संबंध में आपके कोई प्रश्न हैं, तो आप हमसे संपर्क कर सकते हैं:</p>
+        <ul>
+          <li>ईमेल द्वारा: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- BHOJPURI -->
+      <div class="lang-content" id="content-bho">
+        <h1><i class="fas fa-shield-alt"></i> प्राइवेसी पॉलिसी (गोपनीयता नीति)</h1>
+        <p class="effective-date"><strong>आख़िरी अपडेट:</strong> 3 मई, 2025</p>
+
+        <p>ई प्राइवेसी पॉलिसी रउआ सभ के डेटा के सुरक्षा आ ओकरा इस्तेमाल के तौर-तरीका के बारे में जानकारी देवे खातिर बा।</p>
+        <p>हमनी के रउआ प्राइवेसी के पूरा सम्मान करीला। ए पोर्टल के इस्तेमाल कइला के मतलब बा कि रउआ ए प्राइवेसी पॉलिसी के शर्त्तन के मानत बानी।</p>
+
+        <h2>1. लोकल ब्राउज़र प्रोसेसिंग (Local Client-Side Processing)</h2>
+        <p>Toollaxy पर, हमनी के ज़्यादातर टूल्स (जैसे फोटो छोटा कइल, टेक्स्ट बदलल आ पीडीएफ लॉक कइल) सीधे रउवे मोबाइल या कंप्यूटर के ब्राउज़र में जावास्क्रिप्ट के मदद से काम करेला। एकर मतलब बा कि रउआ फाइल <strong>हमनी के सर्वर पर कबहूँ अपलोड ना होला</strong>, उ सीधे रउवे मशीन पर सुरक्षित तरीका से प्रोसेस होला।</p>
+
+        <h2>2. डेटा के संग्रह आ ओकर इस्तेमाल</h2>
+        <h3>निजी डेटा (Personal Data)</h3>
+        <p>जब रउआ हमनी से मदद खातिर संपर्क करब, तब हमनी के रउआ ईमेल आईडी नियर कुछ ज़रूरी जानकारी मांग सकीला, ताकि रउआ समस्या के हल कइल जा सके।</p>
+        
+        <h3>उपयोग डेटा (Usage Data)</h3>
+        <p>वेबसाइट पर अइला पर कुछ जानकारी अपने-आप रिकॉर्ड हो जाला, जैसे रउआ डिवाइस के आईपी एड्रेस, ब्राउज़र के प्रकार, आ जवन पेज रउआ देखत बानी ओकर समय।</p>
+
+        <h2>3. डेटा के उपयोग के कारण</h2>
+        <p>हमनी के ए डेटा के इस्तेमाल सिर्फ वेबसाइट के काम-काज सुधारे आ रउआ सभ के बेहतर सर्विस देवे खातिर करीला।</p>
+
+        <h2>4. डेटा सुरक्षा</h2>
+        <p>चूँकि हमनी के रउआ अपलोड कइल फाइल के अपने लगे सुरक्षित नहीं रखत बानी, एह से डेटा लीक होखे के कौनों डर नईखे। इंटरनेट पर कौनों भी चीज़ 100% सुरक्षित नईखे होला, बाकिर हमनी रउआ डेटा सुरक्षित रखे के हर संभव प्रयास करीला।</p>
+
+        <h2>5. लइकन के गोपनीयता</h2>
+        <p>ई वेबसाइट 13 साल से कम उमिर के लइकन खातिर नईखे बनल। हमनी के जान-बूझ के लइकन के डेटा एकत्र नईखीं करत।</p>
+
+        <h2>6. संपर्क करीं</h2>
+        <p>कौनों भी सवाल होखे त रउआ सीधे हमनी से ईमेल पर संपर्क कर सकीं:</p>
+        <ul>
+          <li>ईमेल: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- MAITHILI -->
+      <div class="lang-content" id="content-mai">
+        <h1><i class="fas fa-shield-alt"></i> गोपनीयता नीति (Privacy Policy)</h1>
+        <p class="effective-date"><strong>अंतिम अपडेट:</strong> 3 मई, 2025</p>
+
+        <p>ई गोपनीयता नीति अहांक डेटाक सुरक्षा आ ओकर उपयोगक नियमक बारे में जानकारी प्रदान करैत अछि।</p>
+        <p>हम अहांक गोपनीयताक पूर्ण आदर करैत छी। एहि साइटक उपयोग सँ अहां एहि नीतिक शर्त्त सभ सँ सहमत भ' रहल छी।</p>
+
+        <h2>1. स्थानीय ब्राउज़र प्रोसेसिंग (Local Browser Processing)</h2>
+        <p>Toollaxy पर, हमर अधिकांश टूल्स (जेना फोटो क कम्प्रेस करब, पीडीएफ लॉक करब) सीधे अहांक कंप्यूटर या मोबाइलक ब्राउज़र क भीतर जावास्क्रिप्टक माध्यम सँ कार्य करैत अछि। एकर अर्थ ई भेल जे अहांक फाइल <strong>हमर सर्वर पर कखनो अपलोड नै कयल जाइत अछि</strong>।</p>
+
+        <h2>2. डाटाक संग्रह एवं उपयोग</h2>
+        <h3>व्यक्तिगत डाटा</h3>
+        <p>सहायता लेबय काल हम अहां सँ अहांक ईमेल आईडी जेहन सामान्य जानकारी मांग सकैत छी, जाहि सँ अहांक समस्याक समाधान कयल जा सके।</p>
+        
+        <h3>उपयोग डाटा (Usage Data)</h3>
+        <p>साइट उपयोग करय काल किछु तकनीकी जानकारी स्वतः संकलित भ' जाइत अछि, जेना आईपी (IP) पता, ब्राउज़रक प्रकार आ विज़िट कयल गेल पृष्ठक समय।</p>
+
+        <h2>3. डाटाक उपयोगक उद्देश्य</h2>
+        <p>हम एहि डाटाक उपयोग केवल साइटक कार्यप्रणाली बेहतर बनेबाक लेल आ अहांक अनुरोधक समाधान लेल करैत छी।</p>
+
+        <h2>4. डाटाक सुरक्षा</h2>
+        <p>चूंकि हम अहांक अपलोड कयल गेल कोनो फाइल कें अपन सर्वर पर सुरक्षित नै रखैत छी, एहि लेल लीक होमयक कोनो आशंका नै रहैत अछि। हम अहांक गोपनीयताक आदर करैत छी।</p>
+
+        <h2>5. बच्चा सभक गोपनीयता</h2>
+        <p>ई सेवा 13 वर्ष सँ कम उमरक बच्चा सभक लेल नै अछि। हम कखनो बच्चा सभक डाटा संकलित नै करैत छी।</p>
+
+        <h2>6. संपर्क करू</h2>
+        <p>जदि अहांक कोनो प्रश्न होय, त' ईमेल द्वारा संपर्क क' सकैत छी:</p>
+        <ul>
+          <li>ईमेल: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- TELUGU -->
+      <div class="lang-content" id="content-te">
+        <h1><i class="fas fa-shield-alt"></i> గోప్యతా విధానం (Privacy Policy)</h1>
+        <p class="effective-date"><strong>చివరిగా నవీకరించబడింది:</strong> మే 03, 2025</p>
+
+        <p>ఈ గోప్యతా విధానం మా సేవలను ఉపయోగించేటప్పుడు మీ డేటా సేకరణ, వినియోగం మరియు భద్రతకు సంబంధించిన మా నియమాలను వివరిస్తుంది.</p>
+        <p>మా వెబ్‌సైట్‌ను ఉపయోగించడం ద్వారా, మీరు ఈ గోప్యతా విధానానికి అంగీకరిస్తున్నారు.</p>
+
+        <h2>1. లోకల్ బ్రౌజర్ ప్రాసెసింగ్ (Local Client-Side Processing)</h2>
+        <p>Toollaxy లో, చాలా సాధనాలు (ఉదాహరణకు ఇమేజ్ కంప్రెషన్, టెక్స్ట్ కన్వర్టర్లు, పిడిఎఫ్ లాక్) మీ బ్రౌజర్ లోపలే జావాస్క్రిప్ట్ సహాయంతో రన్ అవుతాయి. దీని అర్థం మీ వ్యక్తిగత ఫైల్‌లు <strong>మా సర్వర్‌లకు ఎప్పటికీ అప్‌లోడ్ చేయబడవు</strong>. అవి మీ పరికరంలోనే సురక్షితంగా ప్రాసెస్ చేయబడతాయి.</p>
+
+        <h2>2. సమాచార సేకరణ మరియు వినియోగం</h2>
+        <h3>వ్యక్తిగత డేటా</h3>
+        <p>సహాయం కోసం మమ్మల్ని సంప్రదించినప్పుడు మాత్రమే మేము మీ ఇమెయిల్ ఐడి వంటి ప్రాథమిక సమాచారాన్ని అడగవచ్చు.</p>
+        
+        <h3>వినియోగ డేటా (Usage Data)</h3>
+        <p>వెబ్‌సైట్ సందర్శించినప్పుడు మీ ఐపి (IP) చిరునామా, బ్రౌజర్ రకం, పేజీ వీక్షణ సమయం వంటి సమాచారం స్వయంచాలకంగా సేకరించబడుతుంది.</p>
+
+        <h2>3. మీ డేటా వినియోగం</h2>
+        <p>వెబ్‌సైట్ పనితీరును మెరుగుపరచడానికి మరియు మీ సందేహాలకు సమాధానం ఇవ్వడానికి మాత్రమే మేము ఈ సమాచారాన్ని ఉపయోగిస్తాము.</p>
+
+        <h2>4. డేటా భద్రత</h2>
+        <p>మేము మీ వ్యక్తిగత ఫైళ్లను సర్వర్‌లో సేవ్ చేయము కాబట్టి, లీక్ అయ్యే ప్రమాదం లేదు. అయితే ఇంటర్నెట్‌లో ఏదీ 100% సురక్షితం కాదని గమనించగలరు.</p>
+
+        <h2>5. పిల్లల గోప్యత</h2>
+        <p>మా సేవలు 13 సంవత్సరాల కంటే తక్కువ వయస్సు ఉన్న పిల్లల కోసం ఉద్దేశించినవి కావు.</p>
+
+        <h2>6. మమ్మల్ని సంప్రదించండి</h2>
+        <p>మీకు ఏవైనా ప్రశ్నలు ఉంటే, ఇమెయిల్ ద్వారా సంప్రదించండి:</p>
+        <ul>
+          <li>ఇమెయిల్: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- TAMIL -->
+      <div class="lang-content" id="content-ta">
+        <h1><i class="fas fa-shield-alt"></i> தனியுரிமைக் கொள்கை (Privacy Policy)</h1>
+        <p class="effective-date"><strong>கடைசியாக புதுப்பிக்கப்பட்டது:</strong> மே 03, 2025</p>
+
+        <p>இந்த தனியுரிமைக் கொள்கை உங்கள் தரவு பாதுகாப்பு மற்றும் பயன்பாடு குறித்த எங்கள் விதிகளை உங்களுக்கு விளக்குகிறது.</p>
+        <p>எங்கள் தளத்தைப் பயன்படுத்துவதன் மூலம், இந்த கொள்கைகளை நீங்கள் ஒப்புக்கொள்கிறீர்கள்.</p>
+
+        <h2>1. உள்ளூர் பிரவுசர் செயலாக்கம் (Local Client-Side Processing)</h2>
+        <p>Toollaxy-இல், படங்களைச் சுருக்குவது, உரை மாற்றி மற்றும் PDF பூட்டுதல் போன்ற பெரும்பாலான கருவிகள் உங்கள் பிரவுசரிலேயே ஜாவாஸ்கிரிப்ட் மூலம் இயங்குகின்றன. இதனால் உங்கள் கோப்புகள் <strong>எங்கள் சர்வர்களில் பதிவேற்றப்பட மாட்டாது</strong>.</p>
+
+        <h2>2. தகவல் சேகரிப்பு மற்றும் பயன்பாடு</h2>
+        <h3>தனிப்பட்ட தரவு</h3>
+        <p>எங்களைத் தொடர்புகொள்ளும் போது மட்டுமே உங்கள் மின்னஞ்சல் முகவரி போன்ற அடிப்படையான தகவல்களை நாங்கள் கேட்கக்கூடும்.</p>
+        
+        <h3>பயன்பாட்டுத் தரவு (Usage Data)</h3>
+        <p>ஐபி (IP) முகவரி, உலாவியின் வகை, பார்வையிடப்பட்ட பக்கங்கள் மற்றும் நேரம் போன்ற தொழில்நுட்பத் தகவல்கள் தானாகவே பதிவுசெய்யப்படலாம்.</p>
+
+        <h2>3. தரவுப் பயன்பாட்டின் நோக்கம்</h2>
+        <p>தளத்தின் செயல்பாட்டை மேம்படுத்தவும் உங்கள் கோரிக்கைகளுக்குப் பதிலளிக்கவும் மட்டுமே இந்தத் தகவல்கள் பயன்படுத்தப்படுகின்றன.</p>
+
+        <h2>4. தரவுப் பாதுகாப்பு</h2>
+        <p>உங்கள் கோப்புகளை நாங்கள் சேமிக்காததால், அவை கசியும் அபாயம் இல்லை. உங்கள் தரவைப் பாதுகாக்க நாங்கள் வணிக ரீதியாக ஏற்றுக்கொள்ளக்கூடிய வழிகளைப் பயன்படுத்துகிறோம்.</p>
+
+        <h2>5. குழந்தைகளின் தனியுரிமை</h2>
+        <p>எங்கள் தளம் 13 வயதுக்குட்பட்ட குழந்தைகளுக்கானது அல்ல.</p>
+
+        <h2>6. தொடர்பு கொள்ள</h2>
+        <p>ஏதேனும் சந்தேகங்கள் இருந்தால், மின்னஞ்சல் மூலம் எங்களைத் தொடர்பு கொள்ளவும்:</p>
+        <ul>
+          <li>மின்னஞ்சல்: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- MALAYALAM -->
+      <div class="lang-content" id="content-ml">
+        <h1><i class="fas fa-shield-alt"></i> സ്വകാര്യതാ നയം (Privacy Policy)</h1>
+        <p class="effective-date"><strong>അവസാനം പുതുക്കിയത്:</strong> മെയ് 03, 2025</p>
+
+        <p>ഞങ്ങളുടെ സേവനങ്ങൾ ഉപയോഗിക്കുമ്പോൾ നിങ്ങളുടെ ഡാറ്റ സുരക്ഷിതമായി സൂക്ഷിക്കുന്നതിനെക്കുറിച്ചുള്ള വിവരങ്ങൾ ഈ പോളിസി വ്യക്തമാക്കുന്നു.</p>
+        <p>ഞങ്ങളുടെ വെബ്സൈറ്റ് ഉപയോഗിക്കുന്നതിലൂടെ, ഈ നയങ്ങൾ നിങ്ങൾ അംഗീകരിക്കുന്നു.</p>
+
+        <h2>1. ലോക്കൽ പ്രോസസ്സിംഗ് (Local Client-Side Processing)</h2>
+        <p>Toollaxy-യിൽ ഇമേജ് കംപ്രസ്സർ, പിഡിഎഫ് ലോക്ക് തുടങ്ങിയ ഭൂരിഭാഗം ടൂളുകളും ജാവാസ്ക്രിപ്റ്റ് ഉപയോഗിച്ച് നിങ്ങളുടെ ബ്രൗസറിൽ തന്നെയാണ് പ്രവർത്തിക്കുന്നത്. അതിനാൽ നിങ്ങളുടെ സ്വകാര്യ ഫയലുകൾ <strong>ഞങ്ങളുടെ സെർവറുകളിലേക്ക് അപ്‌ലോഡ് ചെയ്യപ്പെടുന്നില്ല</strong>.</p>
+
+        <h2>2. വിവര ശേഖരണവും ഉപയോഗവും</h2>
+        <h3>വ്യക്തിഗത വിവരങ്ങൾ</h3>
+        <p>ഞങ്ങളുമായി ബന്ധപ്പെടുമ്പോൾ മാത്രം നിങ്ങളുടെ ഇമെയിൽ ഐഡി പോലുള്ള അടിസ്ഥാന വിവരങ്ങൾ ഞങ്ങൾ ആവശ്യപ്പെടാം.</p>
+        
+        <h3>ഉപയോഗ വിവരങ്ങൾ (Usage Data)</h3>
+        <p>നിങ്ങളുടെ ഐപി (IP) വിലാസം, ബ്രൗസർ തരം, സന്ദർശിച്ച സമയം എന്നിവ സ്വയമേവ ശേഖരിക്കപ്പെടാം.</p>
+
+        <h2>3. വിവരങ്ങളുടെ ഉപയോഗം</h2>
+        <p>വെബ്സൈറ്റിന്റെ പ്രവർത്തനം മെച്ചപ്പെടുത്താനും നിങ്ങളുടെ സംശയങ്ങൾക്ക് മറുപടി നൽകാനും മാത്രമാണ് ഈ വിവരങ്ങൾ ഉപയോഗിക്കുന്നത്.</p>
+
+        <h2>4. വിവര സുരക്ഷിതത്വം</h2>
+        <p>ഞങ്ങൾ ഫയലുകൾ സൂക്ഷിക്കാത്തതിനാൽ ഡാറ്റ ചോരാനുള്ള സാധ്യതയില്ല. സുരക്ഷിതത്വം ഉറപ്പാക്കാൻ ഞങ്ങൾ പരമാവധി ശ്രമിക്കുന്നു.</p>
+
+        <h2>5. കുട്ടികളുടെ സ്വകാര്യത</h2>
+        <p>ഞങ്ങളുടെ സേവനം 13 വയസ്സിൽ താഴെയുള്ള കുട്ടികൾക്കായി രൂപകൽപ്പന ചെയ്തതല്ല.</p>
+
+        <h2>6. ബന്ധപ്പെടുക</h2>
+        <p>എന്തെങ്കിലും സംശയങ്ങളുണ്ടെങ്കിൽ ഇമെയിൽ വഴി ബന്ധപ്പെടാം:</p>
+        <ul>
+          <li>ഇമെയിൽ: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- BENGALI -->
+      <div class="lang-content" id="content-bn">
+        <h1><i class="fas fa-shield-alt"></i> গোপনীয়তা নীতি (Privacy Policy)</h1>
+        <p class="effective-date"><strong>সর্বশেষ আপডেট:</strong> ৩ মে, २०२৫</p>
+
+        <p>আমাদের পরিষেবা ব্যবহারের সময় আপনার তথ্যের সুরক্ষা এবং ব্যবহার সম্পর্কিত নীতিগুলি এখানে ব্যাখ্যা করা হয়েছে।</p>
+        <p>Toollaxy ব্যবহার করার মাধ্যমে, আপনি এই গোপনীয়তা নীতিতে সম্মতি প্রদান করছেন।</p>
+
+        <h2>১. লোকাল ব্রাউজার প্রসেসিং (Local Client-Side Processing)</h2>
+        <p>Toollaxy-তে বেশিরভাগ টুল (যেমন ইমেজ কম্প্রেসার, পিডিএফ লক এবং টেক্সট কনভার্টার) সরাসরি আপনার ব্রাউজারে রান করে। এর অর্থ হল আপনার ব্যক্তিগত ফাইলগুলি <strong>কখনোই আমাদের সার্ভারে আপলোড করা হয় না</strong>।</p>
+
+        <h2>২. তথ্য সংগ্রহ এবং ব্যবহার</h2>
+        <h3>ব্যক্তিগত ডেটা</h3>
+        <p>সহায়তার জন্য আমাদের সাথে যোগাযোগ করার সময় আমরা আপনার ইমেল ঠিকানার মতো সাধারণ তথ্য চাইতে পারি।</p>
+        
+        <h3>ব্যবহারের ডেটা (Usage Data)</h3>
+        <p>আপনার আইপি (IP) ঠিকানা, ব্রাউজারের ধরণ এবং পেজ ভিজিটের সময় ইত্যাদি তথ্য স্বয়ংক্রিয়ভাবে সংগৃহীত হতে পারে।</p>
+
+        <h2>৩. তথ্যের ব্যবহার</h2>
+        <p>আমরা এই তথ্য শুধুমাত্র ওয়েবসাইট পরিচালনা করতে এবং আপনার অনুরোধের সমাধান করতে ব্যবহার করি।</p>
+
+        <h2>৪. ডেটা সুরক্ষা</h2>
+        <p>যেহেতু আমরা আপনার আপলোড করা ফাইল আমাদের কাছে সংরক্ষণ করি না, তাই ডেটা ফাঁসের কোনো ঝুঁকি নেই।</p>
+
+        <h2>৫. শিশুদের গোপনীয়তা</h2>
+        <p>আমাদের পরিষেবা ১৩ বছরের কম বয়সী শিশুদের জন্য প্রযোজ্য নয়।</p>
+
+        <h2>৬. যোগাযোগ করুন</h2>
+        <p>গোপনীয়তা নীতি সম্পর্কে কোনো প্রশ্ন থাকলে আমাদের সাথে যোগাযোগ করতে পারেন:</p>
+        <ul>
+          <li>ইমেল: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <a href="index.html" class="back-to-home">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="term.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Dropdown menu functionality
+    const langSelect = document.getElementById('langSelect');
+    const contents = document.querySelectorAll('.lang-content');
+
+    langSelect.addEventListener('change', () => {
+        const selectedLang = langSelect.value;
+
+        // Hide all content areas
+        contents.forEach(content => content.classList.remove('active'));
+        
+        // Show content based on selected language from dropdown
+        const activeContent = document.getElementById(`content-${selectedLang}`);
+        if (activeContent) {
+            activeContent.classList.add('active');
+        }
+    });
+  </script>
+</body>
+</html>

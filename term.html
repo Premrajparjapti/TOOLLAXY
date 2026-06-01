@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Terms and Conditions for Toollaxy - Guidelines and rules for using our free online tools.">
+  <title>Terms of Use | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+      width: 100%;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 20px 20px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Language Selector Bar */
+    .lang-selector-container {
+        background-color: var(--white);
+        padding: 20px;
+        border-radius: var(--rounded);
+        box-shadow: var(--shadow);
+        margin-bottom: 25px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    @media (min-width: 768px) {
+        .lang-selector-container {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+
+    .lang-label {
+        font-weight: 600;
+        font-size: 1rem;
+        color: var(--text-dark);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .select-wrapper {
+        position: relative;
+        min-width: 240px;
+    }
+
+    .lang-select {
+        width: 100%;
+        padding: 12px 40px 12px 15px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        border: 2px solid var(--primary-blue);
+        border-radius: var(--rounded);
+        background-color: var(--white);
+        color: var(--text-dark);
+        cursor: pointer;
+        transition: var(--transition);
+        appearance: none;
+        -webkit-appearance: none;
+    }
+
+    .lang-select:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+
+    .select-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--primary-blue);
+        pointer-events: none;
+    }
+    
+    .legal-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .lang-content {
+      display: none;
+    }
+
+    .lang-content.active {
+      display: block;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: var(--primary-blue);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .effective-date {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      font-size: 0.9rem;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    h2 {
+      font-size: 1.4rem;
+      color: var(--dark-blue);
+      margin: 25px 0 15px;
+      padding-top: 15px;
+      border-top: 1px solid #e2e8f0;
+    }
+    
+    p {
+      margin-bottom: 15px;
+      color: var(--text-dark);
+      text-align: justify;
+    }
+    
+    ul {
+      margin: 15px 0 25px 25px;
+    }
+    
+    li {
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+    
+    strong {
+      color: var(--dark-blue);
+    }
+    
+    a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    a:hover {
+      color: var(--dark-blue);
+      text-decoration: underline;
+    }
+    
+    .back-to-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary-blue);
+      text-decoration: none;
+      margin-top: 30px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    
+    .back-to-home:hover {
+      color: var(--dark-blue);
+    }
+    
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .footer-logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 15px;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .footer-logo span {
+      color: var(--light-blue);
+    }
+    
+    .footer-copyright {
+      opacity: 0.8;
+      font-size: 0.9rem;
+      margin-top: 20px;
+    }
+    
+    .footer-copyright a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-copyright a:hover {
+      color: var(--light-blue);
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 1.8rem;
+      }
+      .legal-container {
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Terms of Use</span>
+  </div>
+  
+  <main>
+    <!-- Language Selector Bar with Dropdown Menu -->
+    <div class="lang-selector-container">
+        <div class="lang-label">
+            <i class="fas fa-language"></i> Select Document Language / भाषा चुनें / భాషను ఎంచుకోండి
+        </div>
+        <div class="select-wrapper">
+            <select class="lang-select" id="langSelect">
+                <option value="en" selected>English</option>
+                <option value="hi">हिन्दी (Hindi)</option>
+                <option value="bho">भोजपुरी (Bhojpuri)</option>
+                <option value="mai">मैथिली (Maithili)</option>
+                <option value="te">తెలుగు (Telugu)</option>
+                <option value="ta">தமிழ் (Tamil)</option>
+                <option value="ml">മലയാളം (Malayalam)</option>
+                <option value="bn">বাংলা (Bengali)</option>
+            </select>
+            <i class="fas fa-chevron-down select-icon"></i>
+        </div>
+    </div>
+
+    <!-- Legal Container -->
+    <div class="legal-container">
+      
+      <!-- ENGLISH -->
+      <div class="lang-content active" id="content-en">
+        <h1><i class="fas fa-file-contract"></i> Terms of Use</h1>
+        <p class="effective-date"><strong>Effective Date:</strong> June 1, 2025</p>
+
+        <h2>1. Acceptable Use of Tools</h2>
+        <p>By accessing Toollaxy, you agree to use our web utility tools only for lawful, personal, or educational purposes. You are strictly prohibited from using our site to process malicious files, generate spam, or execute automated scraping scripts.</p>
+
+        <h2>2. Service Availability & "As-Is" Clause</h2>
+        <p>Our tools are provided completely free of charge on an "as-is" and "as-available" basis. While we strive to ensure that all conversions, minifications, and calculations are reliable, we do not guarantee constant uptime or absolute accuracy of mathematical and document processing results.</p>
+
+        <h2>3. Limitations of Liability</h2>
+        <p>Toollaxy and its developers shall not be held liable for any data loss, workflow interruptions, or indirect damages resulting from the use or inability to use our website. Since most of our operations run on your local browser (client-side), the final execution of the utility is under your physical oversight.</p>
+
+        <h2>4. Intellectual Property</h2>
+        <p>All scripts, website design, stylesheets, and custom code provided on Toollaxy are the intellectual property of Toollaxy. You may not reverse-engineer, redistribute, or commercially exploit our codebase without our explicit written consent.</p>
+
+        <h2>5. Modifications & Updates</h2>
+        <p>We reserve the right to modify these terms and update the tool offerings at any point without prior notice. Continued use of the website after modifications indicates your agreement to the updated Terms.</p>
+
+        <h2>6. Contact Details</h2>
+        <p>If you have any questions regarding these Terms of Use, please reach out to us:</p>
+        <ul>
+          <li>By email: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- HINDI -->
+      <div class="lang-content" id="content-hi">
+        <h1><i class="fas fa-file-contract"></i> सेवा की शर्तें (Terms of Use)</h1>
+        <p class="effective-date"><strong>प्रभावी तिथि:</strong> 1 जून, 2025</p>
+
+        <h2>1. उपकरणों का स्वीकार्य उपयोग</h2>
+        <p>Toollaxy का उपयोग करके, आप केवल कानूनी, व्यक्तिगत या शैक्षिक उद्देश्यों के लिए हमारे उपकरणों का उपयोग करने के लिए सहमत होते हैं। हमारी वेबसाइट पर किसी भी प्रकार की हानिकारक फ़ाइल अपलोड करना या स्वचालित स्क्रिप्ट चलाना पूरी तरह प्रतिबंधित है।</p>
+
+        <h2>2. "जैसा है" सेवा और उपलब्धता</h2>
+        <p>हमारे सभी उपकरण पूरी तरह से निःशुल्क हैं और "जैसा है" (As-Is) आधार पर उपलब्ध कराए जाते हैं। यद्यपि हम यह सुनिश्चित करने का प्रयास करते हैं कि सभी परिणाम सही हों, हम इसकी शत-प्रतिशत सटीकता या निरंतर उपलब्धता की गारंटी नहीं देते हैं।</p>
+
+        <h2>3. देयता की सीमा (Limitation of Liability)</h2>
+        <p>इस वेबसाइट के उपयोग या उपयोग करने की असमर्थता से होने वाले किसी भी सीधे या अप्रत्यक्ष नुकसान (जैसे डेटा हानि या व्यावसायिक रुकावट) के लिए Toollaxy या उसके डेवलपर जिम्मेदार नहीं होंगे।</p>
+
+        <h2>4. बौद्धिक संपदा (Intellectual Property)</h2>
+        <p>वेबसाइट की डिज़ाइन, कोड, स्क्रिप्ट और सभी सामग्री Toollaxy की बौद्धिक संपदा हैं। हमारी लिखित सहमति के बिना आप हमारे कोड को कॉपी, री-डिस्ट्रीब्यूट या व्यावसायिक रूप से उपयोग नहीं कर सकते हैं।</p>
+
+        <h2>5. शर्तों में संशोधन</h2>
+        <p>हम बिना किसी पूर्व सूचना के इन शर्तों को किसी भी समय संशोधित करने का अधिकार सुरक्षित रखते हैं। संशोधनों के बाद वेबसाइट का निरंतर उपयोग आपकी सहमति माना जाएगा।</p>
+
+        <h2>6. संपर्क विवरण</h2>
+        <p>यदि इन शर्तों के संबंध में आपके कोई प्रश्न हैं, तो आप हमसे संपर्क कर सकते हैं:</p>
+        <ul>
+          <li>ईमेल द्वारा: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- BHOJPURI -->
+      <div class="lang-content" id="content-bho">
+        <h1><i class="fas fa-file-contract"></i> उपयोग के शर्त्त (Terms of Use)</h1>
+        <p class="effective-date"><strong>प्रभावी तारीख:</strong> 1 जून, 2025</p>
+
+        <h2>1. टूल्स के सही इस्तेमाल</h2>
+        <p>Toollaxy पर अइला के बाद, रउआ ए बात से सहमत बानी कि एहिजा दिहल गइल टूल्स के इस्तेमाल सिर्फ कानूनी, निजी आ पढ़ाई-लिखाई खातिर कइल जाई। वेबसाइट पर कौनों गलत फाइल अपलोड कइल या स्पैम फैलावल सख्त मना बा।</p>
+
+        <h2>2. "जइसन बा ओइसने" नियम (As-Is Clause)</h2>
+        <p>हमनी के सारा सर्विस एकदम फ्री बा आ "जइसन बा ओइसने" उपलब्ध करावल गइल बा। हमनी पूरा कोसिस करीला कि सारा हिसाब-किताब आ फाइल प्रोसेसिंग सही होखे, बाकिर हमनी एकर शत-प्रतिशत गारंटी नईखीं दे सकत।</p>
+
+        <h2>3. जिम्मेदारी के सीमा</h2>
+        <p>वेबसाइट के इस्तेमाल से होखे वाले कौनों भी नुकसान (जैसे डेटा डिलीट होखल) खातिर Toollaxy या ओकर डेवलपर जिम्मेदार ना होखिहें। रउआ टूल्स के इस्तेमाल अपना रिस्क पर करत बानी।</p>
+
+        <h2>4. मालिकाना हक (Intellectual Property)</h2>
+        <p>ए वेबसाइट के डिजाइन, कोड आ सारा सामग्री Toollaxy के बा। हमनी के मर्जी के बिना कोड के कॉपी कइल या ओकरा के बेचल गैर-कानूनी बा।</p>
+
+        <h2>5. शर्त्तन में बदलाव</h2>
+        <p>हमनी के कौनों भी समय बिना जानकारी देले ए नियमन में बदलाव करे के पूरा हक बा। बदलाव के बाद भी पोर्टल के इस्तेमाल कइला पर नया नियम लागू मानल जाई।</p>
+
+        <h2>6. संपर्क जानकारी</h2>
+        <p>अगर नियम आ शर्त्त के बारे में कौनों सवाल बा त ईमेल करीं:</p>
+        <ul>
+          <li>ईमेल: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- MAITHILI -->
+      <div class="lang-content" id="content-mai">
+        <h1><i class="fas fa-file-contract"></i> उपयोगक शर्त्त (Terms of Use)</h1>
+        <p class="effective-date"><strong>प्रभावी तिथि:</strong> 1 जून, 2025</p>
+
+        <h2>1. टूल्सक स्वीकार्य उपयोग</h2>
+        <p>Toollaxy क उपयोग क' अहां ई स्वीकार करैत छी जे अहां एहि टूल्सक उपयोग केवल कानूनी, व्यक्तिगत आ शैक्षणिक उद्देश्यक लेल करब। साइट पर कोनो दुर्भावनापूर्ण फ़ाइल अपलोड कयल या स्पैम कयल वर्जित अछि।</p>
+
+        <h2>2. "जेहन अछि ओहन" उपलब्धता नियम</h2>
+        <p>हमर सभ सेवा पूर्णतः निःशुल्क अछि आ "जेहन अछि ओहन" (As-Is) आधार पर उपलब्ध अछि। यद्यपि हम सभ परिणामक शुद्धता लेल प्रयास करैत छी, मुदा कोनो गारंटी नै द' सकैत छी।</p>
+
+        <h2>3. दायित्वक सीमा</h2>
+        <p>एहि साइटक उपयोग सँ होबय बला कोनो प्रत्यक्ष वा अप्रत्यक्ष नुकसानक लेल Toollaxy वा ओकर डेवलपर जिम्मेदार नै रहता। अहां अपन विवेक सँ उपयोग करू।</p>
+
+        <h2>4. बौद्धिक संपदा</h2>
+        <p>एहि साइटक डिज़ाइन, कोड आ सामग्री पर Toollaxy क अधिकार अछि। बिना लिखित सहमतिक अहां हमर कोडक प्रतिलिपि नै बना सकैत छी।</p>
+
+        <h2>5. नियम सभ में बदलाव</h2>
+        <p>हम कखनो बिना सूचनाक एहि नियम सभ में बदलाव क' सकैत छी। बदलाव क' बाद सेहो उपयोग जारी रखला पर नवीन नियम लागू मानल जायत।</p>
+
+        <h2>6. संपर्क सूत्र</h2>
+        <p>कोनो स्पष्टीकरणक लेल ईमेल करू:</p>
+        <ul>
+          <li>ईमेल: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- TELUGU -->
+      <div class="lang-content" id="content-te">
+        <h1><i class="fas fa-file-contract"></i> వినియోగ నిబంధనలు (Terms of Use)</h1>
+        <p class="effective-date"><strong>అమల్లోకి వచ్చిన తేదీ:</strong> జూన్ 1, 2025</p>
+
+        <h2>1. సాధనాల సముచిత వినియోగం</h2>
+        <p>Toollaxy ని ఉపయోగించడం ద్వారా, మీరు ఈ వెబ్‌సైట్ సాధనాలను కేవలం చట్టబద్ధమైన, వ్యక్తిగత లేదా విద్యా ప్రయోజనాల కోసం మాత్రమే ఉపయోగించడానికి అంగీకరిస్తున్నారు. హానికరమైన ఫైళ్లను అప్‌లోడ్ చేయడం నిషేధించబడింది.</p>
+
+        <h2>2. సర్వీస్ లభ్యత & "ఉన్నది ఉన్నట్లుగా" నిబంధన</h2>
+        <p>మా ఉచిత సాధనాలు "ఉన్నది ఉన్నట్లుగా" (As-Is) అందించబడతాయి. మేము ఫలితాల ఖచ్చితత్వం కోసం కృషి చేసినప్పటికీ, స్థిరమైన పనితీరును లేదా ఖచ్చితత్వాన్ని మేము పూర్తిగా హామీ ఇవ్వలేము.</p>
+
+        <h2>3. బాధ్యత పరిమితులు</h2>
+        <p>ఈ వెబ్‌సైట్ వినియోగం వల్ల మీకు కలిగే ఎలాంటి నష్టాలకైనా (డేటా కోల్పోవడం వంటివి) Toollaxy లేదా దాని డెవలపర్లు బాధ్యత వహించరు. మీ స్వంత బాధ్యతపైనే ఉపయోగించాల్సి ఉంటుంది.</p>
+
+        <h2>4. మేధో సంపత్తి (Intellectual Property)</h2>
+        <p>ఈ సైట్ డిజైన్, కోడ్ మరియు కంటెంట్ Toollaxy కి చెందినవి. మా అనుమతి లేకుండా మా కోడ్‌ను కాపీ చేయడం లేదా వాణిజ్యపరంగా ఉపయోగించడం చట్టవిరుద్ధం.</p>
+
+        <h2>5. నిబంధనలలో మార్పులు</h2>
+        <p>మేము ఎప్పుడైనా ఈ నిబంధనలను సవరించే హక్కును కలిగి ఉన్నాము. మార్పుల తర్వాత కూడా వెబ్‌సైట్ ఉపయోగించడం అంటే మీరు కొత్త నియమాలకు అంగీకరించినట్లే.</p>
+
+        <h2>6. సంప్రదింపు వివరాలు</h2>
+        <p>మీకు ఏవైనా ప్రశ్నలు ఉంటే, ఇమెయిల్ ద్వారా మమ్మల్ని సంప్రదించండి:</p>
+        <ul>
+          <li>ఇమెయిల్: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- TAMIL -->
+      <div class="lang-content" id="content-ta">
+        <h1><i class="fas fa-file-contract"></i> பயன்பாட்டு விதிமுறைகள் (Terms of Use)</h1>
+        <p class="effective-date"><strong>அமலுக்கு வரும் தேதி:</strong> ஜூன் 1, 2025</p>
+
+        <h2>1. முறையான பயன்பாடு</h2>
+        <p>Toollaxy-ஐப் பயன்படுத்துவதன் மூலம், இத்தளத்தில் உள்ள கருவிகளை நீங்கள் சட்டபூர்வமான, தனிப்பட்ட அல்லது கல்வி நோக்கங்களுக்காக மட்டுமே பயன்படுத்த ஒப்புக்கொள்கிறீர்கள். தீங்கிழைக்கும் கோப்புகளைப் பதிவேற்றுவது தடைசெய்யப்பட்டுள்ளது.</p>
+
+        <h2>2. சேவை கிடைக்கும் தன்மை & பொறுப்புத் துறப்பு</h2>
+        <p>எங்கள் கருவிகள் அனைத்தும் முற்றிலும் இலவசமாக, "உள்ளவாறே" (As-Is) வழங்கப்படுகின்றன. துல்லியமான முடிவுகளை வழங்க நாங்கள் முயற்சித்தாலும், அவற்றின் முழுமையான துல்லியத்திற்கு நாங்கள் உத்தரவாதம் அளிக்க முடியாது.</p>
+
+        <h2>3. பொறுப்பு வரம்பு</h2>
+        <p>இத்தளத்தைப் பயன்படுத்துவதால் ஏற்படும் எந்தவொரு இழப்புகளுக்கும் (தரவு இழப்பு போன்றவை) Toollaxy அல்லது அதன் டெவலப்பர்கள் பொறுப்பேற்க மாட்டார்கள்.</p>
+
+        <h2>4. அறிவுசார் சொத்துரிமை</h2>
+        <p>இத்தளத்தின் வடிவமைப்பு, நிரலாக்கம் (Code) மற்றும் பிற உள்ளடக்கங்கள் யாவும் Toollaxy-க்கு சொந்தமானவை. எங்களின் எழுத்துப்பூர்வ அனுமதியின்றி இவற்றை மறுபிரசுரம் செய்யக்கூடாது.</p>
+
+        <h2>5. விதிமுறைகளில் மாற்றங்கள்</h2>
+        <p>இந்த விதிமுறைகளை எந்த நேரத்திலும் மாற்றியமைக்கும் உரிமை எங்களுக்கு உள்ளது. மாற்றங்களுக்குப் பிறகு தளத்தைப் பயன்படுத்துவது புதிய விதிமுறைகளை ஏற்பதாகக் கருதப்படும்.</p>
+
+        <h2>6. தொடர்பு விவரங்கள்</h2>
+        <p>விதிமுறைகள் குறித்த கேள்விகளுக்கு மின்னஞ்சல் அனுப்பவும்:</p>
+        <ul>
+          <li>மின்னஞ்சல்: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- MALAYALAM -->
+      <div class="lang-content" id="content-ml">
+        <h1><i class="fas fa-file-contract"></i> ഉപയോഗ നിബന്ധനകൾ (Terms of Use)</h1>
+        <p class="effective-date"><strong>പ്രാബല്യത്തിൽ വന്ന തീയതി:</strong> ജൂൺ 1, 2025</p>
+
+        <h2>1. ഉപകരണങ്ങളുടെ ശരിയായ ഉപയോഗം</h2>
+        <p>Toollaxy സന്ദർശിക്കുന്നതിലൂടെ, ഇവിടെ ലഭ്യമായ ടൂളുകൾ നിയമപരവും വ്യക്തിപരവുമായ ആവശ്യങ്ങൾക്ക് മാത്രമേ ഉപയോഗിക്കൂ എന്ന് നിങ്ങൾ സമ്മതിക്കുന്നു. ദോഷകരമായ ഫയലുകൾ അപ്‌ലോഡ് ചെയ്യുന്നത് കർശനമായി നിരോധിച്ചിരിക്കുന്നു.</p>
+
+        <h2>2. സേവന ലഭ്യതയും നിബന്ധനകളും</h2>
+        <p>ഞങ്ങളുടെ സേവനങ്ങൾ പൂർണ്ണമായും സൌജന്യവും "ഉള്ളതുപോലെ" (As-Is) ലഭ്യമാക്കുന്നതുമാണ്. കൃത്യത ഉറപ്പാക്കാൻ ഞങ്ങൾ ശ്രമിക്കുന്നുണ്ടെങ്കിലും, ഫലങ്ങളുടെ പൂർണ്ണമായ ഉത്തരവാദിത്തം ഞങ്ങൾ ഏറ്റെടുക്കുന്നില്ല.</p>
+
+        <h2>3. ബാധ്യത പരിമിതികൾ</h2>
+        <p>ഈ വെബ്‌സൈറ്റ് ഉപയോഗിക്കുന്നത് മൂലമുണ്ടാകുന്ന നഷ്ടങ്ങൾക്ക് (ഡാറ്റ നഷ്ടപ്പെടുന്നത് ഉൾപ്പെടെ) Toollaxy അല്ലെങ്കിൽ അതിന്റെ ഡെവലപ്പർമാർ ഉത്തരവാദികളായിരിക്കില്ല.</p>
+
+        <h2>4. ബൗദ്ധിക സ്വത്തവകാശം</h2>
+        <p>ഈ വെബ്‌സൈറ്റിലെ ഡിസൈൻ, കോഡ്, ഉള്ളടക്കങ്ങൾ എന്നിവ Toollaxy-യുടെ സ്വന്തം ഉടമസ്ഥതയിലുള്ളതാണ്. ഞങ്ങളുടെ അനുമതിയില്ലാതെ ഇത് പകർത്തുന്നത് നിയമവിരുദ്ധമാണ്.</p>
+
+        <h2>5. നിബന്ധനകളിലെ മാറ്റങ്ങൾ</h2>
+        <p>ഈ നിബന്ധനകൾ എപ്പോൾ വേണമെങ്കിലും മാറ്റാൻ ഞങ്ങൾക്ക് അവകാശമുണ്ട്. മാറ്റങ്ങൾക്ക് ശേഷവും വെബ്സൈറ്റ് ഉപയോഗിക്കുന്നത് പുതിയ നിബന്ധനകൾ നിങ്ങൾ അംഗീകരിക്കുന്നതായി കണക്കാക്കും.</p>
+
+        <h2>6. ബന്ധപ്പെടേണ്ട വിലാസം</h2>
+        <p>സംശയങ്ങൾക്ക് ഇമെയിൽ വഴി ബന്ധപ്പെടുക:</p>
+        <ul>
+          <li>ഇമെയിൽ: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <!-- BENGALI -->
+      <div class="lang-content" id="content-bn">
+        <h1><i class="fas fa-file-contract"></i> ব্যবহারের শর্তাবলী (Terms of Use)</h1>
+        <p class="effective-date"><strong>কার্যকরী তারিখ:</strong> ১ জুন, २०२৫</p>
+
+        <h2>১. টুলের সঠিক ব্যবহার</h2>
+        <p>Toollaxy ব্যবহার করার মাধ্যমে, আপনি আমাদের টুলগুলি শুধুমাত্র বৈধ, ব্যক্তিগত বা শিক্ষামূলক উদ্দেশ্যে ব্যবহার করতে সম্মত হচ্ছেন। ক্ষতিকারক ফাইল আপলোড করা সম্পূর্ণ নিষিদ্ধ।</p>
+
+        <h2>২. পরিষেবার সহজলভ্যতা</h2>
+        <p>আমাদের সমস্ত পরিষেবা সম্পূর্ণ বিনামূল্যে এবং "যেমন আছে" (As-Is) ভিত্তিতে প্রদান করা হয়। আমরা নির্ভুল ফলাফল দেওয়ার চেষ্টা করলেও কোনো আইনি গ্যারান্টি প্রদান করি না।</p>
+
+        <h2>৩. দায়বদ্ধতার সীমাবদ্ধতা</h2>
+        <p>এই ওয়েবসাইট ব্যবহারের ফলে কোনো প্রকার ডেটা ক্ষতি বা পরোক্ষ লোকসানের জন্য Toollaxy বা এর ডেভেলপাররা কোনোভাবেই দায়ী থাকবেন না।</p>
+
+        <h2>৪. মেধা সম্পত্তি (Intellectual Property)</h2>
+        <p>এই ওয়েবসাইটের ডিজাইন, কোড এবং সমস্ত স্ক্রিপ্ট Toollaxy-এর নিজস্ব মেধা সম্পত্তি। অনুমতি ছাড়া আমাদের কোড কপি বা বিতরণ করা নিষিদ্ধ।</p>
+
+        <h2>৫. শর্তাবলীর পরিবর্তন</h2>
+        <p>আমরা যেকোনো সময় কোনো পূর্ব নোটিশ ছাড়াই এই শর্তাবলী পরিবর্তন করার অধিকার রাখি। পরিবর্তনের পর ব্যবহার করা মানেই নতুন শর্তাবলী মেনে নেওয়া।</p>
+
+        <h2>৬. যোগাযোগের ঠিকানা</h2>
+        <p>শর্তাবলী সম্পর্কে কোনো প্রশ্ন থাকলে আমাদের ইমেল করতে পারেন:</p>
+        <ul>
+          <li>ইমেল: <a href="mailto:jhatkabeast@gmail.com">jhatkabeast@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <a href="index.html" class="back-to-home">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+  </main>
+  
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+      <div class="footer-copyright">
+        © 2025 Toollaxy. All rights reserved. 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="term.html">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Dropdown menu functionality
+    const langSelect = document.getElementById('langSelect');
+    const contents = document.querySelectorAll('.lang-content');
+
+    langSelect.addEventListener('change', () => {
+        const selectedLang = langSelect.value;
+
+        // Hide all content areas
+        contents.forEach(content => content.classList.remove('active'));
+        
+        // Show content based on selected language from dropdown
+        const activeContent = document.getElementById(`content-${selectedLang}`);
+        if (activeContent) {
+            activeContent.classList.add('active');
+        }
+    });
+  </script>
+</body>
+</html>

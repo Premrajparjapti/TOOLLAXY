@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn more about Toollaxy, our mission, security practices, and the free online tools we offer for your everyday digital needs.">
+    <title>About Us | Toollaxy</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #1e40af;
+            --light-blue: #93c5fd;
+            --bg-gray: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --rounded: 8px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            padding: 15px 0;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo span {
+            color: var(--text-dark);
+        }
+        
+        .logo i {
+            font-size: 28px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            padding: 15px 0;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            width: 100%;
+        }
+        
+        .breadcrumb a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        .breadcrumb span {
+            margin: 0 5px;
+            color: var(--text-light);
+        }
+        
+        main {
+            flex: 1;
+            padding: 20px 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Language Selector Bar */
+        .lang-selector-container {
+            background-color: var(--white);
+            padding: 20px;
+            border-radius: var(--rounded);
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .lang-selector-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .lang-label {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .select-wrapper {
+            position: relative;
+            min-width: 240px;
+        }
+
+        /* Custom Dropdown Styling */
+        .lang-select {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: 2px solid var(--primary-blue);
+            border-radius: var(--rounded);
+            background-color: var(--white);
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: var(--transition);
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .lang-select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        }
+
+        .select-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-blue);
+            pointer-events: none;
+        }
+
+        /* Content Section */
+        .content-card {
+            background-color: var(--white);
+            border-radius: var(--rounded);
+            box-shadow: var(--shadow);
+            padding: 40px;
+        }
+
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+
+        .about-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .info-section {
+            margin-top: 30px;
+            background-color: var(--bg-gray);
+            padding: 25px;
+            border-radius: var(--rounded);
+            border-left: 5px solid var(--primary-blue);
+        }
+
+        .info-section h3 {
+            font-size: 1.3rem;
+            color: var(--dark-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-section p {
+            font-size: 1rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .features-section {
+            margin-top: 35px;
+        }
+
+        .features-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--bg-gray);
+            padding-bottom: 8px;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .feature-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 12px;
+            background-color: var(--bg-gray);
+            padding: 15px;
+            border-radius: var(--rounded);
+            transition: var(--transition);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-icon {
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            margin-top: 3px;
+        }
+
+        .feature-text strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--text-dark);
+        }
+
+        .feature-text p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 40px 0 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 15px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .footer-logo span {
+            color: var(--light-blue);
+        }
+        
+        .footer-copyright {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+
+        .footer-copyright a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .footer-copyright a:hover {
+            color: var(--light-blue);
+            text-decoration: underline;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .about-title {
+                font-size: 1.8rem;
+            }
+            .content-card {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-tools"></i>
+                <span>TOOL<span>LAXY</span></span>
+            </a>
+        </div>
+    </header>
+    
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span>About Us</span>
+    </div>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Language Selector Bar with Dropdown Menu -->
+        <div class="lang-selector-container">
+            <div class="lang-label">
+                <i class="fas fa-language"></i> Select Page Language / भाषा चुनें / భాషను ఎంచుకోండి
+            </div>
+            <div class="select-wrapper">
+                <select class="lang-select" id="langSelect">
+                    <option value="en" selected>English</option>
+                    <option value="hi">हिन्दी (Hindi)</option>
+                    <option value="bho">भोजपुरी (Bhojpuri)</option>
+                    <option value="mai">मैथिली (Maithili)</option>
+                    <option value="te">తెలుగు (Telugu)</option>
+                    <option value="ta">தமிழ் (Tamil)</option>
+                    <option value="ml">മലയാളം (Malayalam)</option>
+                    <option value="bn">বাংলা (Bengali)</option>
+                </select>
+                <i class="fas fa-chevron-down select-icon"></i>
+            </div>
+        </div>
+
+        <!-- Content Card -->
+        <div class="content-card">
+            
+            <!-- ENGLISH -->
+            <div class="lang-content active" id="content-en">
+                <h1 class="about-title"><i class="fas fa-info-circle"></i> About Toollaxy</h1>
+                <p class="about-text">
+                    Toollaxy is a comprehensive, free online portal dedicated to simplifying everyday digital tasks. We provide users with a secure and fast platform containing utility tools for document processing, image optimization, color picking, financial calculation, and text conversion.
+                </p>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-user-shield"></i> Security and Client-Side Processing</h3>
+                    <p>The primary concern for online tool users is data security. At Toollaxy, most of our tools run directly within your web browser (Client-Side processing) using  . This means your files (images, PDFs, text) are processed locally on your machine and never uploaded to any external server. For the tools that require backend computation, we do not store, log, or share your files. Your privacy is structurally built into our design.</p>
+                </div>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-bullseye"></i> Why Toollaxy Was Created</h3>
+                    <p>We realized that simple utility tasks—like compressing an image, locking a PDF, or calculating a loan—often require downloading heavy software or navigating websites filled with intrusive ads and registration walls. Toollaxy was created to bridge this gap, offering a clean, simple, and completely free web interface where anyone can complete their tasks quickly and proceed with their day.</p>
+                </div>
+
+                <div class="features-section">
+                    <h2 class="features-title">Core Principles</h2>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>Privacy First</strong>
+                                <p>We process documents, images, and tools locally on your device whenever possible.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-bolt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>No Registration</strong>
+                                <p>No account creation or sign-up needed. Access all tools instantly.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-hand-holding-usd feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>Completely Free</strong>
+                                <p>Our features are accessible without any hidden fees or subscription restrictions.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-mobile-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>Responsive Access</strong>
+                                <p>Our interface works across mobile phones, tablets, and desktop setups.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- HINDI -->
+            <div class="lang-content" id="content-hi">
+                <h1 class="about-title"><i class="fas fa-info-circle"></i> Toollaxy के बारे में</h1>
+                <p class="about-text">
+                    Toollaxy एक सरल और मुफ़्त ऑनलाइन पोर्टल है, जिसे रोजमर्रा के डिजिटल कार्यों को आसान बनाने के लिए विकसित किया गया है। हम दस्तावेज़ प्रोसेसिंग, इमेज ऑप्टिमाइज़ेशन, कलर पिकिंग, वित्तीय गणना और टेक्स्ट कनवर्टर जैसे टूल प्रदान करते हैं।
+                </p>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-user-shield"></i> सुरक्षा और क्लाइंट-साइड प्रोसेसिंग</h3>
+                    <p>ऑनलाइन टूल्स का उपयोग करते समय सबसे बड़ी चिंता डेटा सुरक्षा की होती है। Toollaxy पर, हमारे अधिकांश टूल्स    का उपयोग करके सीधे आपके वेब ब्राउज़र (क्लाइंट-साइड) के भीतर चलते हैं। इसका मतलब है कि आपकी फाइलें (इमेज, पीडीएफ, टेक्स्ट) आपके कंप्यूटर या मोबाइल पर स्थानीय रूप से प्रोसेस होती हैं और कभी भी बाहरी सर्वर पर अपलोड नहीं की जाती हैं। जिन टूल्स के लिए बैकएंड प्रोसेसिंग की आवश्यकता होती है, वहां भी हम आपकी फाइलों को स्टोर या साझा नहीं करते हैं। आपकी गोपनीयता हमारी प्राथमिकता है।</p>
+                </div>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-bullseye"></i> Toollaxy बनाने का उद्देश्य</h3>
+                    <p>हमने महसूस किया कि सरल दैनिक कार्यों के लिए—जैसे इमेज को कंप्रेस करना, पीडीएफ को लॉक करना, या लोन की ईएमआई निकालना—अक्सर भारी सॉफ़्टवेयर डाउनलोड करने पड़ते हैं या विज्ञापन और लॉगिन दीवारों से भरी वेबसाइटों पर जाना पड़ता है। Toollaxy का निर्माण इसी अंतर को पाटने के लिए किया गया है, ताकि एक स्वच्छ, विज्ञापन-मुक्त (कम से कम विज्ञापनों वाला) और पूरी तरह से मुफ्त वेब इंटरफेस प्रदान किया जा सके जहाँ कोई भी व्यक्ति अपने काम को बिना किसी परेशानी के पूरा कर सके।</p>
+                </div>
+
+                <div class="features-section">
+                    <h2 class="features-title">हमारे मुख्य सिद्धांत</h2>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>गोपनीयता सबसे पहले</strong>
+                                <p>हम जहाँ तक संभव हो दस्तावेज़ों और छवियों को सीधे आपके डिवाइस पर प्रोसेस करते हैं।</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-bolt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>कोई पंजीकरण नहीं</strong>
+                                <p>अकाउंट बनाने या लॉग-इन की कोई आवश्यकता नहीं है। सभी टूल तुरंत उपलब्ध हैं।</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-hand-holding-usd feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>पूरी तरह से मुफ़्त</strong>
+                                <p>बिना किसी छिपे हुए शुल्क या सब्सक्रिप्शन सीमाओं के सभी टूल्स का उपयोग करें।</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-mobile-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>रिस्पॉन्सिव डिज़ाइन</strong>
+                                <p>हमारा इंटरफ़ेस मोबाइल फ़ोन, टैबलेट और डेस्कटॉप सभी पर आसानी से काम करता है।</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- BHOJPURI -->
+            <div class="lang-content" id="content-bho">
+                <h1 class="about-title"><i class="fas fa-info-circle"></i> Toollaxy के बारे में</h1>
+                <p class="about-text">
+                    Toollaxy एगो मुफ़्त ऑनलाइन पोर्टल बा जवन रउआ सभ के रोज़मर्रा के डिजिटल काम के आसान बनावे खातिर तइयार कइल गइल बा। एहिजा रउआ सभ के इमेज ऑप्टिमाइजेशन, डॉक्यूमेंट प्रोसेसिंग, कलर पिकिंग, बैंक कैलकुलेटर आ टेक्स्ट कनवर्टर नियर ढेर सारा ज़रूरी टूल्स मिल जाई।
+                </p>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-user-shield"></i> सुरक्षा आ लोकल ब्राउज़र प्रोसेसिंग</h3>
+                    <p>ऑनलाइन टूल्स के इस्तेमाल करत समय सभसे बड़ चिंता डेटा के सुरक्षा के होखेला। Toollaxy पर, हमनी के ज़्यादातर टूल्स    के मदद से सीधे रउए के वेब ब्राउज़र (क्लाइंट-साइड) में काम करेला। एकर मतलब इ बा कि रउआ फाइल (फोटो, पीडीएफ, या टेक्स्ट) सीधे रउवे कंप्यूटर या मोबाइल पर प्रोसेस होला आ कौनों बाहरी सर्वर पर अपलोड ना होखेला। जवन टूल खातिर सर्वर के जरूरत पड़ेला, ओहू में हमनी के रउआ फाइल के कबहूँ स्टोर या शेयर ना करीला। रउआ प्राइवेसी हमनी खातिर सबसे पहिले बा।</p>
+                </div>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-bullseye"></i> Toollaxy बनावे के का मकसद रहे?</h3>
+                    <p>हमनी के महसूस भइल कि छोटा-मोटा काम खातिर—जैसे फोटो के साइज कम कइल, पीडीएफ लॉक कइल, या लोन के हिसाब कइल—लोगन के भारी-भारी सॉफ्टवेयर डाउनलोड करे के पड़ेला या फेर ढेर विज्ञापन आ लॉगिन वाली वेबसाइट पर भटके के पड़ेला। Toollaxy बनावे के मकसद इहे बा कि रउआ सभ के एगो साफ-सुथरा आ एकदम मुफ़्त जगह मिले, जहाँ रउआ मिनटों में अपना काम पूरा कइके आगे बढ़ सकीं।</p>
+                </div>
+
+                <div class="features-section">
+                    <h2 class="features-title">मुख्य विशेषता सभ</h2>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>सुरक्षा आ प्राइवेसी</strong>
+                                <p>रउआ सभ के फाइल रउवे मोबाइल या कंप्यूटर पर प्रोसेस होला, हमनी के सर्वर पर सुरक्षित रहेला।</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-bolt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>कौनों साइन-अप ना</strong>
+                                <p>कौनों नया अकाउंट बनावे के झंझट नईखे। सीधे आई आ औजार के इस्तेमाल करीं।</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-hand-holding-usd feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>एकदम मुफ़्त</strong>
+                                <p>कौनों भी छुपावल चार्ज नईखे, रउआ बिना कौनों पैसा देले सब टूल चला सकीं।</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-mobile-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>हर डिवाइस पर काम करी</strong>
+                                <p>चाहे मोबाइल होखे या कंप्यूटर, इ पोर्टल सब जगह बहुत बढ़िया से काम करेला।</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- MAITHILI -->
+            <div class="lang-content" id="content-mai">
+                <h1 class="about-title"><i class="fas fa-info-circle"></i> Toollaxy क बारे में</h1>
+                <p class="about-text">
+                    Toollaxy अहां सभक लेल एकटा मुफ़्त ऑनलाइन पोर्टल अछि जे दैनिक डिजिटल काज सभ के सुगम बनेबाक लेल बनाओल गेल अछि। हम दस्तावेज़ प्रोसेसिंग, इमेज ऑप्टिमाइज़ेशन, कलर पिकिंग, लोन कैलकुलेशन आ टेक्स्ट कनवर्टर जेहन महत्वपूर्ण टूल्स प्रदान करैत छी।
+                </p>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-user-shield"></i> सुरक्षा एवं ब्राउज़र-स्तरीय प्रोसेसिंग</h3>
+                    <p>इंटरनेट पर कोनो टूलक उपयोग करय काल डाटाक सुरक्षा सबसँ पैघ प्रश्न होइत अछि। Toollaxy पर, हमर अधिकांश टूल्स    ( ) क उपयोग क' सीधे अहांक ब्राउज़र (क्लाइंट-साइड) क भीतर कार्य करैत अछि। एकर अर्थ अछि जे अहांक फाइल (चित्र, पीडीएफ, टेक्स्ट) अहांक कंप्यूटर या मोबाइल पर स्थानीय रूप सँ प्रोसेस होइत अछि आ कोनो बाहरी सर्वर पर अपलोड नै कयल जाइत अछि। जे टूल्स सर्वर क उपयोग करैत अछि, ओतय सेहो हम अहांक कोनो फाइल सहेज क' नै रखैत छी।</p>
+                </div>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-bullseye"></i> Toollaxy बनेबाक उद्देश्य</h3>
+                    <p>हम देखलहुँ जे सामान्य काज सभक लेल—जेना पीडीएफ लॉक करब वा फोटोक आकार घटाएब—प्रायः बड़का सॉफ्टवेयर डाउनलोड करय पड़ैत अछि। बहुत रास वेबसाइट पर लॉगिन आ विज्ञापनक झंझट रहैत अछि। Toollaxy क निर्माण एहि लेल कयल गेल अछि ताकि अहांक समयक बचत होअय आ एकटा स्वच्छ, सरल आ मुफ़्त प्लेटफॉर्म भेटय जाहि सँ अहां त्वरित अपन काज क' सकी।</p>
+                </div>
+
+                <div class="features-section">
+                    <h2 class="features-title">मूल सिद्धांत</h2>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>गोपनीयताक सुरक्षा</strong>
+                                <p>अहांक फाइल अहांक अपन कंप्यूटर या मोबाइल पर स्थानीय रूप सँ प्रोसेस कयल जाइত अछि।</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-bolt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>रजिस्ट्रेशनक आवश्यकता नै</strong>
+                                <p>बिना कोनो साइन-अप क सभ टूल्स क तुरंत उपयोग कयल जा सकैत अछि।</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-hand-holding-usd feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>पूर्णतः मुफ़्त</strong>
+                                <p>कोनो अदृश्य शुल्क या सब्सक्रिप्शन क प्रतिबंध अहांक लेल नै अछि।</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-mobile-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>अनुकूल डिज़ाइन</strong>
+                                <p>मोबाइल स ल क कंप्यूटर स्क्रीन तक, सभ उपकरण पर इ सुचारू रूप स चलैत अछि।</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- TELUGU -->
+            <div class="lang-content" id="content-te">
+                <h1 class="about-title"><i class="fas fa-info-circle"></i> Toollaxy గురించి</h1>
+                <p class="about-text">
+                    Toollaxy అనేది మీ రోజువారీ డిజిటల్ పనులను సరళీకృతం చేయడానికి రూపొందించబడిన ఒక ఉచిత ఆన్‌లైన్ పోర్టల్. మేము డాక్యుమెంట్ ప్రాసెసింగ్, ఇమేజ్ కంప్రెషన్, కలర్ పికింగ్, ఫైనాన్షియల్ కాలిక్యులేషన్స్ మరియు టెక్స్ట్ కన్వర్టర్ వంటి ఉపయోగకరమైన సాధనాలను అందిస్తాము.
+                </p>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-user-shield"></i> భద్రత మరియు లోకల్ బ్రౌజర్ ప్రాసెసింగ్</h3>
+                    <p>ఆన్‌లైన్ సాధనాలను ఉపయోగించేటప్పుడు యూజర్ల ప్రధాన ఆందోళన డేటా భద్రత. Toollaxy లో, మా సాధనాలు చాలావరకు జావాస్క్రిప్ట్ ( ) సహాయంతో నేరుగా మీ బ్రౌజర్ లోపలే (Client-Side) పనిచేస్తాయి. అంటే మీ ఫైల్‌లు (చిత్రాలు, పిడిఎఫ్, టెక్స్ట్) మీ పరికరంలోనే లోకల్‌గా ప్రాసెస్ చేయబడతాయి మరియు ఏ బాహ్య సర్వర్‌కు అప్‌లోడ్ చేయబడవు. సర్వర్ అవసరమయ్యే సాధనాలకు కూడా మేము మీ డేటాను స్టోర్ చేయము లేదా ఇతరులతో పంచుకోము. మీ గోప్యత మా బాధ్యత.</p>
+                </div>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-bullseye"></i> Toollaxy ప్రారంభించడానికి కారణం</h3>
+                    <p>చిన్న పనుల కోసం—ఉదాహరణకు ఫోటో సైజు తగ్గించడం లేదా ఈఎంఐ లెక్కింపు—తరచుగా భారీ సాఫ్ట్‌వేర్ డౌన్‌లోడ్ చేయాల్సి వస్తుందని మేము గమనించాము. యూజర్లు ప్రకటనలు మరియు లాగిన్ నిబంధనలతో ఇబ్బంది పడకుండా, ఒక సులభమైన మరియు పూర్తిగా ఉచిత వెబ్‌సైట్‌ను అందించాలనే లక్ష్యంతోనే Toollaxy ని ప్రారంభించాము.</p>
+                </div>
+
+                <div class="features-section">
+                    <h2 class="features-title">కీలక సూత్రాలు</h2>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>వ్యక్తిగత భద్రత</strong>
+                                <p>వీలైనంత వరకు మీ డాక్యుమెంట్లు మరియు చిత్రాలు స్థానికంగా మీ పరికరంలోనే ప్రాసెస్ చేయబడతాయి.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-bolt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>రిజిస్ట్రేషన్ అవసరం లేదు</strong>
+                                <p>ఎలాంటి అకౌంట్ క్రియేషన్ లేదా లాగిన్ అవసరం లేదు. సాధనాలను నేరుగా ఉపయోగించండి.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-hand-holding-usd feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>పూర్తిగా ఉచితం</strong>
+                                <p>ఎలాంటి దాచిన రుసుములు లేదా సబ్‌స్క్రిప్షన్ పరిమితులు లేకుండా ఉపయోగించుకోవచ్చు.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-mobile-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>మొబైల్ అనుకూలత</strong>
+                                <p>మా ఇంటర్‌ఫేస్ మొబైల్‌లు, టాబ్లెట్‌లు మరియు డెస్క్‌టాప్‌లపై సులభంగా రన్ అవుతుంది.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- TAMIL -->
+            <div class="lang-content" id="content-ta">
+                <h1 class="about-title"><i class="fas fa-info-circle"></i> Toollaxy பற்றி</h1>
+                <p class="about-text">
+                    Toollaxy என்பது அன்றாட டிஜிட்டல் பணிகளை எளிதாக்குவதற்காக வடிவமைக்கப்பட்ட ஒரு இலவச ஆன்லைன் தளமாகும். ஆவண செயலாக்கம், பட சுருக்கம், வண்ண தேர்வு, நிதி கால்குலேட்டர் மற்றும் உரை மாற்றி போன்ற பல்வேறு கருவிகளை நாங்கள் வழங்குகிறோம்.
+                </p>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-user-shield"></i> பாதுகாப்பு மற்றும் லோக்கல் பிரவுசர் செயலாக்கம்</h3>
+                    <p>ஆன்லைன் கருவிகளைப் பயன்படுத்தும் போது தரவுப் பாதுகாப்பு தான் மிகப்பெரிய கவலை. Toollaxy-இல், பெரும்பாலான கருவிகள் ஜாவாஸ்கிரிப்ட் ( ) மூலம் நேரடியாக உங்கள் பிரவுசர் (Client-Side) உள்ளேயே இயங்குகின்றன. இதன் பொருள் உங்கள் கோப்புகள் (படங்கள், பிடிஎஃப், உரை) உங்கள் கணினி அல்லது கைப்பேசியிலேயே உள்நாடாகச் செயலாக்கப்படுகின்றன, அவை எங்கும் பதிவேற்றப்படாது. சர்வர் தேவைப்படும் சில கருவிகளுக்கும் கூட நாங்கள் தரவைச் சேமிப்பதோ பகிர்வதோ இல்லை.</p>
+                </div>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-bullseye"></i> Toollaxy உருவாக்கத்தின் நோக்கம்</h3>
+                    <p>படங்களின் அளவைக் குறைப்பது போன்ற சிறிய வேலைகளுக்குக் கூட பெரிய மென்பொருட்களைப் பதிவிறக்க வேண்டியுள்ளது அல்லது பல விளம்பரங்கள் நிறைந்த தளங்களுக்குச் செல்ல வேண்டியுள்ளது. இந்த சிக்கல்களை நீக்கி, ஒரு எளிய, பாதுகாப்பான மற்றும் முற்றிலும் இலவசமான இணையதளத்தை வழங்கவே Toollaxy உருவாக்கப்பட்டது.</p>
+                </div>
+
+                <div class="features-section">
+                    <h2 class="features-title">முக்கிய கோட்பாடுகள்</h2>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>தனிநபர் பாதுகாப்பு</strong>
+                                <p>உங்கள் ஆவணங்கள் மற்றும் படங்கள் முடிந்தவரை உங்கள் சாதனத்திலேயே உள்நாடாக செயலாக்கப்படும்.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-bolt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>பதிவு தேவையில்லை</strong>
+                                <p>கணக்கு உருவாக்கவோ அல்லது உள்நுழையவோ தேவையில்லை. கருவிகளை உடனடியாக பயன்படுத்தலாம்.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-hand-holding-usd feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>முற்றிலும் இலவசம்</strong>
+                                <p>எந்தவொரு மறைமுக கட்டணமும் அல்லது சந்தா கட்டுப்பாடுகளும் இன்றி பயன்படுத்தலாம்.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-mobile-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>அனைத்து சாதனங்களுக்கும் ஏற்றது</strong>
+                                <p>கைப்பேசி, டேப்லெட் மற்றும் கணினி என அனைத்து திரைகளிலும் சிறப்பாக செயல்படும்.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- MALAYALAM -->
+            <div class="lang-content" id="content-ml">
+                <h1 class="about-title"><i class="fas fa-info-circle"></i> Toollaxy-യെക്കുറിച്ച്</h1>
+                <p class="about-text">
+                    നിങ്ങളുടെ ദൈനംദിന ഡിജിറ്റൽ ജോലികൾ ലളിതമാക്കാൻ രൂപകൽപ്പന ചെയ്ത ഒരു സൌജന്യ ഓൺലൈൻ പോർട്ടലാണ് Toollaxy. ഡോക്യുമെന്റ് പ്രൊസസ്സിംഗ്, ഇമേജ് ഒപ്റ്റിമൈസേഷൻ, കളർ പിക്കർ, സാമ്പത്തിക കണക്കുകൂട്ടലുകൾ, ടെക്സ്റ്റ് കൺവെർട്ടർ എന്നിവ ഇതിൽ ഉൾപ്പെടുന്നു.
+                </p>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-user-shield"></i> സുരക്ഷിതത്വവും ലോക്കൽ പ്രോസസ്സിംഗും</h3>
+                    <p>ഓൺലൈൻ ടൂളുകൾ ഉപയോഗിക്കുമ്പോൾ ഉപയോക്താക്കൾക്ക് ഏറ്റവും ആശങ്കയുള്ളത് ഡാറ്റ സുരക്ഷിതത്വത്തെക്കുറിച്ചാണ്. Toollaxy-യിൽ ഭൂരിഭാഗം ടൂളുകളും ജാവാസ്ക്രിപ്റ്റ് ഉപയോഗിച്ച് നേരിട്ട് നിങ്ങളുടെ ബ്രൗസറിൽ (ക്ലയന്റ്-സൈഡ്) പ്രവർത്തിക്കുന്നു. ഇതിനർത്ഥം നിങ്ങളുടെ ഫയലുകൾ (ചിത്രങ്ങൾ, പിഡിഎഫ്, ടെക്സ്റ്റ്) നിങ്ങളുടെ സ്വന്തം കമ്പ്യൂട്ടറിലോ മൊബൈലിലോ മാത്രമേ പ്രോസസ്സ് ചെയ്യപ്പെടുന്നുള്ളൂ. ഞങ്ങളുടെ ഡിസൈൻ നിങ്ങളുടെ സ്വകാര്യത പൂർണ്ണമായും ഉറപ്പുനൽകുന്നു.</p>
+                </div>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-bullseye"></i> Toollaxy സൃഷ്ടിച്ചതിന്റെ ലക്ഷ്യം</h3>
+                    <p>ഇമേജ് കംപ്രസ്സ് ചെയ്യുകയോ ലോൺ പലിശ കണക്കാക്കുകയോ പോലുള്ള ലളിതമായ ആവശ്യങ്ങൾക്കായി വലിയ സോഫ്റ്റ്‌വെയർ ഡൗൺലോഡ് ചെയ്യേണ്ടി വരുന്നത് ഞങ്ങൾ കണ്ടു. പരസ്യങ്ങളും ലോഗിൻ ചെയ്യേണ്ട നിബന്ധനകളുമില്ലാതെ സുഗമമായി ഉപയോഗിക്കാവുന്ന ഒരു പ്ലാറ്റ്ഫോം ലഭ്യമാക്കുക എന്നതായിരുന്നു ഞങ്ങളുടെ ലക്ഷ്യം.</p>
+                </div>
+
+                <div class="features-section">
+                    <h2 class="features-title">ഞങ്ങളുടെ പ്രധാന തത്വങ്ങൾ</h2>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>സ്വകാര്യത പരമപ്രധാനം</strong>
+                                <p>സാധ്യമെങ്കിൽ നിങ്ങളുടെ രേഖകളും ചിത്രങ്ങളും നിങ്ങളുടെ ഉപകരണത്തിൽ തന്നെ പ്രാദേശികമായി പ്രോസസ്സ് ചെയ്യുന്നു.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-bolt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>രജിസ്ട്രേഷൻ ആവശ്യമില്ല</strong>
+                                <p>അക്കൗണ്ട് സൃഷ്ടിക്കേണ്ടതില്ല. എല്ലാ ടൂളുകളും ഉടനടി ആക്സസ് ചെയ്യാവുന്നതാണ്.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-hand-holding-usd feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>പൂർണ്ണമായും സൌജന്യം</strong>
+                                <p>മറഞ്ഞിരിക്കുന്ന നിരക്കുകളോ സബ്‌സ്‌ക്രിപ്ഷൻ നിയന്ത്രണങ്ങളോ ഇല്ലാതെ നിങ്ങൾക്ക് ടൂളുകൾ ഉപയോഗിക്കാം.</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-mobile-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>മൊബൈൽ ഫ്രണ്ട്ലി</strong>
+                                <p>മൊബൈൽ ഫോൺ, ടാബ്‌ലെറ്റ്, ഡെസ്‌ക്‌ടോപ്പ് എന്നിവയിലെല്ലാം സുഗമമായി പ്രവർത്തിക്കുന്നു.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- BENGALI -->
+            <div class="lang-content" id="content-bn">
+                <h1 class="about-title"><i class="fas fa-info-circle"></i> Toollaxy সম্পর্কে</h1>
+                <p class="about-text">
+                    Toollaxy হল একটি নির্ভরযোগ্য এবং সম্পূর্ণ বিনামূল্যের অনলাইন পোর্টাল, যা আপনার দৈনন্দিন ডিজিটাল কাজগুলিকে সহজ করতে সাহায্য করে। আমরা ইমেজ অপ্টিমাইজেশান, ডকুমেন্ট প্রসেসিং, কালার সিলেকশন, ফিনান্সিয়াল ক্যালকুলেটর এবং টেক্সট কনভার্টারের মতো গুরুত্বপূর্ণ টুল সরবরাহ করি।
+                </p>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-user-shield"></i> নিরাপত্তা এবং লোকাল ব্রাউজার প্রসেসিং</h3>
+                    <p>অনলাইন টুল ব্যবহারের ক্ষেত্রে ডাটা সিকিউরিটি সবচেয়ে বড় উদ্বেগের বিষয়। Toollaxy-তে, আমাদের বেশিরভাগ টুল জাভাস্ক্রিপ্ট ( ) ব্যবহার করে সরাসরি আপনার ওয়েব ব্রাউজারের (ক্লায়েন্ট-সাইড) অভ্যন্তরে চলে। এর মানে আপনার ফাইলগুলি (ছবি, পিডিএফ, টেক্সট) আপনার নিজস্ব ডিভাইসেই প্রসেস হয় এবং কোনো বাহ্যিক সার্ভারে আপলোড করা হয় না। যেসব টুলের জন্য সার্ভার প্রয়োজন হয়, সেখানেও আমরা আপনার কোনো ফাইল সংরক্ষণ করি না।</p>
+                </div>
+
+                <div class="info-section">
+                    <h3><i class="fas fa-bullseye"></i> Toollaxy তৈরির পেছনে আমাদের উদ্দেশ্য</h3>
+                    <p>আমরা লক্ষ্য করেছি যে ছবির সাইজ কমানো বা পিডিএফ লক করার মতো ছোটখাটো কাজের জন্যও ব্যবহারকারীদের ভারী সফটওয়্যার ডাউনলোড করতে হয় অথবা প্রচুর বিজ্ঞাপন ও রেজিস্ট্রেশন যুক্ত সাইটে যেতে হয়। এই সমস্যা দূর করে একটি সম্পূর্ণ ফ্রি, সহজ এবং পরিচ্ছন্ন ইন্টারফেস দিতেই আমরা Toollaxy তৈরি করেছি।</p>
+                </div>
+
+                <div class="features-section">
+                    <h2 class="features-title">আমাদের মূল বৈশিষ্ট্যসমূহ</h2>
+                    <ul class="feature-list">
+                        <li class="feature-item">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>গোপনীয়তার সুরক্ষা</strong>
+                                <p>আমরা আপনার ফাইলগুলি যথাসম্ভব আপনার নিজস্ব ডিভাইসেই লোকালি প্রসেস করে থাকি।</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-bolt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>কোনো রেজিস্ট্রেশন লাগবে না</strong>
+                                <p>কোনো অ্যাকাউন্ট তৈরি বা লগ-ইন করার ঝামেলা ছাড়াই সমস্ত টুল ব্যবহার করতে পারবেন।</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-hand-holding-usd feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>সম্পূর্ণ বিনামূল্যের সেবা</strong>
+                                <p>কোনো লুকানো চার্জ বা সাবস্ক্রিপশনের বাধ্যবাধকতা ছাড়াই প্রতিটি টুল অ্যাক্সেসযোগ্য।</p>
+                            </div>
+                        </li>
+                        <li class="feature-item">
+                            <i class="fas fa-mobile-alt feature-icon"></i>
+                            <div class="feature-text">
+                                <strong>রেসপন্সিভ ডিজাইন</strong>
+                                <p>মোবাইল, ট্যাবলেট এবং কম্পিউটার সব ধরণের স্ক্রিনেই আমাদের সাইট সহজে কাজ করে।</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <a href="index.html" class="footer-logo">Toollaxy<span></span></a>
+            <div class="footer-copyright">
+                © 2025 Toollaxy. All rights reserved. 
+                <a href="privacy.html">Privacy Policy</a> | 
+                <a href="term.html">Terms of Use</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dropdown menu functionality
+        const langSelect = document.getElementById('langSelect');
+        const contents = document.querySelectorAll('.lang-content');
+
+        langSelect.addEventListener('change', () => {
+            const selectedLang = langSelect.value;
+
+            // Hide all content areas
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Show content based on selected language from dropdown
+            const activeContent = document.getElementById(`content-${selectedLang}`);
+            if (activeContent) {
+                activeContent.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

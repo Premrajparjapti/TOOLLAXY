@@ -1,0 +1,559 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Free online Income Tax Calculator. Compare Old vs New Tax Regime slabs (FY 2024-25) in India and estimate your tax liability.">
+  <meta name="keywords" content="income tax calculator, old vs new tax regime, tax slabs india, fy 2024-25 tax calculator, free tax tool">
+  <meta name="author" content="Toollaxy">
+  <meta property="og:title" content="Income Tax Calculator - Compare Old vs New Regime | Toollaxy">
+  <meta property="og:description" content="Calculate and compare your estimated income tax under Old and New tax regimes for FY 2024-25 (AY 2025-26).">
+  <meta property="og:type" content="website">
+  <title>Income Tax Calculator - Old vs New Regime | Toollaxy</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-gray: #f8fafc;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --white: #ffffff;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --rounded: 8px;
+      --transition: all 0.3s ease;
+      --success-green: #10b981;
+      --error-red: #dc2626;
+      --warning-orange: #f59e0b;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: var(--bg-gray);
+      color: var(--text-dark);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background-color: var(--white);
+      box-shadow: var(--shadow);
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-blue);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .logo span {
+      color: var(--text-dark);
+    }
+    
+    .logo i {
+      font-size: 28px;
+    }
+    
+    .breadcrumb {
+      padding: 15px 0;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+    
+    .breadcrumb span {
+      margin: 0 5px;
+      color: var(--text-light);
+    }
+    
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .tool-container {
+      background-color: var(--white);
+      border-radius: var(--rounded);
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 40px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--text-dark);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h1 i {
+      color: var(--primary-blue);
+    }
+    
+    .tool-description {
+      color: var(--text-light);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+    
+    .input-unit {
+      position: relative;
+    }
+    
+    .input-unit input, select {
+      width: 100%;
+      padding: 12px 15px;
+      font-size: 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--rounded);
+      background-color: var(--white);
+      transition: var(--transition);
+    }
+    
+    .input-unit input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+    
+    .unit {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-light);
+      font-weight: 600;
+    }
+    
+    button {
+      padding: 14px 20px;
+      background-color: var(--primary-blue);
+      color: var(--white);
+      border: none;
+      border-radius: var(--rounded);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+    
+    button:hover {
+      background-color: var(--dark-blue);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .result-container {
+      margin-top: 30px;
+      display: none;
+    }
+    
+    .regime-comparison {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    
+    @media (min-width: 768px) {
+      .regime-comparison {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .regime-card {
+      background-color: var(--bg-gray);
+      border-radius: var(--rounded);
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      transition: var(--transition);
+    }
+    
+    .regime-card.recommended {
+      border-color: var(--success-green);
+      background-color: rgba(16, 185, 129, 0.05);
+    }
+    
+    .recommendation-badge {
+      display: inline-block;
+      background-color: var(--success-green);
+      color: white;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      border-radius: 12px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .regime-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text-dark);
+    }
+    
+    .tax-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed #cbd5e1;
+    }
+    
+    .tax-row:last-child {
+      border-bottom: none;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+    
+    .tax-label {
+      color: var(--text-light);
+    }
+    
+    .tax-value {
+      color: var(--text-dark);
+    }
+    
+    .regime-card.recommended .tax-row:last-child .tax-value {
+      color: var(--success-green);
+    }
+    
+    .error-message {
+      color: var(--error-red);
+      background-color: #fee2e2;
+      padding: 12px 15px;
+      border-radius: var(--rounded);
+      margin-top: 20px;
+      display: none;
+    }
+
+    footer {
+      background-color: var(--text-dark);
+      color: var(--white);
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <i class="fas fa-tools"></i>
+        <span>TOOL<span>LAXY</span></span>
+      </a>
+    </div>
+  </header>
+  
+  <div class="breadcrumb">
+    <a href="index.html">Home</a>
+    <span>/</span>
+    <span>Income Tax Calculator</span>
+  </div>
+  
+  <main>
+    <div class="tool-container">
+      <h1><i class="fas fa-coins"></i> Income Tax Calculator</h1>
+      <p class="tool-description">
+        Quickly estimate and compare your income tax liability between the Old and New tax regimes for FY 2024-25 (AY 2025-26).
+      </p>
+      
+      <div class="form-group">
+        <label for="annualSalary">Gross Annual Salary (Income)</label>
+        <div class="input-unit">
+          <input type="number" id="annualSalary" placeholder="e.g. 800000" min="0" step="1000">
+          <span class="unit">₹</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="ageGroup">Age Group</label>
+        <select id="ageGroup">
+          <option value="general">Below 60 Years (General)</option>
+          <option value="senior">60 to 80 Years (Senior Citizen)</option>
+          <option value="superSenior">80 Years & Above (Super Senior)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="deductions">Total Deductions (mainly for Old Regime, e.g., 80C, 80D, HRA)</label>
+        <div class="input-unit">
+          <input type="number" id="deductions" placeholder="e.g. 150000" min="0" value="0">
+          <span class="unit">₹</span>
+        </div>
+      </div>
+      
+      <button onclick="calculateTax()">
+        <i class="fas fa-calculator"></i>
+        Compare Tax Regimes
+      </button>
+      
+      <div id="errorMessage" class="error-message"></div>
+      
+      <div id="resultContainer" class="result-container">
+        <div class="regime-comparison">
+          <!-- New Regime Card -->
+          <div class="regime-card" id="newRegimeCard">
+            <div class="recommendation-badge" id="newRecommendBadge" style="display:none;">RECOMMENDED</div>
+            <div class="regime-title">New Tax Regime</div>
+            <div class="tax-row">
+              <span class="tax-label">Gross Income</span>
+              <span class="tax-value" id="newGross">₹0</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">Std. Deduction</span>
+              <span class="tax-value">₹75,000</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">Taxable Income</span>
+              <span class="tax-value" id="newTaxable">₹0</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">Calculated Tax</span>
+              <span class="tax-value" id="newTax">₹0</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">Cess (4%)</span>
+              <span class="tax-value" id="newCess">₹0</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">Total Tax Payable</span>
+              <span class="tax-value" id="newTotalTax">₹0</span>
+            </div>
+          </div>
+          
+          <!-- Old Regime Card -->
+          <div class="regime-card" id="oldRegimeCard">
+            <div class="recommendation-badge" id="oldRecommendBadge" style="display:none;">RECOMMENDED</div>
+            <div class="regime-title">Old Tax Regime</div>
+            <div class="tax-row">
+              <span class="tax-label">Gross Income</span>
+              <span class="tax-value" id="oldGross">₹0</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">Std. Deduction</span>
+              <span class="tax-value">₹50,000</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">Declared Deductions</span>
+              <span class="tax-value" id="oldDeclaredDeductions">₹0</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">Taxable Income</span>
+              <span class="tax-value" id="oldTaxable">₹0</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">Calculated Tax</span>
+              <span class="tax-value" id="oldTax">₹0</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">Cess (4%)</span>
+              <span class="tax-value" id="oldCess">₹0</span>
+            </div>
+            <div class="tax-row">
+              <span class="tax-label">Total Tax Payable</span>
+              <span class="tax-value" id="oldTotalTax">₹0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-container">
+      <p>© 2025 Toollaxy. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <script>
+    function calculateTax() {
+      const grossIncome = parseFloat(document.getElementById('annualSalary').value);
+      const ageGroup = document.getElementById('ageGroup').value;
+      const deductionsInput = parseFloat(document.getElementById('deductions').value) || 0;
+      const errorMsg = document.getElementById('errorMessage');
+      const resultContainer = document.getElementById('resultContainer');
+      
+      errorMsg.style.display = 'none';
+      resultContainer.style.display = 'none';
+      
+      if (isNaN(grossIncome) || grossIncome < 0) {
+        errorMsg.textContent = 'Please enter a valid Gross Annual Salary.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+      
+      // Calculate New Regime
+      const newStdDeduction = 75000;
+      const newTaxableIncome = Math.max(0, grossIncome - newStdDeduction);
+      let newTax = 0;
+      
+      // Slabs for New Regime (FY 2024-25 Budget Update)
+      if (newTaxableIncome <= 700000) {
+        newTax = 0; // Rebate under Section 87A up to 7,00,000 taxable income
+      } else {
+        let tempIncome = newTaxableIncome;
+        if (tempIncome > 300000) {
+          let chunk = Math.min(tempIncome - 300000, 400000);
+          newTax += chunk * 0.05;
+        }
+        if (tempIncome > 700000) {
+          let chunk = Math.min(tempIncome - 700000, 300000);
+          newTax += chunk * 0.10;
+        }
+        if (tempIncome > 1000000) {
+          let chunk = Math.min(tempIncome - 1000000, 200000);
+          newTax += chunk * 0.15;
+        }
+        if (tempIncome > 1200000) {
+          let chunk = Math.min(tempIncome - 1200000, 300000);
+          newTax += chunk * 0.20;
+        }
+        if (tempIncome > 1500000) {
+          let chunk = tempIncome - 1500000;
+          newTax += chunk * 0.30;
+        }
+      }
+      
+      const newCess = newTax * 0.04;
+      const newTotal = newTax + newCess;
+      
+      // Calculate Old Regime
+      const oldStdDeduction = 50000;
+      const oldTaxableIncome = Math.max(0, grossIncome - oldStdDeduction - deductionsInput);
+      let oldTax = 0;
+      
+      // Set basic exemption limit based on age
+      let exemptionLimit = 250000;
+      if (ageGroup === 'senior') exemptionLimit = 300000;
+      else if (ageGroup === 'superSenior') exemptionLimit = 500000;
+      
+      if (oldTaxableIncome <= 500000 && ageGroup !== 'superSenior') {
+        oldTax = 0; // Rebate under 87A (max 12,500)
+      } else {
+        let tempIncome = oldTaxableIncome;
+        if (tempIncome > exemptionLimit) {
+          let nextSlabLimit = ageGroup === 'superSenior' ? 500000 : 500000;
+          let chunk = Math.min(tempIncome - exemptionLimit, nextSlabLimit - exemptionLimit);
+          if (chunk > 0) oldTax += chunk * 0.05;
+        }
+        if (tempIncome > 500000) {
+          let chunk = Math.min(tempIncome - 500000, 500000);
+          oldTax += chunk * 0.20;
+        }
+        if (tempIncome > 1000000) {
+          let chunk = tempIncome - 1000000;
+          oldTax += chunk * 0.30;
+        }
+      }
+      
+      const oldCess = oldTax * 0.04;
+      const oldTotal = oldTax + oldCess;
+      
+      // Populate Displays
+      document.getElementById('newGross').textContent = `₹${grossIncome.toLocaleString()}`;
+      document.getElementById('newTaxable').textContent = `₹${newTaxableIncome.toLocaleString()}`;
+      document.getElementById('newTax').textContent = `₹${newTax.toLocaleString()}`;
+      document.getElementById('newCess').textContent = `₹${newCess.toLocaleString()}`;
+      document.getElementById('newTotalTax').textContent = `₹${newTotal.toLocaleString()}`;
+      
+      document.getElementById('oldGross').textContent = `₹${grossIncome.toLocaleString()}`;
+      document.getElementById('oldDeclaredDeductions').textContent = `₹${deductionsInput.toLocaleString()}`;
+      document.getElementById('oldTaxable').textContent = `₹${oldTaxableIncome.toLocaleString()}`;
+      document.getElementById('oldTax').textContent = `₹${oldTax.toLocaleString()}`;
+      document.getElementById('oldCess').textContent = `₹${oldCess.toLocaleString()}`;
+      document.getElementById('oldTotalTax').textContent = `₹${oldTotal.toLocaleString()}`;
+      
+      // Recommendation labels
+      const newCard = document.getElementById('newRegimeCard');
+      const oldCard = document.getElementById('oldRegimeCard');
+      const newBadge = document.getElementById('newRecommendBadge');
+      const oldBadge = document.getElementById('oldRecommendBadge');
+      
+      newCard.classList.remove('recommended');
+      oldCard.classList.remove('recommended');
+      newBadge.style.display = 'none';
+      oldBadge.style.display = 'none';
+      
+      if (newTotal < oldTotal) {
+        newCard.classList.add('recommended');
+        newBadge.style.display = 'inline-block';
+      } else if (oldTotal < newTotal) {
+        oldCard.classList.add('recommended');
+        oldBadge.style.display = 'inline-block';
+      } else {
+        // Tie
+        newCard.classList.add('recommended');
+        oldCard.classList.add('recommended');
+      }
+      
+      resultContainer.style.display = 'block';
+      resultContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
